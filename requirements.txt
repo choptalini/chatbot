@@ -1,0 +1,16 @@
+fastapi
+langchain
+langchain_chroma
+langchain_core
+langchain_openai
+langgraph
+openai
+psycopg
+psycopg2_binary
+psycopg_pool
+pydantic
+pytest
+python-dotenv
+Requests
+uvicorn
+langgraph-checkpoint-postgres
