@@ -1,0 +1,17 @@
+# Copy this file to .env and fill in your actual values
+
+# Infobip API Configuration
+# Get these values from your Infobip account dashboard
+INFOBIP_API_KEY=your_infobip_api_key_here
+INFOBIP_BASE_URL=your_infobip_base_url_here
+
+# WhatsApp Configuration
+# Your registered WhatsApp sender number (e.g., 447860099299)
+WHATSAPP_SENDER=your_whatsapp_sender_number
+
+# PostgreSQL Database configuration for LangGraph checkpoints
+DATABASE_URL=postgresql://postgres.odvrvwoyqcfnwcvlbnip:W2m?vGskza2xPre@aws-0-eu-central-1.pooler.supabase.com:6543/postgres
+
+# Optional: Server configuration
+# WEBHOOK_PORT=8000
+# WEBHOOK_HOST=0.0.0.0 

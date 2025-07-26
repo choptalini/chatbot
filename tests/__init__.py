@@ -1,0 +1,1 @@
+# Tests package for infobip_whatsapp_methods SDK 
