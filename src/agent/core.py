@@ -247,6 +247,11 @@ class ECLAAgent:
                 initial_state,
                 config=config
             )
+
+            # Handle cases where the agent invocation might fail and return None
+            if final_state is None:
+                logger.error(f"Agent invocation returned None for thread_id: {thread_id}. This might indicate an internal error in the graph.")
+                final_state = {'messages': [AIMessage(content="I'm sorry, I encountered an issue and cannot respond at the moment.")]}
             
             # Extract the final response message
             final_response_message = final_state['messages'][-1] if final_state.get('messages') else AIMessage(content="I'm sorry, I encountered an issue and cannot respond at the moment.")
@@ -265,7 +270,10 @@ class ECLAAgent:
             # Attempt to save a system error message to the conversation history
             try:
                 error_message = SystemMessage(content=f"Agent Error: {e}")
-                self.checkpointer.put(config, {"messages": [error_message]})
+                # The checkpoint is the state of the conversation, which is a dictionary.
+                # The `put` method for PostgresSaver expects `config`, `checkpoint`, and `metadata`.
+                checkpoint_data = {"messages": [error_message]}
+                self.checkpointer.put(config, checkpoint_data, config['metadata'])
             except Exception as checkpoint_e:
                 logger.error(f"Failed to save error message to checkpoint: {checkpoint_e}")
             
