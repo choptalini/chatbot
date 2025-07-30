@@ -16,6 +16,7 @@ from src.tools.ecla_whatsapp_tools import send_product_image, PRODUCT_IMAGES
 from infobip_whatsapp_methods.client import WhatsAppClient
 from src.config.settings import settings
 from audio_transcriber.transcriber import transcribe_from_infobip_url
+from image_processor.processor import process_image_from_url
 
 # --- Configuration for Dynamic Worker Pool Scaling ---
 MIN_WORKERS = 1
@@ -341,6 +342,15 @@ def _extract_message_data(result: Dict) -> Optional[InboundMessageResult]:
             except Exception as e:
                 logger.error(f"Failed to transcribe audio from {from_number}: {e}")
                 text = "Failed to process audio."
+        
+        elif message_type == 'image' and media_url:
+            try:
+                analysis_result = process_image_from_url(media_url)
+                text = analysis_result
+                logger.info(f"Analyzed image from {from_number}: {text}")
+            except Exception as e:
+                logger.error(f"Failed to analyze image from {from_number}: {e}")
+                text = "Failed to process image."
 
         return InboundMessageResult(
             message_id=message_id, from_number=from_number, to_number=to_number,

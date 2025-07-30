@@ -15,3 +15,5 @@ DATABASE_URL=postgresql://postgres.odvrvwoyqcfnwcvlbnip:W2m?vGskza2xPre@aws-0-eu
 # Optional: Server configuration
 # WEBHOOK_PORT=8000
 # WEBHOOK_HOST=0.0.0.0 
+
+GEMINI_API_KEY= 
