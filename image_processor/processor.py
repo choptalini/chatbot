@@ -6,7 +6,9 @@ import shutil
 from PIL import Image
 import google.generativeai as genai
 from dotenv import load_dotenv
+from langsmith import traceable
 
+@traceable
 def download_infobip_image(media_url: str, temp_dir: Path) -> Path:
     """
     Download image file from Infobip URL to temporary directory.
@@ -35,6 +37,7 @@ def download_infobip_image(media_url: str, temp_dir: Path) -> Path:
             
     return file_path
 
+@traceable
 def analyze_image_from_path(image_path: str) -> str:
     """
     Analyzes an image to determine if it is related to Ecla Smile and teeth whitening.
@@ -103,6 +106,7 @@ def analyze_image_from_path(image_path: str) -> str:
     response = model.generate_content(contents)
     return response.text
 
+@traceable
 def process_image_from_url(media_url: str) -> str:
     """
     Downloads, analyzes, and then cleans up an image from a URL.

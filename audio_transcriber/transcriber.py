@@ -15,7 +15,9 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from typing import Tuple
 from datetime import datetime
+from langsmith import traceable
 
+@traceable
 def download_infobip_audio(media_url: str, temp_dir: Path) -> Path:
     """
     Download audio file from Infobip URL to temporary directory.
@@ -68,6 +70,7 @@ def download_infobip_audio(media_url: str, temp_dir: Path) -> Path:
     except requests.exceptions.RequestException as req_err:
         raise RuntimeError(f"Request error downloading audio: {req_err}")
 
+@traceable
 def convert_to_mp3(input_path: Path, temp_dir: Path) -> Path:
     """
     Convert audio file to MP3 format using ffmpeg.
@@ -92,6 +95,7 @@ def convert_to_mp3(input_path: Path, temp_dir: Path) -> Path:
     
     return mp3_path
 
+@traceable
 def transcribe_audio_file(audio_path: str) -> Tuple[str, str]:
     """
     Transcribe audio file to English and detect original language.
@@ -130,6 +134,7 @@ def transcribe_audio_file(audio_path: str) -> Tuple[str, str]:
     
     return detected_language, english_text
 
+@traceable
 def transcribe_from_infobip_url(media_url: str) -> Tuple[str, str]:
     """
     Download audio from Infobip URL, transcribe to English, and clean up.
