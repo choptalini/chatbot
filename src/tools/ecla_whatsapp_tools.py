@@ -3,6 +3,7 @@ from langchain.tools import tool
 from langchain_core.runnables import RunnableConfig
 from infobip_whatsapp_methods.client import WhatsAppClient
 from src.config.settings import settings
+from src.multi_tenant_database import db as mt_db, get_user_by_phone_number as mt_get_user_by_phone_number
 
 PRODUCT_IMAGES = {
     "ECLA® e20 Bionic⁺ Kit": "https://cdn.shopify.com/s/files/1/0715/1668/4484/files/bionic2_1600x_05ad8cb7-411e-4c1f-8b95-f18c38a331c3.webp?v=1752181116",
@@ -116,12 +117,61 @@ def send_product_image(
         return client.send_raw_template(payload).to_dict()
 
     if send_jounieh_location:
-        return client.send_location_preset(to_number, "jounieh").to_dict()
+        result = client.send_location_preset(to_number, "jounieh").to_dict()
+        # Mirror incoming behavior: persist an outgoing location message so frontend can render it
+        try:
+            if result.get("success"):
+                mapping = mt_get_user_by_phone_number(to_number) or {}
+                user_id = mapping.get("user_id")
+                chatbot_id = mapping.get("chatbot_id")
+                # Ensure we have a contact_id for this recipient
+                contact_id, _thread_id = mt_db.get_or_create_contact(to_number, user_id=user_id)
+                if contact_id:
+                    mt_db.log_message(
+                        contact_id=contact_id,
+                        message_id=result.get("message_id"),
+                        direction='outgoing',
+                        message_type='location',
+                        chatbot_id=chatbot_id,
+                        content_text="Jounieh Location",
+                        content_url=None,
+                        status=result.get("status") or 'sent',
+                        metadata={"tool": "send_product_image", "location": {"preset": "jounieh"}},
+                        ai_processed=False,
+                    )
+        except Exception:
+            # Non-fatal; do not interfere with tool result
+            pass
+        return result
 
     if product_name:
         image_url = PRODUCT_IMAGES.get(product_name)
         if not image_url:
             return {"success": False, "error": f"Product '{product_name}' not found."}
-        return client.send_image(to_number, image_url, caption=product_name).to_dict()
+        result = client.send_image(to_number, image_url, caption=product_name).to_dict()
+        # Mirror incoming behavior: persist an outgoing image message so frontend can render it
+        try:
+            if result.get("success"):
+                mapping = mt_get_user_by_phone_number(to_number) or {}
+                user_id = mapping.get("user_id")
+                chatbot_id = mapping.get("chatbot_id")
+                contact_id, _thread_id = mt_db.get_or_create_contact(to_number, user_id=user_id)
+                if contact_id:
+                    mt_db.log_message(
+                        contact_id=contact_id,
+                        message_id=result.get("message_id"),
+                        direction='outgoing',
+                        message_type='image',
+                        chatbot_id=chatbot_id,
+                        content_text=product_name,
+                        content_url=image_url,
+                        status=result.get("status") or 'sent',
+                        metadata={"tool": "send_product_image", "product_name": product_name},
+                        ai_processed=False,
+                    )
+        except Exception:
+            # Non-fatal; do not interfere with tool result
+            pass
+        return result
 
     return {"success": False, "error": "No valid action specified."} 

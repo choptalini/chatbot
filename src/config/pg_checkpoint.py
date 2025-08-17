@@ -61,19 +61,23 @@ else:
             "keepalives_interval": 10,
             "keepalives_count": 3,
         }
-        
+
         # Add SSL settings for remote connections
         if "localhost" not in DATABASE_URL and "127.0.0.1" not in DATABASE_URL:
-            conn_params["sslmode"] = "prefer"  # Use SSL but don't fail if unavailable
-        
-        _pool = ConnectionPool(
-            conninfo=DATABASE_URL,
-            max_size=8,   # Reduced pool size for better connection management
-            min_size=1,   # Maintain minimum connections
-            max_idle=180, # Close idle connections after 3 minutes
-            max_lifetime=1800,  # Recycle connections after 30 minutes
-            kwargs=conn_params,
-        )
+            # Require SSL for hosted databases (e.g., Supabase)
+            conn_params["sslmode"] = "require"
+
+        def _make_pool() -> ConnectionPool:
+            return ConnectionPool(
+                conninfo=DATABASE_URL,
+                max_size=8,   # Reduced pool size for better connection management
+                min_size=1,   # Maintain minimum connections
+                max_idle=180, # Close idle connections after 3 minutes
+                max_lifetime=1800,  # Recycle connections after 30 minutes
+                kwargs=conn_params,
+            )
+
+        _pool = _make_pool()
         
         # Test the connection pool
         with _pool.connection(timeout=10) as test_conn:
@@ -81,9 +85,48 @@ else:
             
         logger.info("Postgres connection pool ready with improved error handling")
 
-        # ── 3️⃣  PostgresSaver initialisation ─────────────────────────────────
-        checkpointer = PostgresSaver(_pool)
-        logger.info("PostgresSaver attached to pool")
+        # ── 3️⃣  PostgresSaver initialisation (with resiliency wrapper) ───────
+        class ResilientPostgresSaver:
+            """Thin wrapper around PostgresSaver that resets the pool and retries on OperationalError."""
+            def __init__(self, pool_factory, pool):
+                self._pool_factory = pool_factory
+                self._pool = pool
+                self._saver = PostgresSaver(pool)
+
+            def _reset_pool(self):
+                try:
+                    self._pool.close()
+                except Exception:
+                    pass
+                self._pool = self._pool_factory()
+                self._saver = PostgresSaver(self._pool)
+                logger.info("PostgresSaver pool reset after OperationalError")
+
+            def put(self, *args, **kwargs):
+                for attempt in (1, 2):
+                    try:
+                        return self._saver.put(*args, **kwargs)
+                    except (psycopg.OperationalError,) as e:
+                        logger.warning(f"Checkpoint put failed (attempt {attempt}/2): {e}")
+                        self._reset_pool()
+                # Final attempt will raise if it fails again
+                return self._saver.put(*args, **kwargs)
+
+            def get(self, *args, **kwargs):
+                for attempt in (1, 2):
+                    try:
+                        return self._saver.get(*args, **kwargs)
+                    except (psycopg.OperationalError,) as e:
+                        logger.warning(f"Checkpoint get failed (attempt {attempt}/2): {e}")
+                        self._reset_pool()
+                return self._saver.get(*args, **kwargs)
+
+            # Delegate any other attributes/methods to the underlying saver
+            def __getattr__(self, name):
+                return getattr(self._saver, name)
+
+        checkpointer = ResilientPostgresSaver(_make_pool, _pool)
+        logger.info("PostgresSaver attached to pool (resilient)")
 
         # ── 4️⃣  Create checkpoints table (idempotent) ───────────────────────
         try:

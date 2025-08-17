@@ -1,15 +1,15 @@
 services:
   - type: web
     name: whatsapp-fetcher
-    env: python
+    runtime: python
     plan: free
-    region: frankfurt 
+    region: frankfurt
     buildCommand: "pip install -r requirements.txt"
     startCommand: "uvicorn whatsapp_message_fetcher:app --host 0.0.0.0 --port 8000"
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
-        value: "postgresql://postgres.odvrvwoyqcfnwcvlbnip:W2m?vGskza2xPre@aws-0-eu-central-1.pooler.supabase.com:6543/postgres"
+        sync: false
       - key: INFOBIP_API_KEY
         sync: false
       - key: INFOBIP_BASE_URL
@@ -18,17 +18,20 @@ services:
         sync: false
       - key: OPENAI_API_KEY
         sync: false
-      - key: OPENAI_API_MODEL
+      - key: GEMINI_API_KEY
         sync: false
-      - key: TAVILY_API_KEY
+      - key: SUPABASE_URL
         sync: false
-      - key: ECLA_API_KEY
+      - key: SUPABASE_SERVICE_ROLE_KEY
         sync: false
-      - key: SHOPIFY_SHOP_URL
-        sync: false
-      - key: SHOPIFY_API_VERSION
+      - key: SHOPIFY_SHOP_DOMAIN
         sync: false
       - key: SHOPIFY_ACCESS_TOKEN
         sync: false
-      - key: GOOGLE_API_KEY
+      - key: LANGSMITH_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
         sync: false 
+      - key: SECRET_KEY
+        generateValue: true
+        generateValue: true

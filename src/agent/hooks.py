@@ -23,7 +23,7 @@ summarizer_model = init_chat_model(
     model="gpt-4o-mini",
     model_provider="openai",
     temperature=0.1,
-    max_tokens=500,
+    max_tokens=None,
     api_key=settings.openai_api_key,
 )
 

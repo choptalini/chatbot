@@ -14,6 +14,8 @@ from langchain.chat_models import init_chat_model
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, SystemMessage
 from langchain_core.runnables import RunnableConfig
 from langgraph.prebuilt import create_react_agent
+from langgraph.graph import StateGraph, START, END
+from langgraph.types import Command
 from src.config.pg_checkpoint import checkpointer as postgres_checkpointer
 from langgraph.graph import MessagesState
 from langgraph.graph.message import add_messages
@@ -30,9 +32,11 @@ from src.agent.hooks import (
 from src.config.agent_configs import TOOL_REGISTRY, AGENT_CONFIGURATIONS
 
 
+
 # Set up logging
 logger = logging.getLogger(__name__)
 
+THREAD_INSTRUCTION_NS = "thread_instructions"
 
 class ECLAAgentState(MessagesState):
     """
@@ -44,6 +48,9 @@ class ECLAAgentState(MessagesState):
     user_id: Optional[str] = None
     language: str = "en"
     conversation_start_time: Optional[datetime] = None
+    # Per-thread, externally injected instructions that will be prepended
+    # as a SystemMessage on each model call via state_modifier
+    instructions: Optional[str] = None
 
 
 class ECLAAgent:
@@ -82,10 +89,9 @@ class ECLAAgent:
                 raise ValueError("OpenAI API key not found or not set properly")
             
             model = init_chat_model(
-                model=model_settings.get("name", "gpt-4.1-mini"),
+                model=model_settings.get("name", "gpt-5-mini"),
                 model_provider=model_settings.get("provider", "openai"),
-                temperature=model_settings.get("temperature", 0.1),
-                max_tokens=model_settings.get("max_tokens", 1000),
+                max_tokens=None,
                 api_key=api_key,
             )
             
@@ -125,9 +131,9 @@ class ECLAAgent:
             return MemorySaver()
     
     def _create_agent(self) -> Any:
-        """Create the ReAct agent."""
-        
-        # Create the agent with basic parameters
+        """Create the ReAct agent (no state_modifier to support older LangGraph)."""
+
+        # Create the agent with supported parameters only
         agent = create_react_agent(
             model=self.model,
             tools=self.tools,
@@ -175,7 +181,9 @@ class ECLAAgent:
                 'pre_hook_error': str(e)
             }
     
-    def chat(self, message: str, thread_id: str = None, user_id: str = None, language: str = "en", from_number: str = None) -> Dict[str, Any]:
+
+
+    def chat(self, message: str, thread_id: str = None, user_id: str = None, language: str = "en", from_number: str = None, contact_id: int = None) -> Dict[str, Any]:
         """
         Main chat method for interacting with the agent with integrated guardrails.
         
@@ -185,6 +193,7 @@ class ECLAAgent:
             user_id: Optional user ID
             language: Language preference
             from_number: The user's phone number, to be passed in metadata
+            contact_id: Contact ID for analytics and order saving
             
         Returns:
             Dictionary containing agent response and metadata
@@ -199,6 +208,7 @@ class ECLAAgent:
                 configurable={"thread_id": thread_id},
                 metadata={
                     "user_id": user_id,
+                    "contact_id": contact_id, # Pass contact_id to tool metadata
                     "language": language,
                     "from_number": from_number,
                     "timestamp": datetime.now().isoformat(),
@@ -210,17 +220,42 @@ class ECLAAgent:
 
             # Prepare initial input state
             messages = []
-            if is_new_conversation:
-                # For new conversations, inject the system prompt first
-                messages.append(SystemMessage(content=self.system_prompt))
-                logger.info(f"New conversation started for thread_id: {thread_id}. Injecting system prompt.")
 
-            messages.append(HumanMessage(content=message))
+            # Read any thread-scoped instruction once per turn
+            instr: Optional[str] = None
+            try:
+                instr = self.get_thread_instructions(thread_id)
+                if instr:
+                    # include in metadata for observability (LangSmith)
+                    config.metadata["thread_instructions"] = instr
+            except Exception as _e:
+                logger.debug(f"No thread instructions found for {thread_id}: {_e}")
+
+            if is_new_conversation:
+                # For new conversations, merge instruction into the big system message
+                system_content = self.system_prompt
+                if instr:
+                    system_content = (
+                        f"{self.system_prompt}\n\n[Thread Instruction]\n{instr}"
+                    )
+                messages.append(SystemMessage(content=system_content))
+                logger.info(
+                    f"New conversation started for thread_id: {thread_id}. Injected base system prompt"
+                    + (" with thread instruction." if instr else ".")
+                )
             
+            # Add the user's message
+            messages.append(HumanMessage(content=message))
+
+            # For ongoing conversations, prepend the instruction as a separate system message
+            if not is_new_conversation and instr:
+                messages = [SystemMessage(content=instr), *messages]
+
             initial_state = {
                 "messages": messages,
                 "conversation_id": thread_id,
                 "user_id": user_id,
+                "contact_id": contact_id,  # Pass contact_id here for analytics
                 "language": language,
                 "conversation_start_time": datetime.now(),
             }
@@ -262,7 +297,8 @@ class ECLAAgent:
             return {
                 'response': final_response_message.content,
                 'thread_id': thread_id,
-                'history': self.get_conversation_history(thread_id)
+                'history': self.get_conversation_history(thread_id),
+                'final_state': final_state  # Include final_state for analytics processing
             }
             
         except Exception as e:
@@ -270,10 +306,9 @@ class ECLAAgent:
             # Attempt to save a system error message to the conversation history
             try:
                 error_message = SystemMessage(content=f"Agent Error: {e}")
-                # The checkpoint is the state of the conversation, which is a dictionary.
-                # The `put` method for PostgresSaver expects `config`, `checkpoint`, and `metadata`.
                 checkpoint_data = {"messages": [error_message]}
-                self.checkpointer.put(config, checkpoint_data, config['metadata'])
+                # PostgresSaver.put requires: config, checkpoint, writes, new_versions
+                self.checkpointer.put(config, checkpoint_data, {}, {})
             except Exception as checkpoint_e:
                 logger.error(f"Failed to save error message to checkpoint: {checkpoint_e}")
             
@@ -282,7 +317,7 @@ class ECLAAgent:
                 'thread_id': thread_id,
                 'error': str(e)
             }
-    
+
     def get_conversation_history(self, thread_id: str) -> List[Dict[str, Any]]:
         """
         Retrieve conversation history for a given thread.
@@ -321,6 +356,7 @@ class ECLAAgent:
         except Exception as e:
             logger.error(f"Error retrieving conversation history: {e}")
             return []
+
     
     def clear_conversation(self, thread_id: str) -> bool:
         """
@@ -400,6 +436,65 @@ class ECLAAgent:
             
         return health_status
 
+    # --- Thread-scoped instruction helpers ---
+    def set_thread_instructions(self, thread_id: str, instructions: Optional[str]) -> bool:
+        """
+        Inject or clear per-thread instructions without using tools or LLM calls.
+        Uses a tiny one-node graph that returns Command(update=...) against the
+        same checkpointer/thread, so no model call is made.
+        """
+        try:
+            # Build a minimal setter graph that writes only the instructions field
+            def _inject(_: ECLAAgentState):
+                return Command(update={"instructions": instructions})
+
+            builder = StateGraph(ECLAAgentState)
+            builder.add_node("inject", _inject)
+            builder.add_edge(START, "inject")
+            builder.add_edge("inject", END)
+            setter = builder.compile(checkpointer=self.checkpointer)
+            setter.invoke({}, RunnableConfig(configurable={"thread_id": thread_id, "checkpoint_ns": THREAD_INSTRUCTION_NS}))
+
+            # Also append an explicit system message to the main conversation history
+            # so it is visible in LangSmith runs and persists in state.
+            try:
+                if hasattr(self.agent, "update_state"):
+                    main_cfg = RunnableConfig(configurable={"thread_id": thread_id})
+                    sys_text = (
+                        f"[Thread Instruction]\n{instructions}" if instructions else "[Thread Instruction Cleared]"
+                    )
+                    self.agent.update_state(main_cfg, {"messages": [SystemMessage(content=sys_text)]})
+            except Exception as hist_err:
+                logger.warning(f"Failed to append instruction message to history for {thread_id}: {hist_err}")
+            return True
+        except Exception as e:
+            logger.error(f"Failed to set thread instructions via Command for {thread_id}: {e}")
+            # Fallback: use graph.update_state if available
+            try:
+                config = RunnableConfig(configurable={"thread_id": thread_id})
+                if hasattr(self.agent, "update_state"):
+                    self.agent.update_state(config, {"instructions": instructions})
+                    return True
+            except Exception as e2:
+                logger.error(f"Fallback update_state failed for {thread_id}: {e2}")
+            return False
+
+    def get_thread_instructions(self, thread_id: str) -> Optional[str]:
+        """Read currently stored per-thread instructions (if any)."""
+        try:
+            config = RunnableConfig(configurable={"thread_id": thread_id, "checkpoint_ns": THREAD_INSTRUCTION_NS})
+            checkpoint_dict = self.checkpointer.get(config)
+            if checkpoint_dict:
+                # instructions may be in channel_values or top-level depending on backend
+                ch = checkpoint_dict.get("channel_values", {})
+                if "instructions" in ch:
+                    return ch["instructions"]
+                return checkpoint_dict.get("instructions")
+            return None
+        except Exception as e:
+            logger.error(f"Failed to retrieve thread instructions for {thread_id}: {e}")
+            return None
+
     def get_stats(self) -> Dict[str, Any]:
         """
         Get statistics about the agent's performance.
@@ -463,12 +558,21 @@ def chat_with_agent(message: str, thread_id: str = None, agent_id: str = "ecla_s
         }
     return agent.chat(message, thread_id, **kwargs)
 
+
+def set_thread_instructions_for_thread(thread_id: str, instructions: Optional[str], agent_id: str = "ecla_sales_agent") -> bool:
+    """Module-level helper to set/clear per-thread instructions without tools."""
+    agent = _agent_registry.get_agent(agent_id)
+    if not agent:
+        return False
+    return agent.set_thread_instructions(thread_id, instructions)
+
 def get_conversation_history(thread_id: str, agent_id: str = "ecla_sales_agent") -> List[Dict[str, Any]]:
     """Wrapper function to get conversation history for a specific agent."""
     agent = _agent_registry.get_agent(agent_id)
     if not agent:
         return [{"error": f"Agent with ID '{agent_id}' not found."}]
     return agent.get_conversation_history(thread_id)
+
 
 def agent_health_check(agent_id: str = "ecla_sales_agent") -> Dict[str, Any]:
     """Wrapper function for a specific agent's health check."""

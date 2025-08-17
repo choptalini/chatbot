@@ -9,6 +9,8 @@ from src.tools.cag_tool import context_augmented_generation_tool
 from src.tools.ecla_inventory_tool import check_ecla_inventory
 from src.tools.ecla_draft_order_tool import create_ecla_order
 from src.tools.ecla_whatsapp_tools import send_product_image
+from src.tools.actions_tool import submit_action_request
+from src.multi_tenant_config import config
 
 # --- Tool Registry ---
 # A mapping from simple string names to the actual tool functions.
@@ -18,6 +20,7 @@ TOOL_REGISTRY = {
     "check_ecla_inventory": check_ecla_inventory,
     "create_ecla_order": create_ecla_order,
     "send_product_image": send_product_image,
+    "submit_action_request": submit_action_request,
 }
 
 
@@ -147,6 +150,64 @@ ECLA_SYSTEM_PROMPT = """
         <protocol name="How Do I Use It?"></protocol>
     </support_protocols>
 
+     <actions_policy>
+         <when_to_create>
+             - Human approval required (e.g., refunds/exceptions beyond policy).
+             - Policy clarification is needed to proceed (shipping, warranty, special terms).
+             - Custom quote/price/terms that require a human decision.
+             - Unclear/edge cases where proceeding may be unsafe, costly, or non-compliant.
+             - Missing information that only a human can supply for a non-standard request.
+         </when_to_create>
+         <how_to_create>
+             - Call tool `submit_action_request` with ONLY:
+               • request_type: short slug (e.g., "refund_request", "policy_clarification", "custom_quote", "manual_followup").
+               • request_details: concise, actionable description of what is needed and why.
+               • priority: "low" | "medium" | "high" (default "medium").
+               • request_data: optional JSON object string capturing relevant structured context for this request
+                 (e.g., {"item":"ECLA® e20 Bionic⁺ Kit", "request_amount":5000, "topic":"out_of_stock_order"}).
+             - Do NOT include user_id/chatbot_id/contact_id/status; these are filled by the system.
+             - Create one action per distinct issue to avoid duplicates.
+         </how_to_create>
+         <after_creation>
+             - Briefly inform the user that the request was escalated for review and expected next steps/timing.
+             - Do not submit the same action repeatedly unless new material information is provided.
+         </after_creation>
+         <examples>
+             <good>
+                 submit_action_request(
+                     request_type="refund_request",
+                     request_details="Device defective within 3 days; request approval for full refund.",
+                     priority="high",
+                     request_data='{"item":"ECLA® e20 Bionic⁺ Kit", "topic":"refund", "order_id":784123, "reason":"defect"}'
+                 )
+             </good>
+             <good>
+                 submit_action_request(
+                     request_type="custom_quote",
+                     request_details="Customer requests bulk price for 250 units; need approval for discount.",
+                     priority="medium",
+                     request_data='{"item":"Purple Corrector", "request_amount":250, "topic":"bulk_pricing"}'
+                 )
+             </good>
+             <good>
+                 submit_action_request(
+                     request_type="policy_clarification",
+                     request_details="Customer asks for expedited shipping to Canada; confirm availability and surcharge.",
+                     priority="low",
+                     request_data='{"topic":"shipping_policy", "destination":"CA", "speed":"expedited"}'
+                 )
+             </good>
+             <bad>
+                 submit_action_request(
+                     request_type="refund",
+                     request_details="help",
+                     priority="urgent",
+                     request_data='[784123]'
+                 )  <!-- bad: vague details, invalid priority, non-object JSON -->
+             </bad>
+         </examples>
+     </actions_policy>
+
     <tools>
         <tool name="ecla_info_tool">
             <description>Your external knowledge base (RAG) for detailed ECLA-related questions. **Use this tool to get the reasoning for product recommendations** based on user needs like 'sensitivity', 'stain type', or 'desired speed of results'.</description>
@@ -198,8 +259,7 @@ AGENT_CONFIGURATIONS = {
         "description": "The primary sales and support agent for ECLA products.",
         "model_settings": {
             "provider": "openai",
-            "name": "gpt-4.1-mini",
-            "temperature": 0.3,
+            "name": "gpt-5-mini",
             "max_tokens": 1500,
         },
         "system_prompt": ECLA_SYSTEM_PROMPT,
@@ -208,6 +268,7 @@ AGENT_CONFIGURATIONS = {
             "check_ecla_inventory",
             "create_ecla_order",
             "send_product_image",
+            *(["submit_action_request"] if config.should_use_actions_center() else []),
         ],
     },
     # --- Add other agent configurations below ---

@@ -97,9 +97,8 @@ def context_augmented_generation_tool(query: str) -> str:
         # Initialize the fast, large-context model for this specific task
         llm = init_chat_model(
             model="gpt-4.1-nano",
-            model_provider="openai",
-            temperature=0.0,  # Set to 0 for factual, deterministic answers
-            max_tokens=1000,
+            model_provider="openai",  # Set to 0 for factual, deterministic answers
+            max_tokens=None,
             api_key=settings.openai_api_key,
         )
 

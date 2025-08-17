@@ -9,11 +9,14 @@ import sys
 from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
 from langchain.tools import tool
+from langchain_core.runnables import RunnableConfig
 
 # Add the shopify_method directory to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'shopify_method'))
 
 from shopify_method import ShopifyClient
+from src.multi_tenant_database import db as local_db
+
 
 class ECLAOrderManager:
     """
@@ -59,6 +62,40 @@ class ECLAOrderManager:
             }
         }
     
+    def _build_items_from_input(self, line_items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Map input line items to a normalized structure with product name and pricing."""
+        normalized: List[Dict[str, Any]] = []
+        for item in line_items:
+            qty = int(item.get('quantity', 1))
+            if 'product_key' in item:
+                key = item['product_key']
+                product = self.ecla_products.get(key)
+                if not product:
+                    raise ValueError(f"Unknown product: {key}. Available: {list(self.ecla_products.keys())}")
+                price = float(product['price'])
+                normalized.append({
+                    'product_name': product['name'],
+                    'quantity': qty,
+                    'price': price,
+                    'total': price * qty,
+                    'variant_id': product['variant_id'],
+                    'source': 'input_product_key'
+                })
+            elif 'variant_id' in item:
+                # Custom variant; price may be provided optionally
+                price = float(item.get('price', 0))
+                normalized.append({
+                    'product_name': item.get('product_name', 'Custom Product'),
+                    'quantity': qty,
+                    'price': price,
+                    'total': price * qty,
+                    'variant_id': item['variant_id'],
+                    'source': 'input_variant_id'
+                })
+            else:
+                raise ValueError("Each line item must have either 'product_key' or 'variant_id'")
+        return normalized
+
     def create_comprehensive_order(self, order_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Create a comprehensive real order with all necessary details
@@ -75,6 +112,7 @@ class ECLAOrderManager:
             line_items = order_data.get('line_items', [])
             shipping_address = order_data.get('shipping_address', {})
             billing_address = order_data.get('billing_address', {})
+            order_notes = order_data.get('order_notes', '')
             
             # Validate required fields
             if not customer_info.get('email'):
@@ -95,35 +133,16 @@ class ECLAOrderManager:
                     "error": "Shipping address is required"
                 }
             
+            # Normalize items from input to ensure we can save to DB even if Shopify response is sparse
+            normalized_input_items = self._build_items_from_input(line_items)
+
             # Format line items for Shopify API
             formatted_line_items = []
-            for item in line_items:
-                if 'product_key' in item:
-                    # Use predefined ECLA product
-                    if item['product_key'] not in self.ecla_products:
-                        return {
-                            "success": False,
-                            "error": f"Unknown product: {item['product_key']}. Available: {list(self.ecla_products.keys())}"
-                        }
-                    
-                    product = self.ecla_products[item['product_key']]
-                    formatted_item = {
-                        'variantId': product['variant_id'],
-                        'quantity': item.get('quantity', 1)
-                    }
-                elif 'variant_id' in item:
-                    # Use custom variant ID
-                    formatted_item = {
-                        'variantId': item['variant_id'],
-                        'quantity': item.get('quantity', 1)
-                    }
-                else:
-                    return {
-                        "success": False,
-                        "error": "Each line item must have either 'product_key' or 'variant_id'"
-                    }
-                
-                formatted_line_items.append(formatted_item)
+            for item in normalized_input_items:
+                formatted_line_items.append({
+                    'variantId': item['variant_id'],
+                    'quantity': item['quantity']
+                })
             
             # Create real order using the Shopify client
             order_result = self.client.create_order(
@@ -145,20 +164,11 @@ class ECLAOrderManager:
             
             self.client.logger.info(f"Adjusting inventory for order {order['name']}")
             
-            for item in line_items:
+            for item in normalized_input_items:
                 try:
-                    # Extract variant ID (handle both formats)
-                    if 'product_key' in item:
-                        product = self.ecla_products[item['product_key']]
-                        variant_id = product['variant_id']
-                        product_name = product['name']
-                    elif 'variant_id' in item:
-                        variant_id = item['variant_id']
-                        product_name = "Custom Product"
-                    else:
-                        continue
-                    
-                    quantity = item.get('quantity', 1)
+                    variant_id = item['variant_id']
+                    product_name = item['product_name']
+                    quantity = item['quantity']
                     
                     # Remove "gid://shopify/ProductVariant/" prefix if present
                     clean_variant_id = variant_id.replace('gid://shopify/ProductVariant/', '')
@@ -166,8 +176,8 @@ class ECLAOrderManager:
                     # Adjust inventory (decrease by ordered quantity)
                     inventory_result = self.client.adjust_inventory(
                         variant_id=clean_variant_id,
-                        quantity_change=-quantity,  # Negative to decrease
-                        reason="correction"  # Reason for inventory adjustment
+                        quantity_change=-quantity,
+                        reason="correction"
                     )
                     
                     if inventory_result['success']:
@@ -192,34 +202,43 @@ class ECLAOrderManager:
                         
                 except Exception as e:
                     inventory_errors.append({
-                        "variant_id": variant_id if 'variant_id' in locals() else "unknown",
-                        "product_name": product_name if 'product_name' in locals() else "unknown",
+                        "variant_id": item.get('variant_id', "unknown"),
+                        "product_name": item.get('product_name', "unknown"),
                         "quantity": item.get('quantity', 1),
                         "error": str(e)
                     })
                     self.client.logger.error(f"Error adjusting inventory for item: {str(e)}")
             
-            # Calculate order total
-            total_amount = 0
-            for item in line_items:
-                if 'product_key' in item:
-                    product = self.ecla_products[item['product_key']]
-                    total_amount += product['price'] * item.get('quantity', 1)
-                elif 'variant_id' in item:
-                    # For custom variant IDs, use a default price or get from Shopify
-                    # For now, we'll use a default price of 0
-                    total_amount += item.get('price', 0) * item.get('quantity', 1)
+            # Calculate totals from input as authoritative fallback
+            subtotal_amount = sum(i['price'] * i['quantity'] for i in normalized_input_items)
+            total_amount = float(order.get('totalPrice', subtotal_amount))
+            currency = "USD"
             
-            # Format comprehensive response
+            # Build enriched shipping address with aliases for frontend compatibility
+            shipping = {
+                'first_name': shipping_address.get('first_name', customer_info.get('first_name', '')),
+                'last_name': shipping_address.get('last_name', customer_info.get('last_name', '')),
+                'phone': shipping_address.get('phone', customer_info.get('phone', '')),
+                'address1': shipping_address.get('address1'),
+                'address2': shipping_address.get('address2'),
+                'city': shipping_address.get('city'),
+                'province': shipping_address.get('province'),
+                'state': shipping_address.get('state') or shipping_address.get('province'),  # alias
+                'country': shipping_address.get('country'),
+                'zip': shipping_address.get('zip') or shipping_address.get('postal_code'),
+                'postal_code': shipping_address.get('postal_code') or shipping_address.get('zip'),  # alias
+            }
+            billing = billing_address or shipping
+            
+            # Format comprehensive response to persist
             response = {
                 "success": True,
                 "order": {
-                    "id": order['id'],
-                    "name": order['name'],
-                    "status": "pending",  # Default status since displayFinancialStatus not available
-                    "total_price": order['totalPrice'],
-                    "created_at": order['createdAt'],
-                    "order_url": "",  # Empty since statusUrl not available
+                    "id": order.get('id'),
+                    "name": order.get('name'),
+                    "status": order.get('status', 'pending'),
+                    "total_price": total_amount,
+                    "created_at": order.get('createdAt')
                 },
                 "customer": {
                     "email": customer_info.get('email'),
@@ -227,16 +246,17 @@ class ECLAOrderManager:
                     "last_name": customer_info.get('last_name', ''),
                     "phone": customer_info.get('phone', ''),
                 },
+                # Prefer Shopify line items if available; otherwise, use input-derived normalized items
                 "line_items": [],
                 "addresses": {
-                    "shipping": shipping_address,
-                    "billing": billing_address or shipping_address,
+                    "shipping": shipping,
+                    "billing": billing,
                 },
                 "order_summary": {
-                    "subtotal": total_amount,
-                    "total": order['totalPrice'],
-                    "currency": "USD",
-                    "item_count": sum(item.get('quantity', 1) for item in line_items),
+                    "subtotal": subtotal_amount,
+                    "total": total_amount,
+                    "currency": currency,
+                    "item_count": sum(i['quantity'] for i in normalized_input_items),
                 },
                 "inventory_adjustments": {
                     "successful": inventory_adjustments,
@@ -249,25 +269,65 @@ class ECLAOrderManager:
                 },
                 "next_steps": [
                     "Order has been created successfully",
-                    f"Order number: {order['name']}",
+                    f"Order number: {order.get('name')}",
                     "Customer will receive order confirmation email",
                     "Order is ready for fulfillment",
                     "Payment processing will proceed automatically"
-                ]
+                ],
+                "order_notes": order_notes,
             }
             
-            # Format line items for response
+            # Populate response line_items with Shopify details if present; otherwise fallback to input
             order_line_items = order.get('lineItems', [])
-            if isinstance(order_line_items, list):
-                for i, item in enumerate(order_line_items):
+            if isinstance(order_line_items, list) and len(order_line_items) > 0:
+                for item in order_line_items:
                     if isinstance(item, dict):
                         response["line_items"].append({
                             "product_name": item.get('title', 'Unknown Product'),
                             "quantity": item.get('quantity', 1),
-                            "price": item.get('price', 0),
+                            "price": float(item.get('price', 0)),
                             "variant_id": item.get('variant', {}).get('id', ''),
                         })
+            else:
+                # Fallback to normalized input items
+                for it in normalized_input_items:
+                    response["line_items"].append({
+                        "product_name": it['product_name'],
+                        "quantity": it['quantity'],
+                        "price": it['price'],
+                        "variant_id": it['variant_id'],
+                    })
             
+            # --- Save order and items to Supabase database ---
+            try:
+                metadata = order_data.get('metadata', {})  # allow passing metadata directly too
+            except Exception:
+                metadata = {}
+            
+            db_user_id = metadata.get('user_id')
+            db_contact_id = metadata.get('contact_id')
+            
+            # Backward compatibility: also check RunnableConfig metadata if available
+            if not db_user_id or not db_contact_id:
+                try:
+                    # When called via tool(), order_data may not include metadata, but RunnableConfig might
+                    pass
+                except Exception:
+                    pass
+            
+            if db_user_id and db_contact_id:
+                db_order_id = local_db.create_order_and_items(
+                    user_id=db_user_id,
+                    contact_id=db_contact_id,
+                    shopify_order_data=response
+                )
+                if db_order_id:
+                    self.client.logger.info(f"✅ Successfully saved Shopify order to Supabase with ID: {db_order_id}")
+                else:
+                    self.client.logger.warning(f"⚠️ Failed to save Shopify order to Supabase for contact {db_contact_id}")
+            else:
+                self.client.logger.warning("⚠️ Missing user_id or contact_id in metadata, cannot save order to DB.")
+
             return response
             
         except Exception as e:
@@ -327,7 +387,9 @@ def create_ecla_order(
     billing_country: str = "",
     billing_postal_code: str = "",
     order_notes: str = "",
-    send_confirmation: bool = True
+    send_confirmation: bool = True,
+    *,
+    config: RunnableConfig
 ) -> str:
     """
     Create a comprehensive ECLA real order with all necessary customer and shipping information.
@@ -412,12 +474,15 @@ def create_ecla_order(
                 'province': shipping_province.strip(),
                 'country': shipping_country.strip(),
                 'zip': shipping_postal_code.strip(),
+                'postal_code': shipping_postal_code.strip(),  # alias for frontend
                 'first_name': customer_first_name.strip(),
                 'last_name': customer_last_name.strip(),
                 'phone': customer_phone.strip(),
             },
             'order_notes': order_notes.strip(),
-            'send_confirmation': send_confirmation
+            'send_confirmation': send_confirmation,
+            # Propagate metadata for DB save when called programmatically
+            'metadata': config.get('metadata', {}) if hasattr(config, 'get') else {},
         }
         
         # Handle billing address
@@ -433,6 +498,7 @@ def create_ecla_order(
                     'province': billing_province.strip(),
                     'country': billing_country.strip(),
                     'zip': billing_postal_code.strip(),
+                    'postal_code': billing_postal_code.strip(),
                     'first_name': customer_first_name.strip(),
                     'last_name': customer_last_name.strip(),
                     'phone': customer_phone.strip(),
@@ -446,7 +512,7 @@ def create_ecla_order(
         
         if not result['success']:
             return f"❌ Error creating order: {result['error']}"
-        
+
         # Format success response
         order = result['order']
         customer = result['customer']
@@ -478,10 +544,10 @@ def create_ecla_order(
         
         response += f"""
 📍 SHIPPING ADDRESS:
-• {addresses['shipping']['address1']}
-• {addresses['shipping']['address2'] if addresses['shipping']['address2'] else ''}
-• {addresses['shipping']['city']}, {addresses['shipping']['province']} {addresses['shipping']['zip']}
-• {addresses['shipping']['country']}
+• {addresses['shipping'].get('address1','')}
+• {addresses['shipping'].get('address2','')}
+• {addresses['shipping'].get('city','')}, {addresses['shipping'].get('province','') or addresses['shipping'].get('state','')} {addresses['shipping'].get('zip','') or addresses['shipping'].get('postal_code','')}
+• {addresses['shipping'].get('country','')}
 
 💰 ORDER SUMMARY:
 • Subtotal: ${order_summary['subtotal']:.2f}
@@ -513,16 +579,6 @@ def create_ecla_order(
         
         for step in next_steps:
             response += f"• {step}\n"
-        
-        if order.get('order_url'):
-            response += f"\n🔗 Order Status URL: {order['order_url']}"
-        
-        response += f"""
-
-📧 The customer will receive an order confirmation email at {customer['email']}.
-📞 You can contact the customer at {customer['phone']} or {customer['email']} for any questions.
-🚚 The order is now ready for fulfillment and processing.
-"""
         
         return response
         
