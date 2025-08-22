@@ -33,6 +33,7 @@ from audio_transcriber.transcriber import transcribe_from_infobip_url
 from image_processor.processor import process_image_from_url
 from src.supabase_storage import upload_media_to_supabase
 from src.agent.core import set_thread_instructions_for_thread
+from src.geocoding import reverse_geocode as reverse_geocode_location, directions_links as maps_directions_links
 
 load_dotenv()
 
@@ -46,6 +47,8 @@ MAX_WORKERS = 10
 BUSY_THRESHOLD = 5
 CLEANUP_INTERVAL_SECONDS = 600
 DEBOUNCE_SECONDS = 0.01
+
+# Shopify OAuth/webhook configuration removed per request
 
 # --- Global State ---
 user_debounce_states: Dict[str, Dict] = {}
@@ -74,6 +77,10 @@ class InboundMessageResult(BaseModel):
     received_at: datetime
     # Internal retry counter for transient worker failures
     retries: int = 0
+    # Optional location enrichments
+    location_latitude: Optional[float] = None
+    location_longitude: Optional[float] = None
+    location_details: Optional[Dict[str, Any]] = None
 
 async def process_debounced_messages(user_id: str):
     """
@@ -252,7 +259,17 @@ async def agent_worker(worker_id: int, client: WhatsAppClient):
                 except Exception as e:
                     logger.warning(f"Media upload to storage failed: {e}")
 
-            # 5. Log incoming message (now with chatbot_id)
+            # 5. Log incoming message (now with chatbot_id). For location, store metadata
+            incoming_metadata = None
+            if (message.message_type or '').lower() == 'location':
+                incoming_metadata = {
+                    "location": {
+                        "latitude": message.location_latitude,
+                        "longitude": message.location_longitude,
+                        **(message.location_details or {}),
+                    }
+                }
+
             await asyncio.to_thread(
                 db.log_message,
                 contact_id,
@@ -260,11 +277,11 @@ async def agent_worker(worker_id: int, client: WhatsAppClient):
                 'incoming',
                 message.message_type.lower(),
                 chatbot_id,
-                # Save analysis/transcription for agent processing, but the frontend hides it for media types
+                # Save analysis/transcription/geocoded summary for agent processing
                 message.text,
                 media_public_url if message.message_type.lower() in { 'image', 'audio', 'video', 'document' } else None,
                 'received',
-                None,
+                incoming_metadata,
                 False,
                 None,
                 None,
@@ -484,6 +501,20 @@ def _extract_message_data(result: Dict) -> Optional[InboundMessageResult]:
         message_type = message.get("type", "unknown").lower()
         text = message.get("text")
         media_url = message.get("url")
+        # Location may arrive either as message["location"] or top-level fields inside message
+        location_obj = None
+        if isinstance(message, dict):
+            if isinstance(message.get("location"), dict):
+                location_obj = message.get("location")
+            elif message_type == 'location' and ("latitude" in message or "longitude" in message):
+                # Normalize into a location object
+                location_obj = {
+                    "latitude": message.get("latitude"),
+                    "longitude": message.get("longitude"),
+                    "name": message.get("name"),
+                    "address": message.get("address"),
+                    "url": message.get("url"),
+                }
         # Try multiple locations for contact name to support different provider envelopes
         contact = result.get("contact", {})
         contact_name = contact.get("name") if isinstance(contact, dict) else None
@@ -522,6 +553,110 @@ def _extract_message_data(result: Dict) -> Optional[InboundMessageResult]:
             except Exception as e:
                 logger.error(f"Failed to analyze image from {from_number}: {e}")
                 text = None
+
+        elif isinstance(location_obj, dict):
+            try:
+                lat = float(location_obj.get('latitude')) if location_obj.get('latitude') is not None else None
+                lon = float(location_obj.get('longitude')) if location_obj.get('longitude') is not None else None
+                if lat is None or lon is None:
+                    raise ValueError("Missing latitude/longitude in location payload")
+                geocode_out = reverse_geocode_location(lat, lon, language="en", region=None)
+                if geocode_out.get("success"):
+                    data = geocode_out["data"]
+                    # Compose a rich, agent-friendly description with full details
+                    address1 = data.get("address1")
+                    address2 = data.get("address2")
+                    locality = data.get("locality")
+                    admin1 = data.get("admin_area_1")
+                    postal = data.get("postal_code")
+                    country = data.get("country")
+                    premise = data.get("premise") or data.get("building_name")
+                    loc_type = (data.get("location_type") or "").upper()
+                    plus_code = data.get("plus_code")
+
+                    line_components = [
+                        address1,
+                        address2,
+                        ", ".join(filter(None, [locality, admin1])),
+                        postal,
+                        country,
+                    ]
+                    normalized_line = ", ".join([p for p in line_components if p]) or data.get("formatted")
+                    links = maps_directions_links(lat, lon)
+
+                    near_phrase = f"near {premise}" if premise else (
+                        f"on {data.get('route')}" if data.get('route') else ""
+                    )
+                    loc_precision = " (ROOFTOP)" if loc_type == "ROOFTOP" else (
+                        " (Approximate)" if loc_type else ""
+                    )
+
+                    details_lines = [
+                        f"Address: {normalized_line}",
+                        f"Coordinates: {lat}, {lon}",
+                    ]
+                    if plus_code:
+                        details_lines.append(f"Plus code: {plus_code}")
+                    if data.get("place_id"):
+                        details_lines.append(f"Place ID: {data.get('place_id')}")
+                    details_lines.append(f"Location type: {loc_type or 'N/A'}")
+                    details_lines.append(f"Maps: {links.get('google_maps_place')}")
+                    details_lines.append(f"Directions: {links.get('google_maps_directions')}")
+
+                    # Agent-facing summary including "near ..." phrasing
+                    text = (
+                        "User shared a location" + loc_precision + ".\n" +
+                        (f"This location is {near_phrase}.\n" if near_phrase else "") +
+                        "\n".join(details_lines)
+                    )
+                    location_details = {
+                        "normalized": data,
+                        "links": links,
+                        "original": {
+                            "name": location_obj.get("name"),
+                            "address": location_obj.get("address"),
+                            "url": location_obj.get("url"),
+                        },
+                    }
+                else:
+                    links = maps_directions_links(lat, lon)
+                    text = (
+                        "User shared a location.\n"
+                        f"Coordinates: {lat}, {lon}\n"
+                        f"Directions: {links.get('google_maps_directions')}"
+                    )
+                    location_details = {
+                        "normalized": None,
+                        "links": links,
+                        "original": {
+                            "name": location_obj.get("name"),
+                            "address": location_obj.get("address"),
+                            "url": location_obj.get("url"),
+                        },
+                        "error": geocode_out.get("error"),
+                    }
+            except Exception as e:
+                logger.error(f"Failed to process location from {from_number}: {e}")
+                location_details = {
+                    "normalized": None,
+                    "links": maps_directions_links(location_obj.get('latitude'), location_obj.get('longitude')) if location_obj and location_obj.get('latitude') and location_obj.get('longitude') else {},
+                    "original": location_obj or {},
+                    "error": str(e),
+                }
+
+            return InboundMessageResult(
+                message_id=message_id,
+                from_number=from_number,
+                to_number=to_number,
+                message_type=message_type,
+                text=text,
+                contact_name=contact_name,
+                content_url=None,
+                received_at=datetime.now(),
+                location_latitude=float(location_obj.get('latitude')) if location_obj and location_obj.get('latitude') is not None else None,
+                location_longitude=float(location_obj.get('longitude')) if location_obj and location_obj.get('longitude') is not None else None,
+                location_details=location_details,
+            )
 
         return InboundMessageResult(
             message_id=message_id,
@@ -572,6 +707,24 @@ async def process_webhook_payload(payload: Dict[str, Any]) -> List[InboundMessag
                             elif msg_type in {"image", "video", "audio", "document"}:
                                 media_obj = msg.get(msg_type) or {}
                                 norm["message"]["url"] = media_obj.get("link") or media_obj.get("id")
+                            elif msg_type == "location":
+                                loc_obj = msg.get("location") or {}
+                                norm["message"]["location"] = {
+                                    "latitude": loc_obj.get("latitude"),
+                                    "longitude": loc_obj.get("longitude"),
+                                    "name": loc_obj.get("name"),
+                                    "address": loc_obj.get("address"),
+                                    "url": loc_obj.get("url"),
+                                }
+                            # Some aggregators place location fields flat in the message
+                            if msg_type == "location" and not norm["message"].get("location"):
+                                norm["message"]["location"] = {
+                                    "latitude": msg.get("latitude"),
+                                    "longitude": msg.get("longitude"),
+                                    "name": msg.get("name"),
+                                    "address": msg.get("address"),
+                                    "url": msg.get("url"),
+                                }
                             normalized_results.append(norm)
             except Exception as e:
                 logger.warning(f"Failed to normalize Meta Cloud payload: {e}")
@@ -954,6 +1107,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Shopify OAuth endpoints removed per request
+
 @app.post("/webhook")
 async def receive_whatsapp_message(request: Request):
     """
@@ -961,12 +1116,31 @@ async def receive_whatsapp_message(request: Request):
     """
     try:
         payload = await request.json()
+        # Log full raw webhook payload for debugging (Infobip WhatsApp inbound)
+        try:
+            logger.info("📥 Raw webhook payload (Infobip WhatsApp): %s", json.dumps(payload))
+        except Exception:
+            logger.info("📥 Raw webhook payload (non-JSON-serializable): %s", str(payload))
         messages = await process_webhook_payload(payload)
 
         if not messages:
             logger.warning("Webhook payload parsed but contained no recognizable inbound messages.")
             # Signal transient parsing/format issues so the provider can retry delivery
             raise HTTPException(status_code=422, detail="No valid WhatsApp messages parsed from payload")
+
+        # Log normalized messages snapshot for debugging location parsing edge cases
+        try:
+            for m in messages:
+                logger.info(
+                    "🧭 Normalized message - type=%s text_present=%s lat=%s lon=%s media_url=%s",
+                    getattr(m, 'message_type', None),
+                    bool(getattr(m, 'text', None)),
+                    getattr(m, 'location_latitude', None),
+                    getattr(m, 'location_longitude', None),
+                    getattr(m, 'content_url', None),
+                )
+        except Exception:
+            pass
 
         processed_count = 0
         for message in messages:
@@ -1116,6 +1290,8 @@ async def handle_thread_instructions(request: Request):
         logger.error(f"💥 Error processing thread instructions: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail="Failed to process thread instructions")
 
+# Shopify webhook endpoint removed per request to simplify server
+
 @app.post("/action-feedback")
 async def handle_action_feedback(request: Request):
     """
@@ -1233,7 +1409,7 @@ async def system_metrics():
 
 if __name__ == "__main__":
     uvicorn.run(
-        "whatsapp_message_fetcher_multitenant:app",
+        "whatsapp_message_fetcher:app",
         host="0.0.0.0",
         port=8000,
         reload=True,

@@ -147,7 +147,11 @@ class ECLAOrderManager:
             # Create real order using the Shopify client
             order_result = self.client.create_order(
                 line_items=formatted_line_items,
-                customer_info=customer_info
+                customer_info=customer_info,
+                shipping_address=shipping_address,
+                billing_address=billing_address,
+                send_receipt=order_data.get('send_confirmation', True),
+                send_fulfillment_receipt=False
             )
             
             if not order_result['success']:
@@ -211,7 +215,16 @@ class ECLAOrderManager:
             
             # Calculate totals from input as authoritative fallback
             subtotal_amount = sum(i['price'] * i['quantity'] for i in normalized_input_items)
-            total_amount = float(order.get('totalPrice', subtotal_amount))
+            # Prefer MoneyBag total from response if available
+            total_amount = subtotal_amount
+            try:
+                price_set = order.get('totalPriceSet', {})
+                shop_money = price_set.get('shopMoney', {}) if isinstance(price_set, dict) else {}
+                amt = shop_money.get('amount')
+                if amt is not None:
+                    total_amount = float(amt)
+            except Exception:
+                total_amount = subtotal_amount
             currency = "USD"
             
             # Build enriched shipping address with aliases for frontend compatibility
@@ -278,15 +291,25 @@ class ECLAOrderManager:
             }
             
             # Populate response line_items with Shopify details if present; otherwise fallback to input
-            order_line_items = order.get('lineItems', [])
-            if isinstance(order_line_items, list) and len(order_line_items) > 0:
-                for item in order_line_items:
-                    if isinstance(item, dict):
+            order_line_items = order.get('lineItems')
+            # Parse connection (edges -> node)
+            if isinstance(order_line_items, dict) and 'edges' in order_line_items:
+                for edge in order_line_items.get('edges', []):
+                    node = (edge or {}).get('node', {})
+                    if isinstance(node, dict):
+                        price = 0.0
+                        try:
+                            oups = node.get('originalUnitPriceSet', {})
+                            sm = oups.get('shopMoney', {}) if isinstance(oups, dict) else {}
+                            if sm.get('amount') is not None:
+                                price = float(sm.get('amount'))
+                        except Exception:
+                            price = 0.0
                         response["line_items"].append({
-                            "product_name": item.get('title', 'Unknown Product'),
-                            "quantity": item.get('quantity', 1),
-                            "price": float(item.get('price', 0)),
-                            "variant_id": item.get('variant', {}).get('id', ''),
+                            "product_name": node.get('title', 'Unknown Product'),
+                            "quantity": node.get('quantity', 1),
+                            "price": price,
+                            "variant_id": (node.get('variant') or {}).get('id', ''),
                         })
             else:
                 # Fallback to normalized input items

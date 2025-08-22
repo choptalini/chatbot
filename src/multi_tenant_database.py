@@ -644,6 +644,75 @@ class MultiTenantDB:
             if conn:
                 conn.close()
 
+    def add_knowledge_base_entry(
+        self, 
+        user_id: int, 
+        chatbot_id: int, 
+        category: str, 
+        question: str, 
+        answer: str
+    ) -> bool:
+        """
+        Add an entry to the bot_knowledge_base table.
+        Returns True on success, False on failure.
+        """
+        conn = self.connect_to_db()
+        if not conn:
+            return False
+
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO bot_knowledge_base (
+                        user_id, chatbot_id, category, question, answer, is_active
+                    )
+                    VALUES (%s, %s, %s, %s, %s, true)
+                    """,
+                    (user_id, chatbot_id, category, question, answer)
+                )
+                conn.commit()
+                logger.info(f"Knowledge base entry added for user {user_id}, chatbot {chatbot_id}")
+                return True
+                
+        except psycopg2.Error as e:
+            logger.error(f"Database error in add_knowledge_base_entry: {e}")
+            if conn:
+                conn.rollback()
+        finally:
+            if conn:
+                conn.close()
+        
+        return False
+
+    def get_all_active_chatbots(self) -> List[Dict[str, Any]]:
+        """
+        Get all active chatbots with their user_id and id.
+        Returns list of dictionaries with chatbot info.
+        """
+        conn = self.connect_to_db()
+        if not conn:
+            return []
+
+        try:
+            with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+                cur.execute(
+                    """
+                    SELECT id, user_id, name, whatsapp_phone_number
+                    FROM chatbots 
+                    WHERE is_active = true AND bot_status = 'active'
+                    """
+                )
+                chatbots = cur.fetchall()
+                return [dict(chatbot) for chatbot in chatbots]
+                
+        except psycopg2.Error as e:
+            logger.error(f"Database error in get_all_active_chatbots: {e}")
+            return []
+        finally:
+            if conn:
+                conn.close()
+
 
 # Global instance for backward compatibility
 db = MultiTenantDB()

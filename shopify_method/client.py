@@ -529,7 +529,11 @@ class ShopifyClient:
     
     # ===== ORDER MANAGEMENT METHODS =====
     
-    def create_order(self, line_items: List[Dict[str, Any]], customer_info: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    def create_order(self, line_items: List[Dict[str, Any]], customer_info: Optional[Dict[str, Any]] = None,
+                     shipping_address: Optional[Dict[str, Any]] = None,
+                     billing_address: Optional[Dict[str, Any]] = None,
+                     send_receipt: Optional[bool] = None,
+                     send_fulfillment_receipt: Optional[bool] = None) -> Dict[str, Any]:
         """
         Create a new order.
         
@@ -560,8 +564,7 @@ class ShopifyClient:
                 elif 'productId' in item:
                     formatted_item['productId'] = format_graphql_id('product', item['productId'])
                 
-                if 'price' in item:
-                    formatted_item['price'] = str(item['price'])
+                # Avoid deprecated/plain price; price overrides should use Money inputs in upstream flows
                 
                 formatted_line_items.append(formatted_item)
             
@@ -572,12 +575,72 @@ class ShopifyClient:
             
             # Add customer info if provided
             if customer_info:
-                if 'email' in customer_info:
-                    order_input['email'] = customer_info['email']
-                if 'customerId' in customer_info:
-                    order_input['customerId'] = format_graphql_id('customer', customer_info['customerId'])
+                email = customer_info.get('email')
+                customer_id = customer_info.get('customerId')
+                first_name = customer_info.get('first_name') or customer_info.get('firstName')
+                last_name = customer_info.get('last_name') or customer_info.get('lastName')
+                phone = customer_info.get('phone')
+
+                # Determine if nested customer input is supported (2025-01+)
+                def _supports_nested_customer(version: str) -> bool:
+                    try:
+                        year, month = version.split('-')
+                        return int(year) > 2024 or (int(year) == 2025 and int(month) >= 1)
+                    except Exception:
+                        return False
+
+                if _supports_nested_customer(self.api_version):
+                    customer_block: Dict[str, Any] = {}
+                    if customer_id:
+                        customer_block['toAssociate'] = {"id": format_graphql_id('customer', customer_id)}
+                    elif email:
+                        to_upsert: Dict[str, Any] = {"email": email}
+                        if first_name:
+                            to_upsert['firstName'] = first_name
+                        if last_name:
+                            to_upsert['lastName'] = last_name
+                        if phone:
+                            to_upsert['phone'] = phone
+                        customer_block['toUpsert'] = to_upsert
+
+                    if customer_block:
+                        order_input['customer'] = customer_block
+                else:
+                    # Fallback for older API versions: use top-level fields
+                    if email:
+                        order_input['email'] = email
+                    if customer_id:
+                        order_input['customerId'] = format_graphql_id('customer', customer_id)
+
+            # Map shipping and billing addresses if provided
+            def _map_address(addr: Dict[str, Any]) -> Dict[str, Any]:
+                return {
+                    "firstName": addr.get('first_name') or addr.get('firstName'),
+                    "lastName": addr.get('last_name') or addr.get('lastName'),
+                    "address1": addr.get('address1') or addr.get('line1'),
+                    "address2": addr.get('address2') or addr.get('line2'),
+                    "city": addr.get('city'),
+                    "province": addr.get('province') or addr.get('state') or addr.get('provinceCode'),
+                    "country": addr.get('country') or addr.get('countryCode'),
+                    "zip": addr.get('zip') or addr.get('postal_code') or addr.get('postalCode'),
+                    "phone": addr.get('phone')
+                }
+
+            if shipping_address:
+                order_input['shippingAddress'] = _map_address(shipping_address)
+            if billing_address:
+                order_input['billingAddress'] = _map_address(billing_address)
             
             variables = {"order": order_input}
+
+            # Options (notifications, inventory behavior)
+            options: Dict[str, Any] = {}
+            if send_receipt is not None:
+                options['sendReceipt'] = bool(send_receipt)
+            if send_fulfillment_receipt is not None:
+                options['sendFulfillmentReceipt'] = bool(send_fulfillment_receipt)
+            if options:
+                variables['options'] = options
             
             response = self._make_graphql_request(ORDER_CREATE_MUTATION, variables)
             
@@ -831,6 +894,40 @@ class ShopifyClient:
             
         except Exception as e:
             self.logger.error(f"Error getting products: {str(e)}")
+            return self._format_response(False, error=str(e))
+
+    def get_products_full(self, limit: int = 50, search: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Get a list of products with expanded fields (variants, images, options, tags, etc.).
+        """
+        from .constants import PRODUCTS_FULL_LIST_QUERY
+        from .utils import extract_edges_nodes, sanitize_search_query
+        try:
+            if search:
+                search = sanitize_search_query(search)
+                if not search:
+                    return self._format_response(False, error="Invalid search query")
+
+            variables = {"first": min(limit, 50), "query": search}
+            response = self._make_graphql_request(PRODUCTS_FULL_LIST_QUERY, variables)
+            products_data = response.get('data', {}).get('products', {})
+            products = extract_edges_nodes(products_data, [])
+            page_info = products_data.get('pageInfo', {})
+
+            # Flatten inner connections for each product
+            for product in products:
+                product['variants'] = extract_edges_nodes(product, ['variants'])
+                product['images'] = extract_edges_nodes(product, ['images'])
+
+            result = {
+                "products": products,
+                "count": len(products),
+                "has_next_page": page_info.get('hasNextPage', False),
+                "search_query": search
+            }
+            return self._format_response(True, result)
+        except Exception as e:
+            self.logger.error(f"Error getting full products: {str(e)}")
             return self._format_response(False, error=str(e))
     
     def get_product_variants(self, product_id: str) -> Dict[str, Any]:

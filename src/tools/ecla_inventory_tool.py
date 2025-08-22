@@ -6,6 +6,7 @@ Gets live inventory quantities and product images for ECLA products using predef
 
 import os
 import sys
+import json
 from typing import Dict, Any, Optional
 from dotenv import load_dotenv
 from langchain.tools import tool
@@ -37,29 +38,39 @@ class ECLAInventoryManager:
             access_token=self.access_token
         )
         
-        # Predefined ECLA products with their variant IDs and product IDs
-        self.ecla_products = {
-            "purple_corrector": {
-                "name": "ECLA® Purple Corrector",
-                "product_id": "gid://shopify/Product/8311492116676",
-                "variant_id": "gid://shopify/ProductVariant/45009045881028",
-                "price": "$26.00",
-                "handle": "ecla-purple-corrector"
-            },
-            "whitening_pen": {
-                "name": "ECLA® Teeth Whitening Pen",
-                "product_id": "gid://shopify/Product/8311493394628",
-                "variant_id": "gid://shopify/ProductVariant/45009060724932",
-                "price": "$20.00",
-                "handle": "ecla-teeth-whitening-pen"
-            },
-            "e20_bionic_kit": {
-                "name": "ECLA® e20 Bionic⁺ Kit",
-                "product_id": "gid://shopify/Product/8311497916612",
-                "variant_id": "gid://shopify/ProductVariant/45009099423940",
-                "price": "$55.00",
-                "handle": "ecla-e20-bionic-kit"
-            }
+        # Cache for live products (optional; refreshed per request paths)
+        self._live_products_cache = None
+
+    def _fetch_live_products(self) -> Dict[str, Any]:
+        """Fetch live products (first page up to 50) from Shopify."""
+        try:
+            products_result = self.client.get_products(limit=50)
+            return products_result
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def _normalize_product_entry(self, product: Dict[str, Any]) -> Dict[str, Any]:
+        """Create a simplified view of a product with totals from variants."""
+        variants = product.get('variants', [])
+        # Compute total available from variant inventoryQuantity if present
+        total_available = 0
+        for v in variants:
+            try:
+                qty = int(float(v.get('inventoryQuantity', 0)))
+            except Exception:
+                qty = 0
+            total_available += qty
+        # Prefer first variant price as a reference (if available)
+        ref_price = None
+        if variants:
+            ref_price = variants[0].get('price')
+        return {
+            "product_id": product.get('id'),
+            "product_name": product.get('title'),
+            "handle": product.get('handle'),
+            "variants": variants,
+            "total_available": total_available,
+            "ref_price": ref_price,
         }
     
     def get_product_inventory(self, product_key: str) -> Dict[str, Any]:
@@ -72,85 +83,79 @@ class ECLAInventoryManager:
         Returns:
             Dictionary with inventory and image information
         """
-        if product_key not in self.ecla_products:
-            return {
-                "success": False,
-                "error": f"Product '{product_key}' not found. Available: {list(self.ecla_products.keys())}"
-            }
-        
-        product_info = self.ecla_products[product_key]
-        
+        # Fetch live products and find a match by name/handle
+        products_result = self._fetch_live_products()
+        if not products_result.get('success'):
+            return {"success": False, "error": f"Failed to get products: {products_result.get('error')}"}
+
+        products = products_result.get('data', {}).get('products') or products_result.get('data', {}).get('products', [])
+        # The client returns {success, data: {products, count, has_next_page, ...}}
+        live_products = products_result.get('data', {}).get('products', []) if isinstance(products_result.get('data', {}), dict) else []
+        if not live_products:
+            # Some client versions return flat list in 'products'
+            live_products = products if isinstance(products, list) else []
+
+        # Find by case-insensitive partial match on title or handle
+        target = None
+        name_lower = product_key.lower()
+        for p in live_products:
+            title = (p.get('title') or '').lower()
+            handle = (p.get('handle') or '').lower()
+            if name_lower in title or name_lower in handle:
+                target = p
+                break
+
+        if not target:
+            available = ", ".join([(p.get('title') or p.get('handle') or 'Unknown') for p in live_products])
+            return {"success": False, "error": f"Product '{product_key}' not found among live products: {available}"}
+
+        simplified = self._normalize_product_entry(target)
+
+        # Enrich with product details for images/description
+        images_info = []
+        product_description = ''
+        product_handle = target.get('handle')
         try:
-            # Get live inventory from Shopify
-            inventory_result = self.client.get_inventory(variant_id=product_info["variant_id"])
-            
-            if not inventory_result['success']:
-                return {
-                    "success": False,
-                    "error": f"Failed to get inventory: {inventory_result['error']}"
-                }
-            
-            inventory_data = inventory_result['data']
-            
-            # Get product details including images
-            product_result = self.client.get_product(product_id=product_info["product_id"])
-            
-            if not product_result['success']:
-                return {
-                    "success": False,
-                    "error": f"Failed to get product details: {product_result['error']}"
-                }
-            
-            product_data = product_result['data']
-            
-            # Calculate total available inventory
-            total_available = sum(loc['available'] for loc in inventory_data['locations'])
-            
-            # Extract image information
-            images = product_data.get('images', [])
-            image_info = []
-            
-            for image in images:
-                image_info.append({
-                    "id": image.get('id'),
-                    "url": image.get('src'),
-                    "alt_text": image.get('altText', ''),
-                })
-            
-            return {
-                "success": True,
-                "product_name": product_info["name"],
-                "product_id": product_info["product_id"],
-                "price": product_info["price"],
-                "variant_id": product_info["variant_id"],
-                "total_available": total_available,
-                "locations": inventory_data['locations'],
-                "images": image_info,
-                "product_description": product_data.get('description', ''),
-                "product_handle": product_data.get('handle', ''),
-                "timestamp": inventory_result['timestamp']
-            }
-            
-        except Exception as e:
-            return {
-                "success": False,
-                "error": f"Error checking inventory: {str(e)}"
-            }
+            details = self.client.get_product(product_id=target.get('id'))
+            if details.get('success'):
+                pdata = details.get('data', {})
+                product_description = pdata.get('description', '')
+                product_handle = pdata.get('handle', product_handle)
+                for image in pdata.get('images', []) or []:
+                    images_info.append({
+                        "id": image.get('id'),
+                        "url": image.get('src'),
+                        "alt_text": image.get('altText', ''),
+                    })
+        except Exception:
+            pass
+
+        return {
+            "success": True,
+            "product_name": simplified["product_name"],
+            "product_id": simplified["product_id"],
+            "price": simplified["ref_price"],
+            "variant_id": None,
+            "total_available": simplified["total_available"],
+            "locations": [],  # Not computed in bulk mode
+            "images": images_info,
+            "product_description": product_description,
+            "product_handle": product_handle,
+            "timestamp": products_result.get('timestamp'),
+        }
     
     def get_all_inventory(self) -> Dict[str, Any]:
         """
-        Get live inventory and images for all ECLA products
-        
-        Returns:
-            Dictionary with all products' inventory and image information
+        Fetch all products live from Shopify and return their full details
+        (variants, images, options, tags, etc.).
         """
-        all_inventory = {}
-        
-        for product_key in self.ecla_products:
-            inventory = self.get_product_inventory(product_key)
-            all_inventory[product_key] = inventory
-        
-        return all_inventory
+        try:
+            products_result = self.client.get_products_full(limit=50)
+            if not products_result.get('success'):
+                return {"success": False, "error": f"Failed to get products: {products_result.get('error')}"}
+            return {"success": True, "products": products_result.get('data', {}).get('products', []), "count": products_result.get('data', {}).get('count', 0)}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
     
     def find_product_by_name(self, product_name: str) -> Optional[str]:
         """
@@ -162,21 +167,20 @@ class ECLAInventoryManager:
         Returns:
             Product key if found, None otherwise
         """
+        # Search live products by partial name or handle
         product_name_lower = product_name.lower()
-        
-        # Direct name matching
-        for key, product in self.ecla_products.items():
-            if product_name_lower in product["name"].lower():
-                return key
-        
-        # Keyword matching
-        if "purple" in product_name_lower or "corrector" in product_name_lower:
-            return "purple_corrector"
-        elif "pen" in product_name_lower or "whitening pen" in product_name_lower:
-            return "whitening_pen"
-        elif "e20" in product_name_lower or "bionic" in product_name_lower or "kit" in product_name_lower:
-            return "e20_bionic_kit"
-        
+        products_result = self._fetch_live_products()
+        if not products_result.get('success'):
+            return None
+        live_products = products_result.get('data', {}).get('products', [])
+        if not isinstance(live_products, list):
+            live_products = []
+        for p in live_products:
+            title = (p.get('title') or '').lower()
+            handle = (p.get('handle') or '').lower()
+            if product_name_lower in title or product_name_lower in handle:
+                # Return the title as key for get_product_inventory lookup
+                return p.get('title') or p.get('handle')
         return None
 
 # Initialize the inventory manager (singleton pattern)
@@ -211,31 +215,11 @@ def check_ecla_inventory(product_name: str = "all") -> str:
         inventory_manager = get_inventory_manager()
         
         if product_name.lower() == "all":
-            # Get all products inventory
-            all_inventory = inventory_manager.get_all_inventory()
-            
-            result = "🦷 ECLA PRODUCTS INVENTORY (Live)\n"
-            result += "=" * 50 + "\n"
-            
-            total_items = 0
-            for product_key, inventory in all_inventory.items():
-                if inventory['success']:
-                    result += f"📦 {inventory['product_name']}\n"
-                    result += f"   💰 Price: {inventory['price']}\n"
-                    result += f"   📊 Available: {inventory['total_available']} units\n"
-                    # Safe access to location name
-                    location_name = inventory.get('locations', [{}])[0].get('location_name', 'N/A')
-                    result += f"   📍 Location: {location_name}\n\n"
-                    
-                    # NOTE: Image information is intentionally omitted from the response
-                    # to encourage the agent to use the dedicated image sending tool.
-                    
-                    total_items += inventory['total_available']
-                else:
-                    result += f"❌ {inventory_manager.ecla_products[product_key]['name']}: {inventory['error']}\n\n"
-            
-            result += f"📊 TOTAL INVENTORY: {total_items} units across all products"
-            return result
+            # Return raw product list as JSON string (full details)
+            all_products = inventory_manager.get_all_inventory()
+            if not all_products.get('success'):
+                return f"{{\"success\": false, \"error\": \"{all_products.get('error')}\"}}"
+            return json.dumps({"success": True, "count": all_products.get('count', 0), "products": all_products.get('products', [])}, ensure_ascii=False)
         
         else:
             # Find specific product
@@ -244,33 +228,19 @@ def check_ecla_inventory(product_name: str = "all") -> str:
             if not product_key:
                 return f"❌ Product '{product_name}' not found. Available products: Purple Corrector, Whitening Pen, e20 Bionic Kit"
             
+            # Return a single product's full details as JSON
             inventory = inventory_manager.get_product_inventory(product_key)
-            
-            if not inventory['success']:
-                return f"❌ Error checking inventory for '{product_name}': {inventory['error']}"
-            
-            result = f"🦷 {inventory['product_name']} - Live Inventory\n"
-            result += "=" * 50 + "\n"
-            result += f"💰 Price: {inventory['price']}\n"
-            result += f"📊 Available: {inventory['total_available']} units\n"
-            # Safe access to location name
-            location_name = inventory.get('locations', [{}])[0].get('location_name', 'N/A')
-            result += f"📍 Location: {location_name}\n"
-            
-            # NOTE: Image information is intentionally omitted from the response
-            # to encourage the agent to use the dedicated image sending tool.
-            
-            result += f"🔄 Updated: {inventory['timestamp']}\n"
-            
-            # Add stock status
-            if inventory['total_available'] > 10:
-                result += "✅ Stock Status: In Stock (Good availability)"
-            elif inventory['total_available'] > 0:
-                result += "⚠️ Stock Status: Low Stock (Limited availability)"
-            else:
-                result += "❌ Stock Status: Out of Stock"
-            
-            return result
+            if not inventory.get('success'):
+                return json.dumps({"success": False, "error": inventory.get('error')}, ensure_ascii=False)
+            # Enrich with full product details
+            try:
+                details = inventory_manager.client.get_product(product_id=inventory.get('product_id'))
+                if details.get('success'):
+                    return json.dumps({"success": True, "product": details.get('data')}, ensure_ascii=False)
+            except Exception:
+                pass
+            # Fallback to simplified if details call fails
+            return json.dumps({"success": True, "product": inventory}, ensure_ascii=False)
             
     except Exception as e:
         return f"❌ Error checking inventory: {str(e)}" 

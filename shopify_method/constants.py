@@ -125,6 +125,71 @@ query getProducts($first: Int!, $query: String) {
 }
 """
 
+# Rich product listing query with expanded fields (variants, images, options)
+PRODUCTS_FULL_LIST_QUERY = """
+query getProductsFull($first: Int!, $query: String) {
+    products(first: $first, query: $query) {
+        edges {
+            node {
+                id
+                title
+                handle
+                description
+                vendor
+                productType
+                tags
+                status
+                createdAt
+                updatedAt
+                options {
+                    id
+                    name
+                    values
+                }
+                images(first: 50) {
+                    edges {
+                        node {
+                            id
+                            src
+                            altText
+                        }
+                    }
+                }
+                variants(first: 50) {
+                    edges {
+                        node {
+                            id
+                            title
+                            price
+                            compareAtPrice
+                            sku
+                            barcode
+                            inventoryQuantity
+                            position
+                            availableForSale
+                            selectedOptions {
+                                name
+                                value
+                            }
+                            image {
+                                id
+                                src
+                                altText
+                            }
+                            inventoryItem { id }
+                        }
+                    }
+                }
+            }
+        }
+        pageInfo {
+            hasNextPage
+            hasPreviousPage
+        }
+    }
+}
+"""
+
 INVENTORY_ADJUST_MUTATION = """
 mutation inventoryAdjustQuantities($input: InventoryAdjustQuantitiesInput!) {
     inventoryAdjustQuantities(input: $input) {
@@ -182,22 +247,50 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
 """
 
 ORDER_CREATE_MUTATION = """
-mutation orderCreate($order: OrderCreateOrderInput!) {
-    orderCreate(order: $order) {
+mutation orderCreate($order: OrderCreateOrderInput!, $options: OrderCreateOptionsInput) {
+    orderCreate(order: $order, options: $options) {
         order {
             id
             name
-            totalPrice
             createdAt
+            displayFinancialStatus
+            displayFulfillmentStatus
+            totalPriceSet {
+                shopMoney { amount currencyCode }
+            }
+            email
+            shippingAddress {
+                firstName
+                lastName
+                address1
+                address2
+                city
+                province
+                country
+                zip
+            }
+            billingAddress {
+                firstName
+                lastName
+                address1
+                address2
+                city
+                province
+                country
+                zip
+            }
             lineItems(first: 10) {
                 edges {
                     node {
                         id
                         title
                         quantity
-                        variant {
-                            id
+                        originalUnitPriceSet { shopMoney { amount currencyCode } }
+                        variant { id title }
+                        taxLines {
                             title
+                            rate
+                            priceSet { shopMoney { amount currencyCode } }
                         }
                     }
                 }
