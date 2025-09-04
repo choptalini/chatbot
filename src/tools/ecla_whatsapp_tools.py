@@ -121,11 +121,18 @@ def send_product_image(
         # Mirror incoming behavior: persist an outgoing location message so frontend can render it
         try:
             if result.get("success"):
-                mapping = mt_get_user_by_phone_number(to_number) or {}
-                user_id = mapping.get("user_id")
-                chatbot_id = mapping.get("chatbot_id")
-                # Ensure we have a contact_id for this recipient
-                contact_id, _thread_id = mt_db.get_or_create_contact(to_number, user_id=user_id)
+                # ECLA tool always uses ECLA tenant context (sender: 96179374241)
+                # This ensures all messages sent FROM 96179374241 are logged to user_id=2
+                user_id = 2  # SwiftReplies (ECLA)
+                chatbot_id = 2  # ECLA chatbot
+                
+                # Get contact_id from metadata if available, otherwise create/find for this customer
+                metadata = config.get("metadata", {}) if config else {}
+                contact_id = metadata.get("contact_id")
+                
+                if not contact_id:
+                    # Create/find contact for this customer under ECLA tenant
+                    contact_id, _thread_id = mt_db.get_or_create_contact(to_number, user_id=user_id)
                 if contact_id:
                     mt_db.log_message(
                         contact_id=contact_id,
@@ -152,10 +159,18 @@ def send_product_image(
         # Mirror incoming behavior: persist an outgoing image message so frontend can render it
         try:
             if result.get("success"):
-                mapping = mt_get_user_by_phone_number(to_number) or {}
-                user_id = mapping.get("user_id")
-                chatbot_id = mapping.get("chatbot_id")
-                contact_id, _thread_id = mt_db.get_or_create_contact(to_number, user_id=user_id)
+                # ECLA tool always uses ECLA tenant context (sender: 96179374241)
+                # This ensures all messages sent FROM 96179374241 are logged to user_id=2
+                user_id = 2  # SwiftReplies (ECLA)
+                chatbot_id = 2  # ECLA chatbot
+                
+                # Get contact_id from metadata if available, otherwise create/find for this customer
+                metadata = config.get("metadata", {}) if config else {}
+                contact_id = metadata.get("contact_id")
+                
+                if not contact_id:
+                    # Create/find contact for this customer under ECLA tenant
+                    contact_id, _thread_id = mt_db.get_or_create_contact(to_number, user_id=user_id)
                 if contact_id:
                     mt_db.log_message(
                         contact_id=contact_id,

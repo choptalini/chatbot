@@ -27,6 +27,7 @@ from src.multi_tenant_database import (
 )
 from src.agent.core import chat_with_agent
 from src.tools.ecla_whatsapp_tools import send_product_image, PRODUCT_IMAGES
+from src.astrosouks_tools.astrosouks_whatsapp_tools import astrosouks_send_product_image
 from src.config.settings import settings
 from src.analytics import analytics_processor
 from audio_transcriber.transcriber import transcribe_from_infobip_url
@@ -34,6 +35,7 @@ from image_processor.processor import process_image_from_url
 from src.supabase_storage import upload_media_to_supabase
 from src.agent.core import set_thread_instructions_for_thread
 from src.geocoding import reverse_geocode as reverse_geocode_location, directions_links as maps_directions_links
+from src.multi_tenant_config import MultiTenantConfig
 
 load_dotenv()
 
@@ -202,7 +204,7 @@ async def cleanup_stale_debounce_states():
         except Exception as e:
             logger.error(f"Error in debounce cleanup: {e}", exc_info=True)
 
-async def agent_worker(worker_id: int, client: WhatsAppClient):
+async def agent_worker(worker_id: int, clients: Dict[str, WhatsAppClient]):
     """
     Updated agent worker with multi-tenant support and usage tracking.
     """
@@ -214,12 +216,31 @@ async def agent_worker(worker_id: int, client: WhatsAppClient):
             message = await GLOBAL_MESSAGE_QUEUE.get()
             logger.info(f"Worker #{worker_id} processing message for {message.from_number}...")
 
-            # 1. Get user info from phone number (determines which user/chatbot to use)
-            user_info = get_user_by_phone_number(message.from_number)
-            user_id = user_info['user_id']
-            chatbot_id = user_info['chatbot_id']
+            # 1. Determine routing (prefer destination-based using multi-tenant configuration)
+            routing = MultiTenantConfig.get_routing_for_destination(getattr(message, 'to_number', None))
+            if routing:
+                user_id = routing['user_id']
+                chatbot_id = routing['chatbot_id']
+                agent_id = routing.get('agent_id', 'ecla_sales_agent')  # Default fallback
+                logger.info(f"Destination-based routing: to_number={message.to_number} -> user_id={user_id}, chatbot_id={chatbot_id}, agent_id={agent_id}")
+            else:
+                # Fallback: legacy mapping by customer phone number
+                user_info = get_user_by_phone_number(message.from_number)
+                user_id = user_info['user_id']
+                chatbot_id = user_info['chatbot_id']
+                # Determine agent based on chatbot_id
+                agent_id = "astrosouks_sales_agent" if chatbot_id == 3 else "ecla_sales_agent"
+                logger.info(f"Legacy phone-based routing: from_number={message.from_number} -> user_id={user_id}, chatbot_id={chatbot_id}, agent_id={agent_id}")
             
-            logger.info(f"Message mapped to user_id: {user_id}, chatbot_id: {chatbot_id}")
+            logger.info(f"Final routing: user_id={user_id}, chatbot_id={chatbot_id}, agent_id={agent_id}")
+            
+            # Select appropriate WhatsApp client based on routing
+            if chatbot_id == 3:  # AstroSouks
+                client = clients.get('astrosouks', clients.get('ecla'))  # Fallback to ecla if astrosouks not available
+                logger.info(f"Using AstroSouks WhatsApp client for chatbot_id={chatbot_id}")
+            else:  # ECLA/SwiftReplies
+                client = clients.get('ecla')
+                logger.info(f"Using ECLA WhatsApp client for chatbot_id={chatbot_id}")
             
             # 2. Check usage limits before processing
             usage_check = await asyncio.to_thread(check_message_limits, user_id)
@@ -303,8 +324,7 @@ async def agent_worker(worker_id: int, client: WhatsAppClient):
                 continue
 
             # 7. Process with AI agent (using thread_id for chat memory)
-            # For now, we'll use the same agent but this could be dynamic based on chatbot_id
-            agent_id = "ecla_sales_agent"  # TODO: Make this configurable per chatbot
+            # Agent selection is already determined in step 1 routing logic
             
             start_time = time.time()
             # Run the synchronous agent in a separate thread to prevent blocking
@@ -404,7 +424,14 @@ async def agent_worker(worker_id: int, client: WhatsAppClient):
                     args = tool_call.get("args", {})
                     product_name = args.get("product_name")
                     send_location = args.get("send_jounieh_location", False)
-                    tool_config = {"metadata": {"from_number": message.from_number}}
+                    tool_config = {
+                        "metadata": {
+                            "from_number": message.from_number,
+                            "user_id": user_id,
+                            "chatbot_id": chatbot_id,
+                            "contact_id": contact_id
+                        }
+                    }
 
                     if send_location:
                         sent_message_result = await asyncio.to_thread(
@@ -462,6 +489,26 @@ async def agent_worker(worker_id: int, client: WhatsAppClient):
                                 None,
                                 None,
                             )
+                elif tool_call.get("name") == "astrosouks_send_product_image":
+                    args = tool_call.get("args", {})
+                    product_name = args.get("product_name")
+                    tool_config = {
+                        "metadata": {
+                            "from_number": message.from_number,
+                            "user_id": user_id,
+                            "chatbot_id": chatbot_id,
+                            "contact_id": contact_id
+                        }
+                    }
+                    if product_name:
+                        # Invoke AstroSouks image tool (it logs messages internally on success)
+                        _ = await asyncio.to_thread(
+                            functools.partial(
+                                astrosouks_send_product_image.invoke,
+                                {"product_name": product_name},
+                                config=tool_config,
+                            )
+                        )
         except asyncio.CancelledError:
             logger.info(f"✅ Worker #{worker_id} has been gracefully terminated.")
             break
@@ -1052,17 +1099,38 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("🚀 Starting SwiftReplies.ai Multi-Tenant WhatsApp Bot")
     
-    # Initialize WhatsApp client
-    client = WhatsAppClient(
+    # Initialize WhatsApp clients for multi-tenant support
+    clients = {}
+    
+    # SwiftReplies (ECLA) client
+    ecla_client = WhatsAppClient(
         api_key=settings.infobip_api_key,
         base_url=settings.infobip_base_url,
         sender=settings.whatsapp_sender,
     )
-    app.state.whatsapp_client = client
+    clients['ecla'] = ecla_client
+    clients[settings.whatsapp_sender] = ecla_client  # Also map by number
+    
+    # AstroSouks client (if configured)
+    if settings.astrosouks_whatsapp_sender:
+        astrosouks_client = WhatsAppClient(
+            api_key=settings.infobip_api_key,
+            base_url=settings.infobip_base_url,
+            sender=settings.astrosouks_whatsapp_sender,
+        )
+        clients['astrosouks'] = astrosouks_client
+        clients[settings.astrosouks_whatsapp_sender] = astrosouks_client  # Also map by number
+        logger.info(f"🤖 AstroSouks client initialized for sender: {settings.astrosouks_whatsapp_sender}")
+    
+    # Store all clients and set default
+    app.state.whatsapp_clients = clients
+    app.state.whatsapp_client = ecla_client  # Keep backward compatibility
+    
+    logger.info(f"🤖 Multi-tenant WhatsApp clients initialized: {len(clients)} clients")
     
     # Start minimum number of workers
     for i in range(MIN_WORKERS):
-        task = asyncio.create_task(agent_worker(i + 1, client))
+        task = asyncio.create_task(agent_worker(i + 1, clients))
         WORKER_POOL.append(task)
     
     # Start the janitor task
@@ -1152,7 +1220,7 @@ async def receive_whatsapp_message(request: Request):
         if GLOBAL_MESSAGE_QUEUE.qsize() > BUSY_THRESHOLD and len(WORKER_POOL) < MAX_WORKERS:
             logger.info(f"Queue is busy (size: {GLOBAL_MESSAGE_QUEUE.qsize()}). Scaling up workers.")
             new_worker_id = len(WORKER_POOL) + 1
-            new_task = asyncio.create_task(agent_worker(new_worker_id, app.state.whatsapp_client))
+            new_task = asyncio.create_task(agent_worker(new_worker_id, app.state.whatsapp_clients))
             WORKER_POOL.append(new_task)
 
         return {
@@ -1209,6 +1277,7 @@ async def handle_manual_message(request: Request):
         logger.info(f"📨 Received manual message via HTTP: {payload}")
         
         # Send message to WhatsApp using existing function
+        # Use default client for backward compatibility
         client = app.state.whatsapp_client
         await send_manual_message_to_whatsapp(payload, client)
         

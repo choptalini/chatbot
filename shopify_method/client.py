@@ -552,6 +552,14 @@ class ShopifyClient:
             if not validate_line_items(line_items):
                 return self._format_response(False, error="Invalid line items provided")
             
+            # Use REST Admin API as the primary method for creating orders
+            return self._create_order_via_rest(
+                original_line_items=line_items,
+                customer_info=customer_info or {},
+                shipping_address=shipping_address or {},
+                billing_address=billing_address or {},
+            )
+            
             # Format line items for GraphQL
             formatted_line_items = []
             for item in line_items:
@@ -659,6 +667,23 @@ class ShopifyClient:
             else:
                 return self._format_response(False, error="No order data returned")
                 
+        except GraphQLError as e:
+            # Fallback to REST Admin API when GraphQL schema/input type isn't available on this shop
+            msg = str(e).lower()
+            if "ordercreateinput" in msg or "ordercreateorderinput" in msg or "isn't a defined input type" in msg:
+                try:
+                    return self._create_order_via_rest(
+                        original_line_items=line_items,
+                        customer_info=customer_info or {},
+                        shipping_address=shipping_address or {},
+                        billing_address=billing_address or {},
+                    )
+                except Exception as rest_err:
+                    self.logger.error(f"REST order creation failed: {rest_err}")
+                    return self._format_response(False, error=str(rest_err))
+            # Otherwise, bubble up as normal error
+            self.logger.error(f"Error creating order (GraphQL): {str(e)}")
+            return self._format_response(False, error=str(e))
         except Exception as e:
             self.logger.error(f"Error creating order: {str(e)}")
             return self._format_response(False, error=str(e))
@@ -1096,6 +1121,109 @@ class ShopifyClient:
         except Exception as e:
             self.logger.error(f"Error in create_draft_order_with_inventory_adjustment: {str(e)}")
             return self._format_response(False, error=str(e))
+
+    # ===== PRIVATE HELPERS (REST FALLBACK) =====
+    def _create_order_via_rest(
+        self,
+        original_line_items: List[Dict[str, Any]],
+        customer_info: Dict[str, Any],
+        shipping_address: Dict[str, Any],
+        billing_address: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        """
+        Create an order using the REST Admin API as a compatibility fallback.
+        Expects original input shapes (variantId/productId, quantity, customer_info, addresses).
+        """
+        from .utils import extract_id_from_gid
+
+        # Build REST line items (require numeric variant_id)
+        rest_line_items: List[Dict[str, Any]] = []
+        for item in original_line_items or []:
+            qty = int(item.get("quantity", 1))
+            variant_id_val = item.get("variantId") or item.get("variant_id")
+            if variant_id_val:
+                if isinstance(variant_id_val, str) and variant_id_val.startswith("gid://shopify/"):
+                    numeric = extract_id_from_gid(variant_id_val)
+                else:
+                    numeric = str(variant_id_val)
+                if not numeric:
+                    continue
+                try:
+                    rest_line_items.append({"variant_id": int(numeric), "quantity": qty})
+                except ValueError:
+                    # Skip items with non-numeric variant ids
+                    continue
+
+        if not rest_line_items:
+            return self._format_response(False, error="No valid variant_id found for REST order creation")
+
+        # Map addresses to REST shape using the original (snake_case) fields when available
+        def _rest_addr(src: Dict[str, Any]) -> Dict[str, Any]:
+            if not isinstance(src, dict) or not src:
+                return {}
+            return {
+                "first_name": src.get("first_name") or src.get("firstName"),
+                "last_name": src.get("last_name") or src.get("lastName"),
+                "phone": src.get("phone"),
+                "address1": src.get("address1") or src.get("line1"),
+                "address2": src.get("address2") or src.get("line2"),
+                "city": src.get("city"),
+                "province": src.get("province") or src.get("state") or src.get("provinceCode"),
+                "country": src.get("country") or src.get("countryCode"),
+                "zip": src.get("zip") or src.get("postal_code") or src.get("postalCode"),
+            }
+
+        payload: Dict[str, Any] = {
+            "order": {
+                "email": (customer_info or {}).get("email"),
+                "line_items": rest_line_items,
+            }
+        }
+
+        ship = _rest_addr(shipping_address)
+        if any(v for v in ship.values() if v):
+            payload["order"]["shipping_address"] = ship
+
+        bill = _rest_addr(billing_address)
+        if any(v for v in bill.values() if v):
+            payload["order"]["billing_address"] = bill
+
+        url = f"https://{self.shop_domain}/admin/api/{self.api_version}/orders.json"
+        self.logger.info("Falling back to REST Admin API for order creation")
+        resp = self.session.post(url, json=payload, timeout=REQUEST_TIMEOUT)
+
+        if resp.status_code not in (200, 201):
+            try:
+                err_body = resp.json()
+            except Exception:
+                err_body = {"error": resp.text}
+            raise OrderError(
+                message=f"REST order create failed (status {resp.status_code})",
+                response_data=err_body,
+                status_code=resp.status_code,
+            )
+
+        data = resp.json() if resp.content else {}
+        order_obj = (data or {}).get("order", {})
+        if not order_obj:
+            return self._format_response(False, error="REST order created but response missing 'order'")
+
+        # Return a minimally consistent shape
+        normalized = {
+            "id": order_obj.get("id"),
+            "name": order_obj.get("name") or order_obj.get("order_number"),
+            "createdAt": order_obj.get("created_at"),
+            "displayFinancialStatus": order_obj.get("financial_status"),
+            "displayFulfillmentStatus": order_obj.get("fulfillment_status"),
+            "totalPriceSet": {
+                "shopMoney": {
+                    "amount": order_obj.get("total_price"),
+                    "currencyCode": order_obj.get("currency")
+                }
+            },
+            "email": order_obj.get("email"),
+        }
+        return self._format_response(True, normalized)
     
     def get_locations(self) -> Dict[str, Any]:
         """

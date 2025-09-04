@@ -1,0 +1,42 @@
+Shop Domain: uibzmp-0m.myshopify.com
+Total Products: 5
+
+# ECLA® Purple Corrector
+ID: gid://shopify/Product/8311492116676  |  Handle: ecla®-purple-corrector  |  Status: ACTIVE
+Vendor: My Store  |  Type:   |  Tags: 
+Created: 2025-07-10T20:46:23Z  |  Updated: 2025-08-09T15:43:30Z
+Images: 1
+Variants:
+  - Default Title | id=gid://shopify/ProductVariant/45009045881028 | price=26.00 | sku=None | inv=20 | available=True
+
+# ECLA® Teeth Whitening Pen
+ID: gid://shopify/Product/8311493394628  |  Handle: ecla®-teeth-whitening-pen  |  Status: ACTIVE
+Vendor: My Store  |  Type:   |  Tags: 
+Created: 2025-07-10T20:56:01Z  |  Updated: 2025-08-20T14:18:31Z
+Images: 1
+Variants:
+  - Default Title | id=gid://shopify/ProductVariant/45009060724932 | price=20.00 | sku=None | inv=2 | available=True
+
+# ECLA® e20 Bionic⁺ Kit
+ID: gid://shopify/Product/8311497916612  |  Handle: ecla®-e20-bionic-kit  |  Status: ACTIVE
+Vendor: My Store  |  Type:   |  Tags: 
+Created: 2025-07-10T20:59:30Z  |  Updated: 2025-08-10T01:51:36Z
+Images: 1
+Variants:
+  - Default Title | id=gid://shopify/ProductVariant/45009099423940 | price=55.00 | sku=None | inv=-40 | available=False
+
+# Artificial plant
+ID: gid://shopify/Product/8344469930180  |  Handle: artificial-plant  |  Status: ACTIVE
+Vendor: My Store  |  Type:   |  Tags: 
+Created: 2025-08-21T14:33:07Z  |  Updated: 2025-08-22T02:34:21Z
+Images: 1
+Variants:
+  - Default Title | id=gid://shopify/ProductVariant/45119334351044 | price=50.00 | sku=None | inv=100 | available=True
+
+# Untitled 22Aug_18:05
+ID: gid://shopify/Product/8345007259844  |  Handle: untitled-22aug_18-05  |  Status: DRAFT
+Vendor: My Store  |  Type:   |  Tags: 
+Created: 2025-08-22T15:06:24Z  |  Updated: 2025-08-22T15:07:49Z
+Images: 0
+Variants:
+  - Default Title | id=gid://shopify/ProductVariant/45121937539268 | price=20.00 | sku=None | inv=0 | available=False

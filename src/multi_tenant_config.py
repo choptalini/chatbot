@@ -4,7 +4,7 @@ Manages settings for the multi-tenant WhatsApp bot system
 """
 
 import os
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -17,8 +17,14 @@ class MultiTenantConfig:
     DATABASE_URL = os.getenv("DATABASE_URL")
     
     # SwiftReplies admin user settings (default for all operations)
-    ADMIN_USER_ID = 2  # SwiftReplies admin
+    # ADMIN_USER_ID = 2  # SwiftReplies admin (previous default)
+    # DEFAULT_CHATBOT_ID = 2  # SwiftReplies main bot (previous default)
+    # Default routing target (used by destination-based routing via WHATSAPP_SENDER)
+    ADMIN_USER_ID = 2  # SwiftReplies admin (default)
     DEFAULT_CHATBOT_ID = 2  # SwiftReplies main bot
+    
+    # Routing strategy (local-config preferred over DB for destination-based routing)
+    ROUTE_BY_DESTINATION = os.getenv("ROUTE_BY_DESTINATION", "true").lower() == "true"
     
     # Feature flags for gradual migration
     ENABLE_MULTI_TENANT = os.getenv("ENABLE_MULTI_TENANT", "true").lower() == "true"
@@ -40,8 +46,13 @@ class MultiTenantConfig:
     # In production, this would be managed through the database
     PHONE_TO_USER_MAPPING = {
         # Add your phone numbers here during migration period
+        # Previous SwiftReplies examples (disabled):
         # "+1234567890": {"user_id": 2, "chatbot_id": 2},
         # "+9876543210": {"user_id": 2, "chatbot_id": 2},
+
+        # Current active mapping → route this from_number to AstroSouks (user_id=6, chatbot_id=3)
+        "96170895652": {"user_id": 6, "chatbot_id": 3},
+        "+96170895652": {"user_id": 6, "chatbot_id": 3},
     }
     
     @classmethod
@@ -66,6 +77,111 @@ class MultiTenantConfig:
             "user_id": cls.ADMIN_USER_ID,
             "chatbot_id": cls.DEFAULT_CHATBOT_ID
         }
+    
+    @staticmethod
+    def _normalize_number(num: Optional[str]) -> Optional[str]:
+        """Normalize phone numbers to a comparable canonical form (digits only, no leading '+')."""
+        if not num:
+            return None
+        # Remove common formatting characters and leading '+'
+        cleaned = (
+            str(num)
+            .replace(" ", "")
+            .replace("-", "")
+            .replace("(", "")
+            .replace(")", "")
+            .lstrip("+")
+        )
+        return cleaned
+    
+    # WhatsApp Sender to Tenant Mapping
+    SENDER_TO_TENANT_MAPPING = {
+        # SwiftReplies Main Bot (Default)
+        "96179374241": {
+            "user_id": 2,  # SwiftReplies admin
+            "chatbot_id": 2,  # SwiftReplies main bot
+            "agent_id": "ecla_sales_agent"
+        },
+        # AstroSouks Bot
+        "9613451652": {
+            "user_id": 6,  # AstroSouks user
+            "chatbot_id": 3,  # AstroSouks chatbot
+            "agent_id": "astrosouks_sales_agent"
+        }
+    }
+    
+    @classmethod
+    def get_routing_for_destination(cls, to_number: Optional[str]) -> Optional[Dict[str, Any]]:
+        """
+        Resolve routing by destination (business) number using multi-tenant configuration.
+        
+        This method now supports multiple WhatsApp business numbers:
+        - 96179374241: SwiftReplies (ECLA) - user_id=2, chatbot_id=2, agent=ecla_sales_agent
+        - 9613451652: AstroSouks - user_id=6, chatbot_id=3, agent=astrosouks_sales_agent
+        
+        Args:
+            to_number: The destination WhatsApp number (where the message was sent)
+            
+        Returns:
+            Dict with user_id, chatbot_id, and agent_id if found, None otherwise
+        """
+        if not cls.ROUTE_BY_DESTINATION or not to_number:
+            return None
+            
+        normalized_to = cls._normalize_number(to_number)
+        if not normalized_to:
+            return None
+            
+        # Check our sender mapping
+        for sender_number, config in cls.SENDER_TO_TENANT_MAPPING.items():
+            if cls._normalize_number(sender_number) == normalized_to:
+                return config.copy()  # Return a copy to avoid mutations
+                
+        # Fallback: Check environment variables for backwards compatibility
+        env_sender = os.getenv("WHATSAPP_SENDER")
+        astrosouks_sender = os.getenv("ASTROSOUKS_WHATSAPP_SENDER")
+        
+        if env_sender and cls._normalize_number(to_number) == cls._normalize_number(env_sender):
+            return {
+                "user_id": cls.ADMIN_USER_ID,
+                "chatbot_id": cls.DEFAULT_CHATBOT_ID,
+                "agent_id": "ecla_sales_agent"
+            }
+        elif astrosouks_sender and cls._normalize_number(to_number) == cls._normalize_number(astrosouks_sender):
+            return {
+                "user_id": 6,
+                "chatbot_id": 3,
+                "agent_id": "astrosouks_sales_agent"
+            }
+            
+        return None
+    
+    @classmethod
+    def get_all_sender_configs(cls) -> Dict[str, Dict[str, Any]]:
+        """
+        Get all configured WhatsApp sender configurations.
+        
+        Returns:
+            Dict mapping normalized phone numbers to their configurations
+        """
+        return cls.SENDER_TO_TENANT_MAPPING.copy()
+    
+    @classmethod
+    def get_sender_config(cls, sender_number: str) -> Optional[Dict[str, Any]]:
+        """
+        Get configuration for a specific sender number.
+        
+        Args:
+            sender_number: The WhatsApp sender number to look up
+            
+        Returns:
+            Configuration dict if found, None otherwise
+        """
+        normalized = cls._normalize_number(sender_number)
+        for config_number, config in cls.SENDER_TO_TENANT_MAPPING.items():
+            if cls._normalize_number(config_number) == normalized:
+                return config.copy()
+        return None
     
     @classmethod
     def should_track_usage(cls) -> bool:

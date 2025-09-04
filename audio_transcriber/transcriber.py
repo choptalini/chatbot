@@ -5,6 +5,7 @@ Downloads audio from Infobip URLs, transcribes to English, and cleans up tempora
 """
 
 import os
+import json
 import subprocess
 import tempfile
 import shutil
@@ -113,26 +114,52 @@ def transcribe_audio_file(audio_path: str) -> Tuple[str, str]:
         raise ValueError("OPENAI_API_KEY not found in .env file")
     
     client = OpenAI(api_key=api_key)
-    
+
+    def _translate_with_detection(text: str) -> Tuple[str, str]:
+        """
+        Use gpt-4o-mini to detect language and translate to English if needed.
+        Returns (iso_language_code, output_text_in_english_or_original).
+        """
+        try:
+            completion = client.chat.completions.create(
+                model="gpt-4o-mini",
+                temperature=0,
+                response_format={"type": "json_object"},
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are a translator. Detect the input text language (ISO 639-1 code). "
+                            "If it's English (en), return the text unchanged. Otherwise, translate it to natural English. "
+                            "Only respond with a compact JSON object of the form {\"language\":\"<iso>\",\"text\":\"<result>\"}."
+                        ),
+                    },
+                    {
+                        "role": "user",
+                        "content": text or "",
+                    },
+                ],
+            )
+            raw = completion.choices[0].message.content or "{}"
+            data = json.loads(raw)
+            lang = (data.get("language") or "").strip().lower() or "unknown"
+            out_text = data.get("text") or text or ""
+            return lang, out_text
+        except Exception:
+            # Fallback: unknown language, return original text
+            return "unknown", text or ""
+
     with open(audio_path, "rb") as audio_file:
-        # First detect language using transcription
+        # Transcribe in the original language using gpt-4o-mini-transcribe
         transcription = client.audio.transcriptions.create(
-            model="whisper-1",
+            model="gpt-4o-mini-transcribe",
             file=audio_file,
-            response_format="verbose_json"
         )
-        detected_language = transcription.language
-        
-        # Then translate to English
-        audio_file.seek(0)
-        translation = client.audio.translations.create(
-            model="whisper-1",
-            file=audio_file,
-            prompt="Translate this audio to English."
-        )
-        english_text = translation.text
-    
-    return detected_language, english_text
+        original_text = getattr(transcription, "text", None) or ""
+
+    # Translate to English if needed using gpt-4o-mini (or return as-is when English)
+    detected_language, english_or_original = _translate_with_detection(original_text)
+    return detected_language, english_or_original
 
 @traceable
 def transcribe_from_infobip_url(media_url: str) -> Tuple[str, str]:

@@ -89,7 +89,7 @@ class ECLAAgent:
                 raise ValueError("OpenAI API key not found or not set properly")
             
             model = init_chat_model(
-                model=model_settings.get("name", "gpt-5-mini"),
+                model=model_settings.get("name", "gpt-4.1-mini"),
                 model_provider=model_settings.get("provider", "openai"),
                 max_tokens=None,
                 api_key=api_key,

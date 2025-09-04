@@ -121,6 +121,11 @@ class Settings:
     def whatsapp_sender(self) -> str:
         """Get WhatsApp sender number from environment."""
         return os.getenv("WHATSAPP_SENDER", "")
+    
+    @property
+    def astrosouks_whatsapp_sender(self) -> str:
+        """Get AstroSouks WhatsApp sender number from environment."""
+        return os.getenv("ASTROSOUKS_WHATSAPP_SENDER", "")
 
     # Environment Configuration
     @property
@@ -140,6 +145,12 @@ class Settings:
             ("INFOBIP_BASE_URL", self.infobip_base_url),
             ("WHATSAPP_SENDER", self.whatsapp_sender),
         ]
+        
+        # Optional: Validate AstroSouks sender if multi-tenant is enabled
+        if os.getenv("ENABLE_MULTI_TENANT", "true").lower() == "true":
+            astrosouks_sender = self.astrosouks_whatsapp_sender
+            if astrosouks_sender:  # Only validate if it's provided
+                required_vars.append(("ASTROSOUKS_WHATSAPP_SENDER", astrosouks_sender))
         
         missing_vars = []
         for var_name, var_value in required_vars:

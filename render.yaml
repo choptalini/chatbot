@@ -16,13 +16,19 @@ services:
         sync: false
       - key: WHATSAPP_SENDER
         sync: false
+      - key: ASTROSOUKS_WHATSAPP_SENDER
+        sync: false
       - key: OPENAI_API_KEY
         sync: false
       - key: GEMINI_API_KEY
         sync: false
       - key: SUPABASE_URL
         sync: false
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_MEDIA_BUCKET
         sync: false
       - key: SHOPIFY_SHOP_DOMAIN
         sync: false
@@ -30,10 +36,51 @@ services:
         sync: false
       - key: SHOPIFY_WEBHOOK_SECRET
         sync: false
+      - key: ASTROSOUKS_SHOPIFY_SHOP_DOMAIN
+        sync: false
+      - key: ASTROSOUKS_SHOPIFY_TOKEN
+        sync: false
       - key: LANGSMITH_API_KEY
         sync: false
+      - key: LANGSMITH_PROJECT
+        sync: false
       - key: CORS_ORIGINS
-        sync: false 
+        sync: false
+      - key: GOOGLE_MAPS_API
+        sync: false
+      - key: ENABLE_MULTI_TENANT
+        sync: false
+      - key: ROUTE_BY_DESTINATION
+        sync: false
+      - key: ENABLE_USAGE_TRACKING
+        sync: false
+      - key: ENABLE_ACTIONS_CENTER
+        sync: false
+      - key: DEBOUNCE_SECONDS
+        sync: false
+      - key: MAX_WORKERS
+        sync: false
+      - key: BUSY_THRESHOLD
+        sync: false
+      - key: DEFAULT_DAILY_MESSAGE_LIMIT
+        sync: false
+      - key: DEFAULT_MONTHLY_MESSAGE_LIMIT
+        sync: false
+      - key: DEFAULT_DAILY_CAMPAIGN_LIMIT
+        sync: false
+      - key: DEFAULT_MONTHLY_CAMPAIGN_LIMIT
+        sync: false
+      - key: API_HOST
+        sync: false
+      - key: API_PORT
+        sync: false
+      - key: API_RELOAD
+        sync: false
+      - key: LOG_LEVEL
+        sync: false
+      - key: LOG_FILE
+        sync: false
+      - key: CHROMA_PERSIST_DIRECTORY
+        sync: false
       - key: SECRET_KEY
-        generateValue: true
         generateValue: true
