@@ -159,6 +159,7 @@ class AstroSouksOrderManager:
                 "variant_title": rv.variant_title,
                 "variant_id": rv.variant_id,
                 "quantity": qty,
+                "unit_price": rv.unit_price,
             }
             if discount_percent > 0 and rv.unit_price is not None:
                 discounted = max(0.0, rv.unit_price * (1.0 - float(discount_percent) / 100.0))
@@ -180,8 +181,6 @@ class AstroSouksOrderManager:
             order_notes = order_data.get('order_notes', '')
             discount_percent = float(order_data.get('discount_percent') or 0)
 
-            if not customer_info.get('email'):
-                return {"success": False, "error": "Customer email is required"}
             if not selections:
                 return {"success": False, "error": "At least one line item is required"}
             if discount_percent < 0 or discount_percent > 100:
@@ -203,13 +202,46 @@ class AstroSouksOrderManager:
                     if "price" in li:
                         entry["price"] = li["price"]
                     draft_items.append(entry)
+                # Email is optional for draft orders; only include if provided
+                cust_info = {}
+                if customer_info.get('email'):
+                    cust_info['email'] = customer_info.get('email')
                 draft_result = self.client.create_draft_order(
                     line_items=draft_items,
-                    customer_info={"email": customer_info.get('email')}
+                    customer_info=cust_info or None
                 )
                 if not draft_result.get('success'):
                     return {"success": False, "error": f"Failed to create discounted draft order: {draft_result.get('error')}"}
-                return {"success": True, "type": "draft_order", "data": draft_result.get('data'), "discount_percent": discount_percent}
+
+                # Pricing breakdown (tool-side) using discounted line prices
+                subtotal = 0.0
+                lines: List[Dict[str, Any]] = []
+                for li in built["line_items"]:
+                    price_each = float(li.get("price") or 0)
+                    qty = int(li.get("quantity") or 0)
+                    line_total = round(price_each * qty, 2)
+                    subtotal = round(subtotal + line_total, 2)
+                    lines.append({
+                        "name": li.get("product_name"),
+                        "quantity": qty,
+                        "price_each": price_each,
+                        "line_total": line_total,
+                    })
+                shipping_fee = 0.0 if subtotal >= 40.0 else 3.0
+                total = round(subtotal + shipping_fee, 2)
+
+                return {
+                    "success": True,
+                    "type": "draft_order",
+                    "data": draft_result.get('data'),
+                    "discount_percent": discount_percent,
+                    "pricing": {
+                        "lines": lines,
+                        "subtotal": subtotal,
+                        "shipping_fee": shipping_fee,
+                        "total": total,
+                    }
+                }
 
             # Else create a real order (no discount)
             order_line_items = [{"variantId": li["variant_id"], "quantity": li["quantity"]} for li in built["line_items"]]
@@ -258,7 +290,114 @@ class AstroSouksOrderManager:
                 except Exception:
                     pass
 
-            return {"success": True, "type": "order", "data": order, "inventory": {"successful": inventory_adjustments, "errors": inventory_errors}}
+            # Pricing breakdown (tool-side) using resolved unit prices
+            subtotal = 0.0
+            lines: List[Dict[str, Any]] = []
+            for li in built["line_items"]:
+                price_each = li.get("unit_price")
+                if price_each is None:
+                    continue
+                price_each_f = float(price_each)
+                qty = int(li.get("quantity") or 0)
+                line_total = round(price_each_f * qty, 2)
+                subtotal = round(subtotal + line_total, 2)
+                lines.append({
+                    "name": li.get("product_name"),
+                    "quantity": qty,
+                    "price_each": price_each_f,
+                    "line_total": line_total,
+                })
+            shipping_fee = 0.0 if subtotal >= 40.0 else 3.0
+            total = round(subtotal + shipping_fee, 2)
+
+            # --- Persist order for AstroSouks tenant (user_id=6, chatbot_id=3) ---
+            try:
+                metadata = order_data.get('metadata', {}) if isinstance(order_data, dict) else {}
+                from_number = (metadata.get('from_number') if isinstance(metadata, dict) else None) or \
+                              shipping_address.get('phone') or customer_info.get('phone')
+                contact_id = None
+                if from_number:
+                    # Create/find contact scoped to AstroSouks tenant
+                    contact_id, _ = local_db.get_or_create_contact(from_number, user_id=6, name=(
+                        (customer_info.get('first_name') or '') + ' ' + (customer_info.get('last_name') or '')
+                    ).strip())
+                if contact_id:
+                    shopify_order_data = {
+                        "success": True,
+                        "tenant": {"user_id": 6, "chatbot_id": 3},
+                        "order": {
+                            "id": (order or {}).get('id'),
+                            "name": (order or {}).get('name'),
+                            "status": (order or {}).get('status', 'pending'),
+                            "total_price": total,
+                            "created_at": (order or {}).get('createdAt')
+                        },
+                        "customer": {
+                            "first_name": customer_info.get('first_name', ''),
+                            "last_name": customer_info.get('last_name', ''),
+                            "phone": customer_info.get('phone', ''),
+                        },
+                        "line_items": [
+                            {
+                                "product_name": li.get('product_name'),
+                                "quantity": int(li.get('quantity') or 0),
+                                "price": float(li.get('unit_price') or 0.0),
+                                "variant_id": li.get('variant_id'),
+                            } for li in built["line_items"]
+                        ],
+                        "addresses": {
+                            "shipping": {
+                                "first_name": customer_info.get('first_name', ''),
+                                "last_name": customer_info.get('last_name', ''),
+                                "phone": shipping_address.get('phone') or customer_info.get('phone', ''),
+                                "address1": shipping_address.get('address1'),
+                                "address2": shipping_address.get('address2'),
+                                "city": shipping_address.get('city'),
+                                "province": shipping_address.get('province'),
+                                "country": shipping_address.get('country'),
+                                "zip": shipping_address.get('zip') or shipping_address.get('postal_code') or '1100',
+                                "postal_code": shipping_address.get('postal_code') or shipping_address.get('zip') or '1100',
+                            },
+                            "billing": (billing_address or shipping_address),
+                        },
+                        "order_summary": {
+                            "subtotal": subtotal,
+                            "total": total,
+                            "currency": ((order or {}).get('totalPriceSet') or {}).get('shopMoney', {}).get('currencyCode', 'USD'),
+                            "item_count": sum(int(li.get('quantity') or 0) for li in built["line_items"]),
+                        },
+                        "inventory_adjustments": {
+                            "successful": inventory_adjustments,
+                            "errors": inventory_errors,
+                            "summary": {
+                                "total_adjustments": len(inventory_adjustments),
+                                "total_errors": len(inventory_errors),
+                                "all_successful": len(inventory_errors) == 0
+                            }
+                        },
+                        "order_notes": order_notes,
+                    }
+                    local_db.create_order_and_items(
+                        user_id=6,
+                        contact_id=contact_id,
+                        shopify_order_data=shopify_order_data,
+                    )
+            except Exception:
+                # Do not fail order creation if DB save fails
+                pass
+
+            return {
+                "success": True,
+                "type": "order",
+                "data": order,
+                "inventory": {"successful": inventory_adjustments, "errors": inventory_errors},
+                "pricing": {
+                    "lines": lines,
+                    "subtotal": subtotal,
+                    "shipping_fee": shipping_fee,
+                    "total": total,
+                }
+            }
         except Exception as e:
             return {"success": False, "error": f"Error creating AstroSouks order: {str(e)}"}
 
@@ -276,7 +415,6 @@ def _parse_product_selections_json(text: str) -> List[Dict[str, Any]]:
 
 @tool
 def create_astrosouks_order(
-    customer_email: str = "",
     customer_first_name: str = "",
     customer_last_name: str = "",
     customer_phone: str = "",
@@ -285,7 +423,6 @@ def create_astrosouks_order(
     shipping_city: str = "",
     shipping_province: str = "",
     shipping_country: str = "",
-    shipping_postal_code: str = "",
     product_selections: str = "",
     billing_same_as_shipping: bool = True,
     billing_address_line1: str = "",
@@ -293,7 +430,6 @@ def create_astrosouks_order(
     billing_city: str = "",
     billing_province: str = "",
     billing_country: str = "",
-    billing_postal_code: str = "",
     order_notes: str = "",
     discount_percent: float = 0.0,
     *,
@@ -311,12 +447,11 @@ def create_astrosouks_order(
     try:
         # Validate required fields
         required = {
-            'customer_email': customer_email,
             'shipping_address_line1': shipping_address_line1,
             'shipping_city': shipping_city,
             'shipping_province': shipping_province,
             'shipping_country': shipping_country,
-            'shipping_postal_code': shipping_postal_code,
+            # postal code is defaulted; no longer required from input
         }
         missing = [k for k, v in required.items() if not v or str(v).strip() == ""]
         if missing and discount_percent <= 0:
@@ -329,7 +464,6 @@ def create_astrosouks_order(
         om = AstroSouksOrderManager()
         order_data = {
             'customer_info': {
-                'email': customer_email.strip(),
                 'first_name': customer_first_name.strip(),
                 'last_name': customer_last_name.strip(),
                 'phone': customer_phone.strip(),
@@ -341,8 +475,8 @@ def create_astrosouks_order(
                 'city': shipping_city.strip(),
                 'province': shipping_province.strip(),
                 'country': shipping_country.strip(),
-                'zip': shipping_postal_code.strip(),
-                'postal_code': shipping_postal_code.strip(),
+                'zip': "1100",
+                'postal_code': "1100",
                 'first_name': customer_first_name.strip(),
                 'last_name': customer_last_name.strip(),
                 'phone': customer_phone.strip(),
@@ -353,8 +487,8 @@ def create_astrosouks_order(
                 'city': (billing_city or shipping_city).strip(),
                 'province': (billing_province or shipping_province).strip(),
                 'country': (billing_country or shipping_country).strip(),
-                'zip': (billing_postal_code or shipping_postal_code).strip(),
-                'postal_code': (billing_postal_code or shipping_postal_code).strip(),
+                'zip': "1100",
+                'postal_code': "1100",
                 'first_name': customer_first_name.strip(),
                 'last_name': customer_last_name.strip(),
                 'phone': customer_phone.strip(),
@@ -370,22 +504,60 @@ def create_astrosouks_order(
 
         if result.get('type') == 'draft_order':
             draft = result.get('data', {})
-            return (
-                "✅ AstroSouks DISCOUNTED DRAFT ORDER CREATED\n\n"
-                f"• Draft Order ID: {draft.get('id')}\n"
-                f"• Status: {draft.get('status')}\n"
-                f"• Discount Applied: {discount_percent}%\n"
-                "• Next: Complete the draft order in Shopify to finalize the sale."
-            )
+            pricing = result.get('pricing', {}) or {}
+            lines = pricing.get('lines', []) or []
+            subtotal = pricing.get('subtotal')
+            shipping_fee = pricing.get('shipping_fee')
+            total = pricing.get('total')
+
+            summary_lines = [
+                "✅ AstroSouks DISCOUNTED DRAFT ORDER CREATED\n",
+                f"• Draft Order ID: {draft.get('id')}",
+                f"• Status: {draft.get('status')}",
+                f"• Discount Applied: {discount_percent}%\n",
+                "📦 Items:",
+            ]
+            for ln in lines:
+                summary_lines.append(
+                    f"  - {ln.get('name')} × {ln.get('quantity')} @ ${ln.get('price_each'):.2f} = ${ln.get('line_total'):.2f}"
+                )
+            if subtotal is not None and shipping_fee is not None and total is not None:
+                summary_lines.extend([
+                    "",
+                    f"Subtotal: ${subtotal:.2f}",
+                    f"Shipping: ${shipping_fee:.2f}",
+                    f"Total: ${total:.2f}",
+                ])
+            summary_lines.append("\n• Next: Complete the draft order in Shopify to finalize the sale.")
+            return "\n".join(summary_lines)
 
         # Else real order
         order = result.get('data', {})
-        return (
-            "✅ AstroSouks ORDER CREATED SUCCESSFULLY!\n\n"
-            f"• Order Number: {order.get('name')}\n"
-            f"• Order ID: {order.get('id')}\n"
-            f"• Status: {order.get('status', 'pending')}\n"
-        )
+        pricing = result.get('pricing', {}) or {}
+        lines = pricing.get('lines', []) or []
+        subtotal = pricing.get('subtotal')
+        shipping_fee = pricing.get('shipping_fee')
+        total = pricing.get('total')
+
+        summary_lines = [
+            "✅ AstroSouks ORDER CREATED SUCCESSFULLY!\n",
+            f"• Order Number: {order.get('name')}",
+            f"• Order ID: {order.get('id')}",
+            f"• Status: {order.get('status', 'pending')}\n",
+            "📦 Items:",
+        ]
+        for ln in lines:
+            summary_lines.append(
+                f"  - {ln.get('name')} × {ln.get('quantity')} @ ${ln.get('price_each'):.2f} = ${ln.get('line_total'):.2f}"
+            )
+        if subtotal is not None and shipping_fee is not None and total is not None:
+            summary_lines.extend([
+                "",
+                f"Subtotal: ${subtotal:.2f}",
+                f"Shipping: ${shipping_fee:.2f}",
+                f"Total: ${total:.2f}",
+            ])
+        return "\n".join(summary_lines)
 
     except Exception as e:
         return f"❌ Error creating AstroSouks order: {str(e)}"

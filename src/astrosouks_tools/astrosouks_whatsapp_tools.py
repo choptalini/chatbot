@@ -4,7 +4,7 @@ from __future__ import annotations
 WhatsApp tools for AstroSouks (AstroTech).
 
 Tool: astrosouks_send_product_image
-- Sends up to 3 images for a given AstroSouks product name to the current WhatsApp recipient.
+- Sends only the first image for a given AstroSouks product name to the current WhatsApp recipient.
 - Product names and image URLs are sourced from the generated text export
   (shopify_active_product_images_*.txt). This ensures we cover ALL active products.
 """
@@ -42,7 +42,7 @@ def _find_latest_products_file() -> Optional[Path]:
 
 
 def _parse_products_file(path: Path) -> Dict[str, List[str]]:
-    """Parse the exported products+images file into {product_name: [img_url,...]} (max 3 urls).
+    """Parse the exported products+images file into {product_name: [img_url,...]} (first image only used).
 
     The file format is lines with headers like:
       # Product Name
@@ -72,7 +72,7 @@ def _parse_products_file(path: Path) -> Dict[str, List[str]]:
         m = re.search(r"-\s+(https?://\S+)", line)
         if m:
             url = m.group(1).strip()
-            if len(mapping[current_name]) < 3:
+            if len(mapping[current_name]) < 1:
                 mapping[current_name].append(url)
 
     # Drop any entries without images
@@ -92,7 +92,7 @@ PRODUCT_NAMES: List[str] = sorted(ASTROSOUSKS_PRODUCT_IMAGES.keys())
 
 def _build_tool_description() -> str:
     lines: List[str] = []
-    lines.append("Sends rich content to the user on WhatsApp. This AstroSouks tool sends up to 3 product images.")
+    lines.append("Sends rich content to the user on WhatsApp. This AstroSouks tool sends the first product image only.")
     lines.append("")
     lines.append("Args:")
     lines.append("  - product_name (Optional[str]): The AstroSouks product name to send images for. Must be one of the options listed below (case-insensitive).")
@@ -120,7 +120,7 @@ def astrosouks_send_product_image(
     config: RunnableConfig,
 ) -> Dict[str, Any]:
     """
-    Sends rich content to the user on WhatsApp. This AstroSouks tool sends up to 3 product images.
+    Sends rich content to the user on WhatsApp. This AstroSouks tool sends only the first product image.
     """
     # Ensure description is fully populated (LangChain/LangGraph will read this as instruction)
     try:
@@ -146,7 +146,7 @@ def astrosouks_send_product_image(
     if not matched_key:
         return {"success": False, "error": f"Product '{product_name}' not found. Check available names in the tool description."}
 
-    image_urls = ASTROSOUSKS_PRODUCT_IMAGES.get(matched_key, [])[:3]
+    image_urls = ASTROSOUSKS_PRODUCT_IMAGES.get(matched_key, [])[:1]
     if not image_urls:
         return {"success": False, "error": f"No images available for '{matched_key}'."}
 
