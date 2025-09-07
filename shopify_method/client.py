@@ -1170,16 +1170,8 @@ class ShopifyClient:
         # Use provided subtotal or calculate from line items
         order_subtotal = subtotal if subtotal is not None else calculated_subtotal
         
-        # Add shipping charge as line item if order is under $40
+        # Calculate shipping charge for orders under $40
         shipping_fee = 0.0 if order_subtotal >= 40.0 else 3.0
-        if shipping_fee > 0:
-            rest_line_items.append({
-                "title": "Shipping",
-                "price": str(shipping_fee),
-                "quantity": 1,
-                "requires_shipping": False,
-                "taxable": False
-            })
 
         # Map addresses to REST shape using the original (snake_case) fields when available
         def _rest_addr(src: Dict[str, Any]) -> Dict[str, Any]:
@@ -1216,6 +1208,17 @@ class ShopifyClient:
                 "inventory_behaviour": "decrement_obeying_policy"
             }
         }
+
+        # Add shipping line if there's a shipping fee
+        if shipping_fee > 0:
+            payload["order"]["shipping_lines"] = [
+                {
+                    "title": "Standard Shipping",
+                    "price": str(shipping_fee),
+                    "code": "STANDARD",
+                    "source": "shopify"
+                }
+            ]
 
         ship = _rest_addr(shipping_address)
         if any(v for v in ship.values() if v):
