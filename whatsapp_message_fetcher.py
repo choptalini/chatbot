@@ -48,7 +48,7 @@ MIN_WORKERS = 1
 MAX_WORKERS = 10
 BUSY_THRESHOLD = 5
 CLEANUP_INTERVAL_SECONDS = 600
-DEBOUNCE_SECONDS = 10
+DEBOUNCE_SECONDS = 0.01
 
 # Shopify OAuth/webhook configuration removed per request
 

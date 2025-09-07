@@ -533,7 +533,8 @@ class ShopifyClient:
                      shipping_address: Optional[Dict[str, Any]] = None,
                      billing_address: Optional[Dict[str, Any]] = None,
                      send_receipt: Optional[bool] = None,
-                     send_fulfillment_receipt: Optional[bool] = None) -> Dict[str, Any]:
+                     send_fulfillment_receipt: Optional[bool] = None,
+                     subtotal: Optional[float] = None) -> Dict[str, Any]:
         """
         Create a new order.
         
@@ -558,6 +559,7 @@ class ShopifyClient:
                 customer_info=customer_info or {},
                 shipping_address=shipping_address or {},
                 billing_address=billing_address or {},
+                subtotal=subtotal,
             )
             
             # Format line items for GraphQL
@@ -677,6 +679,7 @@ class ShopifyClient:
                         customer_info=customer_info or {},
                         shipping_address=shipping_address or {},
                         billing_address=billing_address or {},
+                        subtotal=subtotal,
                     )
                 except Exception as rest_err:
                     self.logger.error(f"REST order creation failed: {rest_err}")
@@ -1129,6 +1132,7 @@ class ShopifyClient:
         customer_info: Dict[str, Any],
         shipping_address: Dict[str, Any],
         billing_address: Dict[str, Any],
+        subtotal: Optional[float] = None,
     ) -> Dict[str, Any]:
         """
         Create an order using the REST Admin API as a compatibility fallback.
@@ -1138,9 +1142,11 @@ class ShopifyClient:
 
         # Build REST line items (require numeric variant_id)
         rest_line_items: List[Dict[str, Any]] = []
+        calculated_subtotal = 0.0
         for item in original_line_items or []:
             qty = int(item.get("quantity", 1))
             variant_id_val = item.get("variantId") or item.get("variant_id")
+            price = item.get("price")  # May include discounted price
             if variant_id_val:
                 if isinstance(variant_id_val, str) and variant_id_val.startswith("gid://shopify/"):
                     numeric = extract_id_from_gid(variant_id_val)
@@ -1149,13 +1155,31 @@ class ShopifyClient:
                 if not numeric:
                     continue
                 try:
-                    rest_line_items.append({"variant_id": int(numeric), "quantity": qty})
+                    line_item = {"variant_id": int(numeric), "quantity": qty}
+                    if price is not None:
+                        line_item["price"] = str(price)  # Override price for discounts
+                        calculated_subtotal += float(price) * qty
+                    rest_line_items.append(line_item)
                 except ValueError:
                     # Skip items with non-numeric variant ids
                     continue
 
         if not rest_line_items:
             return self._format_response(False, error="No valid variant_id found for REST order creation")
+
+        # Use provided subtotal or calculate from line items
+        order_subtotal = subtotal if subtotal is not None else calculated_subtotal
+        
+        # Add shipping charge as line item if order is under $40
+        shipping_fee = 0.0 if order_subtotal >= 40.0 else 3.0
+        if shipping_fee > 0:
+            rest_line_items.append({
+                "title": "Shipping",
+                "price": str(shipping_fee),
+                "quantity": 1,
+                "requires_shipping": False,
+                "taxable": False
+            })
 
         # Map addresses to REST shape using the original (snake_case) fields when available
         def _rest_addr(src: Dict[str, Any]) -> Dict[str, Any]:
@@ -1173,19 +1197,46 @@ class ShopifyClient:
                 "zip": src.get("zip") or src.get("postal_code") or src.get("postalCode"),
             }
 
+        # Use static email for all AstroSouks orders
+        customer_email = customer_info.get("email") or "shopastrotechlb@gmail.com"
+        
         payload: Dict[str, Any] = {
             "order": {
-                "email": (customer_info or {}).get("email"),
+                "email": customer_email,
                 "line_items": rest_line_items,
+                "customer": {
+                    "first_name": (customer_info or {}).get("first_name", ""),
+                    "last_name": (customer_info or {}).get("last_name", ""),
+                    "phone": (customer_info or {}).get("phone", ""),
+                    "email": customer_email
+                },
+                "financial_status": "pending",
+                "send_receipt": True,
+                "send_fulfillment_receipt": False,
+                "inventory_behaviour": "decrement_obeying_policy"
             }
         }
 
         ship = _rest_addr(shipping_address)
         if any(v for v in ship.values() if v):
+            # Ensure customer name is in shipping address
+            if not ship.get("first_name") and customer_info:
+                ship["first_name"] = customer_info.get("first_name", "")
+            if not ship.get("last_name") and customer_info:
+                ship["last_name"] = customer_info.get("last_name", "")
+            if not ship.get("phone") and customer_info:
+                ship["phone"] = customer_info.get("phone", "")
             payload["order"]["shipping_address"] = ship
 
         bill = _rest_addr(billing_address)
         if any(v for v in bill.values() if v):
+            # Ensure customer name is in billing address
+            if not bill.get("first_name") and customer_info:
+                bill["first_name"] = customer_info.get("first_name", "")
+            if not bill.get("last_name") and customer_info:
+                bill["last_name"] = customer_info.get("last_name", "")
+            if not bill.get("phone") and customer_info:
+                bill["phone"] = customer_info.get("phone", "")
             payload["order"]["billing_address"] = bill
 
         url = f"https://{self.shop_domain}/admin/api/{self.api_version}/orders.json"
@@ -1222,6 +1273,9 @@ class ShopifyClient:
                 }
             },
             "email": order_obj.get("email"),
+            "customer": order_obj.get("customer"),
+            "shippingAddress": order_obj.get("shipping_address"),
+            "billingAddress": order_obj.get("billing_address"),
         }
         return self._format_response(True, normalized)
     

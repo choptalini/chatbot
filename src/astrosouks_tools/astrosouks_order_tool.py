@@ -244,6 +244,12 @@ class AstroSouksOrderManager:
                 }
 
             # Else create a real order (no discount)
+            # Calculate subtotal for shipping logic
+            subtotal = 0.0
+            for li in built["line_items"]:
+                if li.get("unit_price") is not None:
+                    subtotal += float(li["unit_price"]) * int(li["quantity"])
+            
             order_line_items = [{"variantId": li["variant_id"], "quantity": li["quantity"]} for li in built["line_items"]]
             result = self.client.create_order(
                 line_items=order_line_items,
@@ -252,6 +258,7 @@ class AstroSouksOrderManager:
                 billing_address=billing_address,
                 send_receipt=True,
                 send_fulfillment_receipt=False,
+                subtotal=subtotal,
             )
             if not result.get('success'):
                 return {"success": False, "error": f"Failed to create order: {result.get('error')}"}
