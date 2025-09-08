@@ -1275,10 +1275,73 @@ async def handle_manual_message(request: Request):
     try:
         payload = await request.json()
         logger.info(f"📨 Received manual message via HTTP: {payload}")
-        
-        # Send message to WhatsApp using existing function
-        # Use default client for backward compatibility
-        client = app.state.whatsapp_client
+
+        # Determine tenant routing for manual message
+        # Prefer explicit chatbot_id from payload; fallback to resolve by contact_id's owner
+        def _fetch_contact_owner_and_phone(cid: int):
+            conn = db.connect_to_db()
+            if not conn:
+                return None
+            try:
+                with conn.cursor() as cur:
+                    cur.execute("SELECT phone_number, user_id FROM contacts WHERE id = %s", (cid,))
+                    row = cur.fetchone()
+                    if row:
+                        return {"phone_number": row[0], "user_id": row[1]}
+                    return None
+            finally:
+                conn.close()
+
+        contact_id = payload.get("contact_id")
+        chatbot_id = payload.get("chatbot_id")
+
+        user_id_for_contact = None
+        if contact_id and isinstance(contact_id, int):
+            info = await asyncio.to_thread(_fetch_contact_owner_and_phone, contact_id)
+            if info:
+                user_id_for_contact = info.get("user_id")
+
+        # Resolve sender based on contact's owner FIRST to avoid client-side mismatch
+        sender_cfg = None
+        if isinstance(user_id_for_contact, int):
+            sender_cfg = MultiTenantConfig.resolve_sender_config_by_user(user_id_for_contact)
+        if sender_cfg is None and isinstance(chatbot_id, int):
+            sender_cfg = MultiTenantConfig.resolve_sender_config_by_chatbot(chatbot_id)
+
+        # Default to ECLA if still unresolved
+        client: WhatsAppClient
+        if sender_cfg and isinstance(sender_cfg.get("client_key"), str):
+            client_key = sender_cfg["client_key"]
+            client = app.state.whatsapp_clients.get(client_key) or app.state.whatsapp_client
+            logger.info(f"📨 Manual message routed to client '{client_key}' for user_id={user_id_for_contact} chatbot_id={chatbot_id}")
+        else:
+            client = app.state.whatsapp_client
+            logger.info("📨 Manual message routed to default client (fallback)")
+
+        # If the payload chatbot_id mismatches the resolved mapping, correct the DB message row
+        try:
+            resolved_chatbot_id = sender_cfg.get("chatbot_id") if sender_cfg else MultiTenantConfig.DEFAULT_CHATBOT_ID
+            payload_mid = payload.get("message_id")
+            if isinstance(resolved_chatbot_id, int) and isinstance(payload_mid, int):
+                if not isinstance(chatbot_id, int) or chatbot_id != resolved_chatbot_id:
+                    def _update_message_chatbot(mid: int, new_cid: int):
+                        conn2 = db.connect_to_db()
+                        if not conn2:
+                            return False
+                        try:
+                            with conn2.cursor() as cur2:
+                                cur2.execute("UPDATE messages SET chatbot_id = %s WHERE id = %s", (new_cid, mid))
+                                conn2.commit()
+                                return True
+                        finally:
+                            conn2.close()
+                    ok_fix = await asyncio.to_thread(_update_message_chatbot, payload_mid, resolved_chatbot_id)
+                    if ok_fix:
+                        logger.info(f"🛠️ Corrected manual message chatbot_id to {resolved_chatbot_id} for message {payload_mid}")
+        except Exception as _fix_err:
+            logger.warning(f"Could not correct chatbot_id for manual message: {_fix_err}")
+
+        # Send the message out via selected client
         await send_manual_message_to_whatsapp(payload, client)
         
         return {"status": "success", "message": "Manual message processed"}

@@ -155,6 +155,48 @@ class MultiTenantConfig:
             }
             
         return None
+
+    @classmethod
+    def _match_mapping_by(cls, *, user_id: Optional[int] = None, chatbot_id: Optional[int] = None) -> Optional[Dict[str, Any]]:
+        """
+        Internal: find a sender mapping entry by user_id or chatbot_id.
+        Returns a dict including sender_number and mapping fields if found.
+        """
+        for sender_number, cfg in cls.SENDER_TO_TENANT_MAPPING.items():
+            if user_id is not None and cfg.get("user_id") == user_id:
+                out = cfg.copy()
+                out["sender_number"] = sender_number
+                # Provide a friendly client key label for selection in app.state.whatsapp_clients
+                out["client_key"] = "astrosouks" if int(cfg.get("chatbot_id", -1)) == 3 else "ecla"
+                return out
+            if chatbot_id is not None and cfg.get("chatbot_id") == chatbot_id:
+                out = cfg.copy()
+                out["sender_number"] = sender_number
+                out["client_key"] = "astrosouks" if int(cfg.get("chatbot_id", -1)) == 3 else "ecla"
+                return out
+        return None
+
+    @classmethod
+    def resolve_sender_config_by_chatbot(cls, chatbot_id: Optional[int]) -> Optional[Dict[str, Any]]:
+        """Resolve sender configuration (including client_key) by chatbot_id."""
+        if chatbot_id is None:
+            return None
+        try:
+            chatbot_id_int = int(chatbot_id)
+        except Exception:
+            return None
+        return cls._match_mapping_by(chatbot_id=chatbot_id_int)
+
+    @classmethod
+    def resolve_sender_config_by_user(cls, user_id: Optional[int]) -> Optional[Dict[str, Any]]:
+        """Resolve sender configuration (including client_key) by user_id."""
+        if user_id is None:
+            return None
+        try:
+            user_id_int = int(user_id)
+        except Exception:
+            return None
+        return cls._match_mapping_by(user_id=user_id_int)
     
     @classmethod
     def get_all_sender_configs(cls) -> Dict[str, Dict[str, Any]]:
