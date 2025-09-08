@@ -87,49 +87,22 @@ def _ensure_client() -> ShopifyClient:
 
 
 @tool
-def check_astrosouks_inventory(product_name: str = "all") -> str:
+def check_astrosouks_inventory() -> str:
     """
-    Check live inventory quantities for AstroSouks products (ACTIVE only).
-    This tool provides stock levels per product, aggregated across variants.
+    Check live inventory quantities for ALL AstroSouks ACTIVE products.
 
-    Args:
-        product_name: Product name to check. Options:
-            - "all" (default): Return all ACTIVE products with total quantity
-            - Any partial product name (case-insensitive): Return the first matching ACTIVE product summary
+    This tool takes no arguments and always returns the full ACTIVE catalog summary.
 
-    Returns:
-        Plain text (txt-friendly) output:
-          - For all: one line per product → "product: <Product Title> available in stock: <N>" or "product: <Product Title> sold out" when N==0
-          - For a single match: same format as above
-          - On error: "Error: <message>"
+    Returns (plain text): one line per product →
+      - "product: <Product Title> available in stock: <N>" or
+      - "product: <Product Title> sold out" when N == 0
     """
     try:
         client = _ensure_client()
         products = _fetch_all_active_products(client)
-        # Build simple text lines
         if not products:
             return ""
 
-        if isinstance(product_name, str) and product_name.strip().lower() != "all":
-            needle = product_name.strip().lower()
-            match_idx = None
-            for idx, p in enumerate(products):
-                title = (p.get("title") or "").lower()
-                handle = (p.get("handle") or "").lower()
-                if needle in title or needle in handle:
-                    match_idx = idx
-                    break
-            if match_idx is None:
-                return f"Error: Product '{product_name}' not found among ACTIVE products."
-
-            prod = products[match_idx]
-            title = prod.get("title") or prod.get("handle") or "Unknown"
-            total = _total_available_from_product(prod)
-            if int(total) <= 0:
-                return f"product: {title} sold out"
-            return f"product: {title} available in stock: {total}"
-
-        # Default: all — one line per product
         lines: List[str] = []
         for p in products:
             title = p.get("title") or p.get("handle") or "Unknown"

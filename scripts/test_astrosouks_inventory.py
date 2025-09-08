@@ -41,7 +41,7 @@ def main() -> None:
         raise SystemExit("ERROR: ASTROSOUKS_SHOPIFY_SHOP_DOMAIN not set in environment.")
 
     # Invoke tool for all ACTIVE products (plain text output: one line per product)
-    result_txt = check_astrosouks_inventory.invoke({"product_name": "all"})
+    result_txt = check_astrosouks_inventory.invoke({})
 
     # Save to project root
     root = Path(__file__).resolve().parents[1]

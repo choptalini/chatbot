@@ -514,7 +514,7 @@ AGENT_CONFIGURATIONS = {
         "description": "The primary sales and support agent for ECLA products.",
         "model_settings": {
             "provider": "openai",
-            "name": "gpt-4.1-mini",
+            "name": "gpt-5-mini",
             "max_tokens": 1500,
         },
         "system_prompt": ECLA_SYSTEM_PROMPT,
@@ -530,7 +530,7 @@ AGENT_CONFIGURATIONS = {
         "description": "The primary sales and support agent for AstroSouks products.",
         "model_settings": {
             "provider": "openai",
-            "name": "gpt-4.1-mini",
+            "name": "gpt-5-mini",
             "max_tokens": 1200,
         },
         "system_prompt": ASTRO_SOUKS_SYSTEM_PROMPT,
