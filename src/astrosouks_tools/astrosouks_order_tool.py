@@ -3,8 +3,8 @@
 AstroSouks Order Tool for the AstroSouks AI Agent
 
 Creates real orders (no discount) or discounted draft orders (when a discount is requested)
-using the Shopify GraphQL Admin API. Product and variant IDs are resolved live from the
-AstroSouks store.
+using Shopify Admin APIs: GraphQL is used for catalog lookups, while ALL order creation
+(orders and draft orders) is performed via the REST Admin API for maximum compatibility.
 
 Env (from .env):
   - ASTROSOUKS_SHOPIFY_SHOP_DOMAIN (required)
@@ -136,7 +136,7 @@ class AstroSouksOrderManager:
         except Exception:
             return None
 
-    def _build_line_items(self, selections: List[Dict[str, Any]], discount_percent: float = 0.0) -> Dict[str, Any]:
+    def _build_line_items(self, selections: List[Dict[str, Any]], discount_percent: float = 0.0, enable_auto_volume: bool = True) -> Dict[str, Any]:
         """
         Resolve variant IDs and build line items for either real order or draft order.
         For draft order (discount>0), include price overrides per line item.
@@ -161,9 +161,24 @@ class AstroSouksOrderManager:
                 "quantity": qty,
                 "unit_price": rv.unit_price,
             }
-            if discount_percent > 0 and rv.unit_price is not None:
-                discounted = max(0.0, rv.unit_price * (1.0 - float(discount_percent) / 100.0))
+            # Determine effective discount percent for this line
+            # Priority: explicit discount_percent argument; else volume tiers (2=>10%, 3+=>15%) if enabled
+            effective_discount = 0.0
+            try:
+                if float(discount_percent) > 0:
+                    effective_discount = float(discount_percent)
+                elif enable_auto_volume:
+                    if qty >= 3:
+                        effective_discount = 15.0
+                    elif qty == 2:
+                        effective_discount = 10.0
+            except Exception:
+                effective_discount = 0.0
+
+            if effective_discount > 0 and rv.unit_price is not None:
+                discounted = max(0.0, rv.unit_price * (1.0 - effective_discount / 100.0))
                 entry["price"] = round(discounted, 2)
+                entry["applied_discount_percent"] = effective_discount
             resolved.append(entry)
         return {"line_items": resolved, "errors": errors}
 
@@ -180,6 +195,7 @@ class AstroSouksOrderManager:
             billing_address = order_data.get('billing_address', {}) or shipping_address
             order_notes = order_data.get('order_notes', '')
             discount_percent = float(order_data.get('discount_percent') or 0)
+            enable_auto_volume = bool(order_data.get('enable_auto_volume', True))
 
             if not selections:
                 return {"success": False, "error": "At least one line item is required"}
@@ -187,12 +203,13 @@ class AstroSouksOrderManager:
                 return {"success": False, "error": "discount_percent must be between 0 and 100"}
 
             # Resolve items
-            built = self._build_line_items(selections, discount_percent=discount_percent)
+            built = self._build_line_items(selections, discount_percent=discount_percent, enable_auto_volume=enable_auto_volume)
             if built["errors"]:
                 return {"success": False, "error": "; ".join(built["errors"]) }
 
-            # Create Draft Order with discounted prices
-            if discount_percent > 0:
+            # Create Draft Order when any item has a price override (discount applied)
+            has_any_discount = any("price" in li for li in built["line_items"])    
+            if has_any_discount:
                 draft_items: List[Dict[str, Any]] = []
                 for li in built["line_items"]:
                     entry = {
@@ -211,6 +228,66 @@ class AstroSouksOrderManager:
                     customer_info=cust_info or None
                 )
                 if not draft_result.get('success'):
+                    # Fallback: if merchant hasn't granted write_draft_orders, create a REAL order via REST
+                    err_msg = str(draft_result.get('error') or "")
+                    if ('write_draft_orders' in err_msg) or ('status 403' in err_msg) or ('403' in err_msg):
+                        # Build order line items including price overrides
+                        order_line_items: List[Dict[str, Any]] = []
+                        subtotal_override = 0.0
+                        for li in built["line_items"]:
+                            oi: Dict[str, Any] = {
+                                "variantId": li["variant_id"],
+                                "quantity": li["quantity"],
+                            }
+                            if li.get("price") is not None:
+                                oi["price"] = li["price"]
+                                try:
+                                    subtotal_override += float(li["price"]) * int(li["quantity"])
+                                except Exception:
+                                    pass
+                            order_line_items.append(oi)
+
+                        order_result = self.client.create_order(
+                            line_items=order_line_items,
+                            customer_info=customer_info,
+                            shipping_address=shipping_address,
+                            billing_address=billing_address,
+                            send_receipt=True,
+                            send_fulfillment_receipt=False,
+                            subtotal=subtotal_override if subtotal_override > 0 else None,
+                        )
+                        if not order_result.get('success'):
+                            return {"success": False, "error": f"Failed to create discounted order (fallback): {order_result.get('error')}"}
+
+                        order = order_result.get('data')
+                        # Pricing breakdown using overridden prices
+                        subtotal = 0.0
+                        lines: List[Dict[str, Any]] = []
+                        for li in built["line_items"]:
+                            price_each = float(li.get("price") or 0)
+                            qty = int(li.get("quantity") or 0)
+                            line_total = round(price_each * qty, 2)
+                            subtotal = round(subtotal + line_total, 2)
+                            lines.append({
+                                "name": li.get("product_name"),
+                                "quantity": qty,
+                                "price_each": price_each,
+                                "line_total": line_total,
+                            })
+                        shipping_fee = 0.0 if subtotal >= 40.0 else 3.0
+                        total = round(subtotal + shipping_fee, 2)
+
+                        return {
+                            "success": True,
+                            "type": "order",
+                            "data": order,
+                            "pricing": {
+                                "lines": lines,
+                                "subtotal": subtotal,
+                                "shipping_fee": shipping_fee,
+                                "total": total,
+                            }
+                        }
                     return {"success": False, "error": f"Failed to create discounted draft order: {draft_result.get('error')}"}
 
                 # Pricing breakdown (tool-side) using discounted line prices
@@ -439,14 +516,19 @@ def create_astrosouks_order(
     billing_country: str = "",
     order_notes: str = "",
     discount_percent: float = 0.0,
+    offer_mode: str = "standard",
     *,
     config: RunnableConfig
 ) -> str:
     """
     Create an AstroSouks order.
 
-    - If discount_percent > 0, creates a discounted DRAFT ORDER (line-item prices overridden).
-    - If no discount, creates a real ORDER and adjusts inventory.
+    - Offer mode (select one):
+        - "standard": no extra discount beyond the product's sale price
+        - "10%": apply 10% off for eligible items
+        - "15%": apply 15% off for eligible items
+      Note: This promo applies only to select items (e.g., "Bone Conduction Speaker").
+    - If a discount is applied, a discounted order is created (draft or fallback order) using REST.
 
     product_selections JSON example:
       '[{"product_name": "Food Vacuum Sealer", "quantity": 2, "variant_title": "10 Bags"}]'
@@ -469,6 +551,16 @@ def create_astrosouks_order(
             return "❌ Error: Invalid or empty product_selections JSON."
 
         om = AstroSouksOrderManager()
+        # Map offer_mode to explicit discount_percent and disable auto volume tiers
+        omode = (offer_mode or "standard").strip().lower()
+        if omode not in ("standard", "10%", "15%"):
+            return "❌ Error: offer_mode must be one of: standard, 10%, 15%."
+        mapped_discount = 0.0
+        if omode == "10%":
+            mapped_discount = 10.0
+        elif omode == "15%":
+            mapped_discount = 15.0
+
         order_data = {
             'customer_info': {
                 'first_name': customer_first_name.strip(),
@@ -501,7 +593,8 @@ def create_astrosouks_order(
                 'phone': customer_phone.strip(),
             } if not billing_same_as_shipping else None,
             'order_notes': order_notes.strip(),
-            'discount_percent': discount_percent,
+            'discount_percent': mapped_discount if mapped_discount > 0 else float(discount_percent or 0.0),
+            'enable_auto_volume': False,
             'metadata': config.get('metadata', {}) if hasattr(config, 'get') else {},
         }
 

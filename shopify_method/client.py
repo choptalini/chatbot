@@ -693,74 +693,102 @@ class ShopifyClient:
     
     def create_draft_order(self, line_items: List[Dict[str, Any]], customer_info: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
-        Create a draft order.
+        Create a draft order using the REST Admin API (strict REST path).
         
         Args:
-            line_items (List[Dict[str, Any]]): List of line items for the draft order
-            customer_info (Dict[str, Any], optional): Customer information
+            line_items (List[Dict[str, Any]]): List of line items (accepts variantId/productId, quantity, optional price)
+            customer_info (Dict[str, Any], optional): Customer information (email or customerId)
             
         Returns:
-            Dict[str, Any]: Created draft order information
+            Dict[str, Any]: Created draft order information (normalized)
         """
-        from .constants import DRAFT_ORDER_CREATE_MUTATION
-        from .utils import validate_line_items, format_graphql_id
+        from .utils import validate_line_items, extract_id_from_gid
         
         try:
-            # Validate line items
+            # Validate input line items
             if not validate_line_items(line_items):
                 return self._format_response(False, error="Invalid line items provided")
-            
-            # Format line items for GraphQL
-            formatted_line_items = []
-            for item in line_items:
-                formatted_item = {
-                    "quantity": item.get('quantity', 1)
+
+            # Build REST line items: { variant_id, quantity, price? }
+            rest_line_items: List[Dict[str, Any]] = []
+            for item in line_items or []:
+                qty = int(item.get('quantity', 1))
+                # Prefer variantId; productId alone isn't sufficient for draft order line_items in REST
+                variant_id_val = item.get('variantId') or item.get('variant_id')
+                if not variant_id_val:
+                    # Skip items we cannot map to a concrete purchasable variant
+                    continue
+                if isinstance(variant_id_val, str) and variant_id_val.startswith('gid://shopify/'):
+                    numeric = extract_id_from_gid(variant_id_val)
+                else:
+                    numeric = str(variant_id_val)
+                if not numeric:
+                    continue
+                line_obj: Dict[str, Any] = {"variant_id": int(numeric), "quantity": qty}
+                if 'price' in item and item['price'] is not None:
+                    # REST accepts overriding draft line item price directly
+                    line_obj["price"] = str(item['price'])
+                rest_line_items.append(line_obj)
+
+            if not rest_line_items:
+                return self._format_response(False, error="No valid variant_id found for REST draft order creation")
+
+            # Build payload for REST draft order
+            payload: Dict[str, Any] = {
+                "draft_order": {
+                    "line_items": rest_line_items,
+                    "use_customer_default_address": True,
                 }
-                
-                if 'variantId' in item:
-                    formatted_item['variantId'] = format_graphql_id('variant', item['variantId'])
-                elif 'productId' in item:
-                    formatted_item['productId'] = format_graphql_id('product', item['productId'])
-                
-                if 'price' in item:
-                    formatted_item['price'] = str(item['price'])
-                
-                formatted_line_items.append(formatted_item)
-            
-            # Prepare draft order input
-            draft_order_input = {
-                "lineItems": formatted_line_items,
-                "useCustomerDefaultAddress": True
             }
-            
-            # Add customer info if provided
-            if customer_info:
-                if 'email' in customer_info:
-                    draft_order_input['email'] = customer_info['email']
-                if 'customerId' in customer_info:
-                    draft_order_input['customerId'] = format_graphql_id('customer', customer_info['customerId'])
-            
-            variables = {"input": draft_order_input}
-            
-            response = self._make_graphql_request(DRAFT_ORDER_CREATE_MUTATION, variables)
-            
-            # Check for user errors
-            draft_order_data = response.get('data', {}).get('draftOrderCreate', {})
-            user_errors = draft_order_data.get('userErrors', [])
-            
-            if user_errors:
-                error_messages = [error.get('message', str(error)) for error in user_errors]
-                return self._format_response(False, error=f"Draft order creation failed: {'; '.join(error_messages)}")
-            
-            # Extract draft order information
-            draft_order = draft_order_data.get('draftOrder', {})
-            if draft_order:
-                return self._format_response(True, draft_order)
-            else:
-                return self._format_response(False, error="No draft order data returned")
-                
+
+            # Email/customer mapping
+            if isinstance(customer_info, dict) and customer_info:
+                email = customer_info.get('email')
+                if email:
+                    payload["draft_order"]["email"] = email
+                # If a customer id (gid or numeric) is provided, attach minimal customer object
+                cust_id = customer_info.get('customerId') or customer_info.get('customer_id')
+                if cust_id:
+                    if isinstance(cust_id, str) and cust_id.startswith('gid://shopify/'):
+                        cust_numeric = extract_id_from_gid(cust_id)
+                    else:
+                        cust_numeric = str(cust_id)
+                    try:
+                        payload["draft_order"]["customer"] = {"id": int(cust_numeric)}
+                    except Exception:
+                        # If id isn't numeric, omit customer block; email will still work
+                        pass
+
+            url = f"https://{self.shop_domain}/admin/api/{self.api_version}/draft_orders.json"
+            resp = self.session.post(url, json=payload, timeout=REQUEST_TIMEOUT)
+
+            if resp.status_code not in (200, 201):
+                try:
+                    err_body = resp.json()
+                except Exception:
+                    err_body = {"error": resp.text}
+                return self._format_response(
+                    False,
+                    error=f"REST draft order create failed (status {resp.status_code}): {err_body}",
+                )
+
+            data = resp.json() if resp.content else {}
+            draft = (data or {}).get("draft_order", {})
+            if not draft:
+                return self._format_response(False, error="REST draft order created but response missing 'draft_order'")
+
+            # Normalize to a GraphQL-like shape used elsewhere in the codebase
+            normalized = {
+                "id": draft.get("id"),
+                "name": draft.get("name"),
+                "status": draft.get("status"),
+                "totalPrice": draft.get("total_price"),
+                "createdAt": draft.get("created_at"),
+            }
+            return self._format_response(True, normalized)
+
         except Exception as e:
-            self.logger.error(f"Error creating draft order: {str(e)}")
+            self.logger.error(f"Error creating draft order (REST): {str(e)}")
             return self._format_response(False, error=str(e))
     
     def get_order_details(self, order_id: str) -> Dict[str, Any]:
