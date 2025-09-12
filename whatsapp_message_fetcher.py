@@ -640,7 +640,6 @@ def _extract_message_data(result: Dict) -> Optional[InboundMessageResult]:
 
                     details_lines = [
                         f"Address: {normalized_line}",
-                        f"Coordinates: {lat}, {lon}",
                     ]
                     if plus_code:
                         details_lines.append(f"Plus code: {plus_code}")
@@ -669,7 +668,6 @@ def _extract_message_data(result: Dict) -> Optional[InboundMessageResult]:
                     links = maps_directions_links(lat, lon)
                     text = (
                         "User shared a location.\n"
-                        f"Coordinates: {lat}, {lon}\n"
                         f"Directions: {links.get('google_maps_directions')}"
                     )
                     location_details = {
