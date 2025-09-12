@@ -22,7 +22,6 @@ def main():
     shipping_province = "Mount Lebanon"
     shipping_country = "Lebanon"
     product_selections = '[{"product_name":"Bone Conduction Speaker","quantity":2,"variant_title":""}]'
-    discount_percent = 10.0
 
     # RunnableConfig can be a simple dict for our usage (the tool only calls .get)
     config = {"metadata": {"from_number": "+96170895652", "user_id": 6, "chatbot_id": 3}}
@@ -39,7 +38,7 @@ def main():
         "product_selections": product_selections,
         "billing_same_as_shipping": True,
         "order_notes": "",
-        "discount_percent": discount_percent,
+        "offer_mode": "10%",
     }
 
     result = create_astrosouks_order.invoke(tool_input, config=config)

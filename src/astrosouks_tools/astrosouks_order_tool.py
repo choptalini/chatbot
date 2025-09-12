@@ -136,7 +136,7 @@ class AstroSouksOrderManager:
         except Exception:
             return None
 
-    def _build_line_items(self, selections: List[Dict[str, Any]], discount_percent: float = 0.0, enable_auto_volume: bool = True) -> Dict[str, Any]:
+    def _build_line_items(self, selections: List[Dict[str, Any]], forced_discount_percent: float = 0.0, enable_auto_volume: bool = True) -> Dict[str, Any]:
         """
         Resolve variant IDs and build line items for either real order or draft order.
         For draft order (discount>0), include price overrides per line item.
@@ -162,11 +162,11 @@ class AstroSouksOrderManager:
                 "unit_price": rv.unit_price,
             }
             # Determine effective discount percent for this line
-            # Priority: explicit discount_percent argument; else volume tiers (2=>10%, 3+=>15%) if enabled
+            # Priority: explicit forced_discount_percent; else volume tiers (2=>10%, 3+=>15%) if enabled
             effective_discount = 0.0
             try:
-                if float(discount_percent) > 0:
-                    effective_discount = float(discount_percent)
+                if float(forced_discount_percent) > 0:
+                    effective_discount = float(forced_discount_percent)
                 elif enable_auto_volume:
                     if qty >= 3:
                         effective_discount = 15.0
@@ -194,16 +194,16 @@ class AstroSouksOrderManager:
             shipping_address = order_data.get('shipping_address', {})
             billing_address = order_data.get('billing_address', {}) or shipping_address
             order_notes = order_data.get('order_notes', '')
-            discount_percent = float(order_data.get('discount_percent') or 0)
+            forced_discount_percent = float(order_data.get('forced_discount_percent') or 0)
             enable_auto_volume = bool(order_data.get('enable_auto_volume', True))
 
             if not selections:
                 return {"success": False, "error": "At least one line item is required"}
-            if discount_percent < 0 or discount_percent > 100:
-                return {"success": False, "error": "discount_percent must be between 0 and 100"}
+            if forced_discount_percent < 0 or forced_discount_percent > 100:
+                return {"success": False, "error": "forced_discount_percent must be between 0 and 100"}
 
             # Resolve items
-            built = self._build_line_items(selections, discount_percent=discount_percent, enable_auto_volume=enable_auto_volume)
+            built = self._build_line_items(selections, forced_discount_percent=forced_discount_percent, enable_auto_volume=enable_auto_volume)
             if built["errors"]:
                 return {"success": False, "error": "; ".join(built["errors"]) }
 
@@ -311,7 +311,6 @@ class AstroSouksOrderManager:
                     "success": True,
                     "type": "draft_order",
                     "data": draft_result.get('data'),
-                    "discount_percent": discount_percent,
                     "pricing": {
                         "lines": lines,
                         "subtotal": subtotal,
@@ -515,7 +514,6 @@ def create_astrosouks_order(
     billing_province: str = "",
     billing_country: str = "",
     order_notes: str = "",
-    discount_percent: float = 0.0,
     offer_mode: str = "standard",
     *,
     config: RunnableConfig
@@ -543,7 +541,7 @@ def create_astrosouks_order(
             # postal code is defaulted; no longer required from input
         }
         missing = [k for k, v in required.items() if not v or str(v).strip() == ""]
-        if missing and discount_percent <= 0:
+        if missing and offer_mode.strip().lower() == "standard":
             return f"❌ Error: Missing required fields: {', '.join(missing)}"
 
         selections = _parse_product_selections_json(product_selections)
@@ -553,12 +551,12 @@ def create_astrosouks_order(
         om = AstroSouksOrderManager()
         # Map offer_mode to explicit discount_percent and disable auto volume tiers
         omode = (offer_mode or "standard").strip().lower()
-        if omode not in ("standard", "10%", "15%"):
-            return "❌ Error: offer_mode must be one of: standard, 10%, 15%."
+        if omode not in ("standard", "none", "10%", "15%"):
+            return "❌ Error: offer_mode must be one of: standard/none, 10%, 15%."
         mapped_discount = 0.0
-        if omode == "10%":
+        if omode in ("10%",):
             mapped_discount = 10.0
-        elif omode == "15%":
+        elif omode in ("15%",):
             mapped_discount = 15.0
 
         order_data = {
@@ -593,7 +591,7 @@ def create_astrosouks_order(
                 'phone': customer_phone.strip(),
             } if not billing_same_as_shipping else None,
             'order_notes': order_notes.strip(),
-            'discount_percent': mapped_discount if mapped_discount > 0 else float(discount_percent or 0.0),
+            'forced_discount_percent': mapped_discount,
             'enable_auto_volume': False,
             'metadata': config.get('metadata', {}) if hasattr(config, 'get') else {},
         }
@@ -614,7 +612,6 @@ def create_astrosouks_order(
                 "✅ AstroSouks DISCOUNTED DRAFT ORDER CREATED\n",
                 f"• Draft Order ID: {draft.get('id')}",
                 f"• Status: {draft.get('status')}",
-                f"• Discount Applied: {discount_percent}%\n",
                 "📦 Items:",
             ]
             for ln in lines:
