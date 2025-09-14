@@ -12,8 +12,11 @@ Env (from .env):
 """
 
 import os
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Literal
 from dataclasses import dataclass
+import json
+
+from pydantic import BaseModel, ValidationError, field_validator
 
 from dotenv import load_dotenv
 from langchain.tools import tool
@@ -21,6 +24,123 @@ from langchain_core.runnables import RunnableConfig
 
 from shopify_method import ShopifyClient
 from src.multi_tenant_database import db as local_db
+
+
+# Valid AstroSouks product names (extracted from Shopify catalog)
+ValidProductName = Literal[
+    "Neck Heater - Rechargeable",
+    "Foot Messager - EMS", 
+    "Hair Dryer Brush - 4 in 1",
+    "LCD Panel - Board",
+    "Action Self-Squeezing Mop:",
+    "Protein Shaker - Silver Crest",
+    "Dead Skin Remover",
+    "3-Head Hair Waver - EnergyMax",
+    "Hair Curler - EnergyMax",
+    "Double Sided Tape - 3 Meter",
+    "Rice Dispenser",
+    "Crystal Table Lamp - Rechargeable",
+    "Sunset Lamp",
+    "Hair Curler - Rechargeable",
+    "Message Gun - 4 in 1",
+    "Non Spill Plate For Kids",
+    "Crepe Maker - Electric",
+    "Food Vacuum Sealer",
+    "Mini Juicer",
+    "Catling Food Chopper - 4 in 1 Rechargeable",
+    "Window Repair Tape",
+    "Electric Dumpling Machine",
+    "Mini Mop",
+    "Electric Juicer - Portable",
+    "Power Bank Speaker - 3 in 1",
+    "Automatic Hair Culer - Kemei",
+    "Galaxy Man - Projector",
+    "Bubble Gun",
+    "Led Wireless Charging Speaker",
+    "Stirring Cup",
+    "Untitled Mar26_15:27",
+    "8 in 1 Multi Functional Cleaning Brush",
+    "Ultrasonic Cleaner",
+    "Memory Foam Leg Pillow",
+    "Plastic  Restorer",
+    "Wireless Glasses Headset",
+    "Wireless Music Goggles",
+    "Gel Ball Blaster",
+    "Facial Roller",
+    "Fly Trap",
+    "3-in-1 Air Cooler Fan",
+    "Spray Mop - 2 in 1",
+    "3 in 1 Vacuum Cleaner",
+    "Multifunctional Vegetable Cutter",
+    "5 in 1 Cleaning brush",
+    "4in1 Fast Car Charger",
+    "SilverCrest - Perfect Curl",
+    "Untitled Jun20_21:35",
+    "Carrera - Waver",
+    "Neck Fan",
+    "Bone Conduction Speaker",
+    "M4 Gel Ball Blaster",
+    "Bag Sealer",
+    "PowerFul Rechargeable  Whisk - 2in1",
+    "Flawless Facial Hair Removal",
+    "Ice Ball Maker",
+    "Multi Purpose Foam Cleaner",
+    "Jet Drone",
+    "Piggy Bank",
+    "Card English Education Game",
+    "Instant Water Balloons",
+    "Wall Climbing Car",
+    "Black Head Remover",
+    "Kemei Hair Removal",
+    "Thread Hair Removal Machine",
+    "Wireless Lamp Remote Controller",
+    "Labubu Big Into Magic Energy",
+    "Nevadent Electric Tooth Brush",
+    "Tiffany Grinding Machine",
+    "Multi-Function Camping Lamp",
+    "Telescopic Clothesline",
+    "Dorry Smart Body Scale",
+    "Hot Powerful Blower - Cordless"
+]
+
+
+class ProductSelection(BaseModel):
+    """Pydantic model for validating product selections"""
+    product_name: ValidProductName
+    quantity: int
+    variant_title: str = ""
+    
+    @field_validator('quantity')
+    @classmethod
+    def quantity_must_be_positive(cls, v):
+        if v <= 0:
+            raise ValueError('quantity must be positive')
+        return v
+
+
+class OrderValidationInput(BaseModel):
+    """Pydantic model for validating order inputs"""
+    product_selections: str  # JSON string of ProductSelection list
+    
+    @field_validator('product_selections')
+    @classmethod
+    def validate_product_selections(cls, v):
+        try:
+            selections_data = json.loads(v)
+            if not isinstance(selections_data, list):
+                raise ValueError('product_selections must be a JSON array')
+            
+            # Validate each selection using ProductSelection model
+            validated_selections = []
+            for item in selections_data:
+                validated_item = ProductSelection(**item)
+                validated_selections.append(validated_item)
+            
+            return v  # Return original JSON string
+        except json.JSONDecodeError:
+            raise ValueError('product_selections must be valid JSON')
+        except ValidationError as e:
+            raise ValueError(f'Invalid product selection: {e}')
 
 
 PAGINATED_ACTIVE_PRODUCTS_QUERY = """
@@ -532,6 +652,27 @@ def create_astrosouks_order(
       '[{"product_name": "Food Vacuum Sealer", "quantity": 2, "variant_title": "10 Bags"}]'
     """
     try:
+        # Validate product selections using Pydantic
+        try:
+            validation_input = OrderValidationInput(product_selections=product_selections)
+        except ValidationError as e:
+            error_details = []
+            for error in e.errors():
+                if 'product_name' in str(error.get('loc', [])):
+                    # Extract the invalid product name for a more helpful error
+                    try:
+                        selections_data = json.loads(product_selections)
+                        invalid_products = []
+                        for item in selections_data:
+                            if isinstance(item, dict) and 'product_name' in item:
+                                invalid_products.append(item['product_name'])
+                        if invalid_products:
+                            return f"❌ Error: Invalid product name(s): {', '.join(invalid_products)}. Please use exact product names from the catalog."
+                    except:
+                        pass
+                error_details.append(str(error.get('msg', error)))
+            return f"❌ Error: Invalid product selection: {'; '.join(error_details)}"
+        
         # Validate required fields
         required = {
             'shipping_address_line1': shipping_address_line1,
