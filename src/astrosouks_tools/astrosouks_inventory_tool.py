@@ -94,8 +94,8 @@ def check_astrosouks_inventory() -> str:
     This tool takes no arguments and always returns the full ACTIVE catalog summary.
 
     Returns (plain text): one line per product →
-      - "product: <Product Title> available in stock: <N>" or
-      - "product: <Product Title> sold out" when N == 0
+      - "product: <Product Title> in stock" or
+      - "product: <Product Title> out of stock" when N == 0
     """
     try:
         client = _ensure_client()
@@ -108,9 +108,9 @@ def check_astrosouks_inventory() -> str:
             title = p.get("title") or p.get("handle") or "Unknown"
             total = _total_available_from_product(p)
             if int(total) <= 0:
-                lines.append(f"product: {title} sold out")
+                lines.append(f"product: {title} out of stock")
             else:
-                lines.append(f"product: {title} available in stock: {total}")
+                lines.append(f"product: {title} in stock")
         return "\n".join(lines)
 
     except Exception as e:
