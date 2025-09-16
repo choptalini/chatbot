@@ -15,6 +15,9 @@ import os
 from typing import Dict, Any, List, Optional, Literal
 from dataclasses import dataclass
 import json
+import logging
+import time
+from datetime import datetime
 
 from pydantic import BaseModel, ValidationError, field_validator
 
@@ -24,6 +27,10 @@ from langchain_core.runnables import RunnableConfig
 
 from shopify_method import ShopifyClient
 from src.multi_tenant_database import db as local_db
+
+# Set up logging for order tool
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 # Valid AstroSouks product names (extracted from Shopify catalog)
@@ -178,12 +185,25 @@ class AstroSouksOrderManager:
     """
 
     def __init__(self):
+        init_start_time = time.time()
+        logger.info(f"🔧 INITIALIZING AstroSouksOrderManager at {datetime.now().isoformat()}")
+        
         load_dotenv()
         shop_domain = os.getenv("ASTROSOUKS_SHOPIFY_SHOP_DOMAIN")
         access_token = os.getenv("ASTROSOUKS_SHOPIFY_TOKEN")
+        
+        logger.debug(f"📋 Shop domain: {shop_domain[:20]}..." if shop_domain else "❌ No shop domain")
+        logger.debug(f"🔑 Access token: {'✅ Present' if access_token else '❌ Missing'}")
+        
         if not shop_domain or not access_token:
+            logger.error("❌ Missing AstroSouks Shopify credentials in environment variables")
             raise ValueError("Missing AstroSouks Shopify credentials in environment variables")
+            
+        logger.info(f"🚀 Creating ShopifyClient for domain: {shop_domain}")
         self.client = ShopifyClient(shop_domain=shop_domain, access_token=access_token)
+        
+        init_duration = time.time() - init_start_time
+        logger.info(f"✅ AstroSouksOrderManager initialized in {init_duration:.3f}s")
 
     def _fetch_active_products(self) -> List[Dict[str, Any]]:
         all_products: List[Dict[str, Any]] = []
@@ -308,6 +328,12 @@ class AstroSouksOrderManager:
         - If discount_percent > 0: create a Draft Order with discounted prices.
         - Else: create a real Order and adjust inventory.
         """
+        order_start_time = time.time()
+        order_id = f"ORDER_{int(time.time() * 1000)}"  # Unique ID for tracking
+        
+        logger.info(f"🛒 STARTING ORDER CREATION [{order_id}] at {datetime.now().isoformat()}")
+        logger.debug(f"📦 Order data keys: {list(order_data.keys())}")
+        
         try:
             customer_info = order_data.get('customer_info', {})
             selections = order_data.get('line_items', [])
@@ -316,45 +342,93 @@ class AstroSouksOrderManager:
             order_notes = order_data.get('order_notes', '')
             forced_discount_percent = float(order_data.get('forced_discount_percent') or 0)
             enable_auto_volume = bool(order_data.get('enable_auto_volume', True))
+            
+            logger.info(f"👤 Customer: {customer_info.get('first_name', '')} {customer_info.get('last_name', '')}")
+            logger.info(f"📱 Phone: {customer_info.get('phone', 'N/A')}")
+            logger.info(f"🏠 Shipping: {shipping_address.get('city', '')}, {shipping_address.get('country', '')}")
+            logger.info(f"🛍️  Line items count: {len(selections)}")
+            logger.info(f"💰 Forced discount: {forced_discount_percent}%")
+            logger.info(f"📝 Order notes: {order_notes[:50]}..." if len(order_notes) > 50 else f"📝 Order notes: {order_notes}")
 
             if not selections:
+                logger.error(f"❌ [{order_id}] No line items provided")
                 return {"success": False, "error": "At least one line item is required"}
             if forced_discount_percent < 0 or forced_discount_percent > 100:
+                logger.error(f"❌ [{order_id}] Invalid discount percent: {forced_discount_percent}")
                 return {"success": False, "error": "forced_discount_percent must be between 0 and 100"}
 
+            # Log each line item in detail
+            for i, selection in enumerate(selections):
+                logger.info(f"🛍️  Item {i+1}: {selection.get('product_name', 'Unknown')} x{selection.get('quantity', 0)}")
+                if selection.get('variant_title'):
+                    logger.debug(f"   └─ Variant: {selection['variant_title']}")
+
             # Resolve items
+            logger.info(f"🔍 [{order_id}] Building line items with discount: {forced_discount_percent}%, auto_volume: {enable_auto_volume}")
+            build_start = time.time()
             built = self._build_line_items(selections, forced_discount_percent=forced_discount_percent, enable_auto_volume=enable_auto_volume)
+            build_duration = time.time() - build_start
+            logger.info(f"⚙️  [{order_id}] Line items built in {build_duration:.3f}s")
+            
             if built["errors"]:
+                logger.error(f"❌ [{order_id}] Line item errors: {built['errors']}")
                 return {"success": False, "error": "; ".join(built["errors"]) }
 
             # Create Draft Order when any item has a price override (discount applied)
             has_any_discount = any("price" in li for li in built["line_items"])    
+            logger.info(f"💸 [{order_id}] Has discount applied: {has_any_discount}")
+            
             if has_any_discount:
+                logger.info(f"📋 [{order_id}] CREATING DRAFT ORDER (discounted)")
                 draft_items: List[Dict[str, Any]] = []
-                for li in built["line_items"]:
+                total_discounted_value = 0.0
+                
+                for i, li in enumerate(built["line_items"]):
                     entry = {
                         "variantId": li["variant_id"],
                         "quantity": li["quantity"],
                     }
                     if "price" in li:
                         entry["price"] = li["price"]
+                        total_discounted_value += float(li["price"]) * int(li["quantity"])
+                        logger.debug(f"   Item {i+1}: {li.get('product_name')} @ ${li['price']:.2f} (discounted)")
+                    else:
+                        logger.debug(f"   Item {i+1}: {li.get('product_name')} @ regular price")
                     draft_items.append(entry)
+                
+                logger.info(f"💰 [{order_id}] Total discounted value: ${total_discounted_value:.2f}")
+                logger.debug(f"📦 [{order_id}] Draft items payload: {json.dumps(draft_items, indent=2)}")
+                
                 # Email is optional for draft orders; only include if provided
                 cust_info = {}
                 if customer_info.get('email'):
                     cust_info['email'] = customer_info.get('email')
+                    logger.debug(f"📧 [{order_id}] Customer email: {customer_info['email']}")
+                else:
+                    logger.debug(f"📧 [{order_id}] No customer email provided")
+                
+                logger.info(f"🚀 [{order_id}] Calling client.create_draft_order...")
+                draft_start = time.time()
                 draft_result = self.client.create_draft_order(
                     line_items=draft_items,
                     customer_info=cust_info or None
                 )
+                draft_duration = time.time() - draft_start
+                logger.info(f"⏱️  [{order_id}] Draft order API call completed in {draft_duration:.3f}s")
                 if not draft_result.get('success'):
                     # Fallback: if merchant hasn't granted write_draft_orders, create a REAL order via REST
                     err_msg = str(draft_result.get('error') or "")
+                    logger.warning(f"⚠️  [{order_id}] Draft order failed: {err_msg}")
+                    
                     if ('write_draft_orders' in err_msg) or ('status 403' in err_msg) or ('403' in err_msg):
+                        logger.info(f"🔄 [{order_id}] FALLBACK: Creating real order via REST (permission issue)")
+                        
                         # Build order line items including price overrides
                         order_line_items: List[Dict[str, Any]] = []
                         subtotal_override = 0.0
-                        for li in built["line_items"]:
+                        
+                        logger.debug(f"📦 [{order_id}] Building fallback order line items...")
+                        for i, li in enumerate(built["line_items"]):
                             oi: Dict[str, Any] = {
                                 "variantId": li["variant_id"],
                                 "quantity": li["quantity"],
@@ -362,11 +436,24 @@ class AstroSouksOrderManager:
                             if li.get("price") is not None:
                                 oi["price"] = li["price"]
                                 try:
-                                    subtotal_override += float(li["price"]) * int(li["quantity"])
-                                except Exception:
-                                    pass
+                                    line_total = float(li["price"]) * int(li["quantity"])
+                                    subtotal_override += line_total
+                                    logger.debug(f"   Fallback Item {i+1}: {li.get('product_name')} @ ${li['price']:.2f} x{li['quantity']} = ${line_total:.2f}")
+                                except Exception as e:
+                                    logger.error(f"❌ [{order_id}] Error calculating line total for item {i+1}: {e}")
+                            else:
+                                logger.debug(f"   Fallback Item {i+1}: {li.get('product_name')} @ regular price x{li['quantity']}")
                             order_line_items.append(oi)
+                        
+                        logger.info(f"💰 [{order_id}] Fallback subtotal override: ${subtotal_override:.2f}")
+                        logger.debug(f"📦 [{order_id}] Fallback order payload preview:")
+                        logger.debug(f"   Customer: {customer_info}")
+                        logger.debug(f"   Shipping: {shipping_address}")
+                        logger.debug(f"   Line items count: {len(order_line_items)}")
+                        logger.debug(f"   Full line items: {json.dumps(order_line_items, indent=2)}")
 
+                        logger.info(f"🚀 [{order_id}] Calling client.create_order (FALLBACK)...")
+                        fallback_start = time.time()
                         order_result = self.client.create_order(
                             line_items=order_line_items,
                             customer_info=customer_info,
@@ -376,8 +463,17 @@ class AstroSouksOrderManager:
                             send_fulfillment_receipt=False,
                             subtotal=subtotal_override if subtotal_override > 0 else None,
                         )
+                        fallback_duration = time.time() - fallback_start
+                        logger.info(f"⏱️  [{order_id}] Fallback order API call completed in {fallback_duration:.3f}s")
+                        
                         if not order_result.get('success'):
-                            return {"success": False, "error": f"Failed to create discounted order (fallback): {order_result.get('error')}"}
+                            fallback_error = order_result.get('error', 'Unknown error')
+                            logger.error(f"❌ [{order_id}] FALLBACK ORDER FAILED: {fallback_error}")
+                            logger.error(f"🔍 [{order_id}] Final payload that failed:")
+                            logger.error(f"   Line items: {json.dumps(order_line_items, indent=2)}")
+                            logger.error(f"   Customer info: {json.dumps(customer_info, indent=2)}")
+                            logger.error(f"   Shipping address: {json.dumps(shipping_address, indent=2)}")
+                            return {"success": False, "error": f"Failed to create discounted order (fallback): {fallback_error}"}
 
                         order = order_result.get('data')
                         # Pricing breakdown using overridden prices
@@ -408,7 +504,9 @@ class AstroSouksOrderManager:
                                 "total": total,
                             }
                         }
-                    return {"success": False, "error": f"Failed to create discounted draft order: {draft_result.get('error')}"}
+                    draft_error = draft_result.get('error', 'Unknown error')
+                    logger.error(f"❌ [{order_id}] DRAFT ORDER FAILED (no fallback): {draft_error}")
+                    return {"success": False, "error": f"Failed to create discounted draft order: {draft_error}"}
 
                 # Pricing breakdown (tool-side) using discounted line prices
                 subtotal = 0.0
@@ -440,13 +538,21 @@ class AstroSouksOrderManager:
                 }
 
             # Else create a real order (no discount)
+            logger.info(f"🛒 [{order_id}] CREATING REGULAR ORDER (no discount)")
+            
             # Calculate subtotal for shipping logic
             subtotal = 0.0
             for li in built["line_items"]:
                 if li.get("unit_price") is not None:
                     subtotal += float(li["unit_price"]) * int(li["quantity"])
             
+            logger.info(f"💰 [{order_id}] Regular order subtotal: ${subtotal:.2f}")
+            
             order_line_items = [{"variantId": li["variant_id"], "quantity": li["quantity"]} for li in built["line_items"]]
+            logger.debug(f"📦 [{order_id}] Regular order line items: {json.dumps(order_line_items, indent=2)}")
+            
+            logger.info(f"🚀 [{order_id}] Calling client.create_order (REGULAR)...")
+            regular_start = time.time()
             result = self.client.create_order(
                 line_items=order_line_items,
                 customer_info=customer_info,
@@ -456,42 +562,67 @@ class AstroSouksOrderManager:
                 send_fulfillment_receipt=False,
                 subtotal=subtotal,
             )
+            regular_duration = time.time() - regular_start
+            logger.info(f"⏱️  [{order_id}] Regular order API call completed in {regular_duration:.3f}s")
+            
             if not result.get('success'):
-                return {"success": False, "error": f"Failed to create order: {result.get('error')}"}
+                regular_error = result.get('error', 'Unknown error')
+                logger.error(f"❌ [{order_id}] REGULAR ORDER FAILED: {regular_error}")
+                logger.error(f"🔍 [{order_id}] Regular order context:")
+                logger.error(f"   Line items: {json.dumps(order_line_items, indent=2)}")
+                logger.error(f"   Customer: {json.dumps(customer_info, indent=2)}")
+                logger.error(f"   Subtotal: ${subtotal:.2f}")
+                return {"success": False, "error": f"Failed to create order: {regular_error}"}
 
             order = result.get('data')
 
             # Adjust inventory
+            logger.info(f"📦 [{order_id}] Adjusting inventory for {len(built['line_items'])} items...")
             inventory_adjustments = []
             inventory_errors = []
-            for li in built["line_items"]:
+            for i, li in enumerate(built["line_items"]):
                 try:
                     clean_variant_id = str(li["variant_id"]).replace('gid://shopify/ProductVariant/', '')
+                    quantity_change = -int(li["quantity"])
+                    logger.debug(f"   Adjusting item {i+1}: variant {clean_variant_id} by {quantity_change}")
+                    
                     inv_res = self.client.adjust_inventory(
                         variant_id=clean_variant_id,
-                        quantity_change=-int(li["quantity"]),
+                        quantity_change=quantity_change,
                         reason="correction"
                     )
                     if inv_res.get('success'):
                         inventory_adjustments.append(inv_res.get('data'))
+                        logger.debug(f"   ✅ Inventory adjusted for variant {clean_variant_id}")
                     else:
-                        inventory_errors.append({"variant_id": li["variant_id"], "error": inv_res.get('error')})
+                        inv_error = inv_res.get('error', 'Unknown inventory error')
+                        inventory_errors.append({"variant_id": li["variant_id"], "error": inv_error})
+                        logger.warning(f"   ⚠️  Inventory adjustment failed for variant {clean_variant_id}: {inv_error}")
                 except Exception as e:
                     inventory_errors.append({"variant_id": li.get("variant_id"), "error": str(e)})
+                    logger.error(f"   ❌ Exception adjusting inventory for variant {li.get('variant_id')}: {e}")
+            
+            logger.info(f"📊 [{order_id}] Inventory adjustments: {len(inventory_adjustments)} successful, {len(inventory_errors)} failed")
 
             # Optionally save order to DB when metadata present
             metadata = order_data.get('metadata', {}) if isinstance(order_data, dict) else {}
             db_user_id = metadata.get('user_id')
             db_contact_id = metadata.get('contact_id')
+            logger.debug(f"💾 [{order_id}] DB metadata: user_id={db_user_id}, contact_id={db_contact_id}")
+            
             if db_user_id and db_contact_id:
                 try:
+                    logger.info(f"💾 [{order_id}] Saving order to database...")
                     local_db.create_order_and_items(user_id=db_user_id, contact_id=db_contact_id, shopify_order_data={
                         "order": order,
                         "inventory_adjustments": {"successful": inventory_adjustments, "errors": inventory_errors},
                         "input_items": built["line_items"],
                     })
-                except Exception:
-                    pass
+                    logger.info(f"✅ [{order_id}] Order saved to database successfully")
+                except Exception as db_err:
+                    logger.warning(f"⚠️  [{order_id}] DB save failed (non-fatal): {db_err}")
+            else:
+                logger.debug(f"⏭️  [{order_id}] Skipping DB save (no user_id/contact_id)")
 
             # Pricing breakdown (tool-side) using resolved unit prices
             subtotal = 0.0
@@ -651,11 +782,21 @@ def create_astrosouks_order(
     product_selections JSON example:
       '[{"product_name": "Food Vacuum Sealer", "quantity": 2, "variant_title": "10 Bags"}]'
     """
+    request_id = f"REQ_{int(time.time() * 1000)}"
+    logger.info(f"🎯 ASTROSOUKS ORDER REQUEST [{request_id}] at {datetime.now().isoformat()}")
+    logger.info(f"📞 Customer: {customer_first_name} {customer_last_name} ({customer_phone})")
+    logger.info(f"🏠 Location: {shipping_city}, {shipping_country}")
+    logger.info(f"🎁 Offer mode: {offer_mode}")
+    logger.debug(f"📦 Product selections raw: {product_selections}")
+    
     try:
         # Validate product selections using Pydantic
+        logger.debug(f"🔍 [{request_id}] Validating product selections with Pydantic...")
         try:
             validation_input = OrderValidationInput(product_selections=product_selections)
+            logger.info(f"✅ [{request_id}] Product validation passed")
         except ValidationError as e:
+            logger.error(f"❌ [{request_id}] Product validation failed: {e}")
             error_details = []
             for error in e.errors():
                 if 'product_name' in str(error.get('loc', [])):
@@ -685,20 +826,32 @@ def create_astrosouks_order(
         if missing and offer_mode.strip().lower() == "standard":
             return f"❌ Error: Missing required fields: {', '.join(missing)}"
 
+        logger.debug(f"🔍 [{request_id}] Parsing product selections JSON...")
         selections = _parse_product_selections_json(product_selections)
         if not selections:
+            logger.error(f"❌ [{request_id}] Failed to parse product selections JSON")
             return "❌ Error: Invalid or empty product_selections JSON."
 
+        logger.info(f"📦 [{request_id}] Parsed {len(selections)} product selections")
+
+        logger.info(f"🔧 [{request_id}] Creating AstroSouksOrderManager...")
+        manager_start = time.time()
         om = AstroSouksOrderManager()
+        manager_duration = time.time() - manager_start
+        logger.info(f"✅ [{request_id}] OrderManager created in {manager_duration:.3f}s")
+        
         # Map offer_mode to explicit discount_percent and disable auto volume tiers
         omode = (offer_mode or "standard").strip().lower()
+        logger.debug(f"🎁 [{request_id}] Processing offer mode: '{offer_mode}' -> '{omode}'")
         if omode not in ("standard", "none", "10%", "15%"):
+            logger.error(f"❌ [{request_id}] Invalid offer mode: {omode}")
             return "❌ Error: offer_mode must be one of: standard/none, 10%, 15%."
         mapped_discount = 0.0
         if omode in ("10%",):
             mapped_discount = 10.0
         elif omode in ("15%",):
             mapped_discount = 15.0
+        logger.info(f"💰 [{request_id}] Mapped discount: {mapped_discount}%")
 
         order_data = {
             'customer_info': {
@@ -737,9 +890,28 @@ def create_astrosouks_order(
             'metadata': config.get('metadata', {}) if hasattr(config, 'get') else {},
         }
 
+        logger.info(f"🚀 [{request_id}] Calling om.create_order with assembled data...")
+        logger.debug(f"📋 [{request_id}] Order data summary:")
+        logger.debug(f"   Customer: {order_data['customer_info']}")
+        logger.debug(f"   Line items count: {len(order_data['line_items'])}")
+        logger.debug(f"   Discount: {order_data['forced_discount_percent']}%")
+        logger.debug(f"   Auto volume: {order_data['enable_auto_volume']}")
+        
+        create_start = time.time()
         result = om.create_order(order_data)
+        create_duration = time.time() - create_start
+        logger.info(f"⏱️  [{request_id}] Order creation completed in {create_duration:.3f}s")
+        
         if not result.get('success'):
-            return f"❌ Error creating AstroSouks order: {result.get('error')}"
+            error_msg = result.get('error', 'Unknown error')
+            logger.error(f"❌ [{request_id}] ORDER CREATION FAILED: {error_msg}")
+            total_duration = time.time() - (create_start - create_duration)
+            logger.error(f"🕒 [{request_id}] Total request duration: {total_duration:.3f}s")
+            return f"❌ Error creating AstroSouks order: {error_msg}"
+        
+        logger.info(f"✅ [{request_id}] ORDER CREATION SUCCESSFUL!")
+        total_duration = time.time() - (create_start - create_duration)  
+        logger.info(f"🕒 [{request_id}] Total request duration: {total_duration:.3f}s")
 
         if result.get('type') == 'draft_order':
             draft = result.get('data', {})
@@ -798,5 +970,12 @@ def create_astrosouks_order(
         return "\n".join(summary_lines)
 
     except Exception as e:
+        logger.error(f"💥 [{request_id}] UNEXPECTED ERROR in create_astrosouks_order: {type(e).__name__}: {str(e)}")
+        logger.error(f"🔍 [{request_id}] Exception details:", exc_info=True)
+        logger.error(f"📋 [{request_id}] Request context:")
+        logger.error(f"   Customer: {customer_first_name} {customer_last_name}")
+        logger.error(f"   Phone: {customer_phone}")
+        logger.error(f"   Offer mode: {offer_mode}")
+        logger.error(f"   Product selections: {product_selections}")
         return f"❌ Error creating AstroSouks order: {str(e)}"
 

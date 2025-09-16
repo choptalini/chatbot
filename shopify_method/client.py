@@ -1271,13 +1271,23 @@ class ShopifyClient:
             payload["order"]["billing_address"] = bill
 
         url = f"https://{self.shop_domain}/admin/api/{self.api_version}/orders.json"
-        self.logger.info("Falling back to REST Admin API for order creation")
+        self.logger.info("🚀 SHOPIFY REST ORDER CREATE - Starting API call")
+        self.logger.info(f"📋 Order payload summary:")
+        self.logger.info(f"   Line items: {len(payload.get('order', {}).get('line_items', []))}")
+        self.logger.info(f"   Customer: {payload.get('order', {}).get('customer', {}).get('first_name', 'N/A')} {payload.get('order', {}).get('customer', {}).get('last_name', 'N/A')}")
+        self.logger.info(f"   Total price: {payload.get('order', {}).get('total_price', 'N/A')}")
+        self.logger.debug(f"📦 Full REST order payload: {json.dumps(payload, indent=2)}")
+        
         resp = self.session.post(url, json=payload, timeout=REQUEST_TIMEOUT)
+        self.logger.info(f"⏱️  REST order API call completed - Status: {resp.status_code}")
 
         if resp.status_code not in (200, 201):
+            self.logger.error(f"❌ REST ORDER CREATE FAILED - Status: {resp.status_code}")
             try:
                 err_body = resp.json()
+                self.logger.error(f"🔍 Error response body: {json.dumps(err_body, indent=2)}")
             except Exception:
+                self.logger.error(f"🔍 Error response text: {resp.text}")
                 err_body = {"error": resp.text}
             raise OrderError(
                 message=f"REST order create failed (status {resp.status_code})",
