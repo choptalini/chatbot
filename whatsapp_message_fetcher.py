@@ -36,6 +36,7 @@ from src.supabase_storage import upload_media_to_supabase
 from src.agent.core import set_thread_instructions_for_thread
 from src.geocoding import reverse_geocode as reverse_geocode_location, directions_links as maps_directions_links
 from src.multi_tenant_config import MultiTenantConfig
+from src.astrosouks_tools.product_sync import run_product_sync_once
 
 load_dotenv()
 
@@ -48,7 +49,7 @@ MIN_WORKERS = 1
 MAX_WORKERS = 10
 BUSY_THRESHOLD = 5
 CLEANUP_INTERVAL_SECONDS = 600
-DEBOUNCE_SECONDS = 10
+DEBOUNCE_SECONDS = 0.01
 
 # Shopify OAuth/webhook configuration removed per request
 
@@ -57,6 +58,7 @@ user_debounce_states: Dict[str, Dict] = {}
 GLOBAL_MESSAGE_QUEUE = asyncio.Queue()
 WORKER_POOL = []
 MANUAL_MESSAGE_LISTENER_TASK = None
+PRODUCT_SYNC_TASK = None
 
 # Per-user async locks to protect debounce state from race conditions
 user_state_locks: Dict[str, asyncio.Lock] = {}
@@ -1088,6 +1090,26 @@ async def scale_down_workers():
                 pass  # Expected
             logger.info(f"Successfully terminated one worker. Pool size: {len(WORKER_POOL)}")
 
+async def hourly_product_sync_job():
+    """
+    Background job to refresh the AstroSouks product KB every hour while the server is running.
+    """
+    logger.info("🗂️ Product sync service started (hourly)")
+    # Run an immediate sync on startup (non-fatal if fails), then every 3600s
+    try:
+        await run_product_sync_once()
+    except Exception as e:
+        logger.warning(f"Initial product sync failed: {e}")
+    while True:
+        try:
+            await asyncio.sleep(3600)
+            await run_product_sync_once()
+        except asyncio.CancelledError:
+            logger.info("🛑 Product sync service cancelled")
+            break
+        except Exception as e:
+            logger.error(f"Hourly product sync error: {e}")
+
 # --- FastAPI Application ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -1136,6 +1158,10 @@ async def lifespan(app: FastAPI):
     
     # Start the debounce state cleanup task
     cleanup_task = asyncio.create_task(cleanup_stale_debounce_states())
+
+    # Start the hourly product sync job (runs only while server is up)
+    global PRODUCT_SYNC_TASK
+    PRODUCT_SYNC_TASK = asyncio.create_task(hourly_product_sync_job())
     
     # Manual message handling via HTTP webhook endpoint (no polling needed)
     
@@ -1147,12 +1173,14 @@ async def lifespan(app: FastAPI):
     logger.info("🛑 Shutting down multi-tenant system...")
     janitor_task.cancel()
     cleanup_task.cancel()
+    if PRODUCT_SYNC_TASK:
+        PRODUCT_SYNC_TASK.cancel()
     for task in WORKER_POOL:
         task.cancel()
     
     # Manual message polling system cleanup handled by task cancellation
     
-    tasks_to_wait = [janitor_task, cleanup_task, *WORKER_POOL]
+    tasks_to_wait = [janitor_task, cleanup_task, PRODUCT_SYNC_TASK, *WORKER_POOL]
     
     await asyncio.gather(*tasks_to_wait, return_exceptions=True)
     logger.info("All workers and services shut down.")

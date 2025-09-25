@@ -1,0 +1,149 @@
+Shop Domain: http://aa966e-20.myshopify.com
+Product Count (requested 10): 10
+
+# Neck Heater - Rechargeable
+ID: gid://shopify/Product/7377487233101  |  Handle: neck-heater-rechargeable  |  Status: ACTIVE  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2024-11-21T19:16:51Z  |  Updated: 2025-09-03T16:56:23Z
+Description:
+  The Neck Heater is an innovative wearable that comfortably wraps around your neck, delivering customizable warmth with five adjustable heat levels for personalized comfort and relaxation. Stay warm and cozy wherever you go with the Astro Neck Heater, the ultimate solution for on-the-go comfort and relaxation. Designed for all-day wear, this innovative neck warmer offers adjustable warmth at the touch of a button, allowing you to customize your experience with 5 heat levels. Whether you're commuting, working, or relaxing at home, the Neck Heater provides soothing, targeted heat right where you need it most. Key Features & Benefits: 5 Adjustable Heat Levels: Easily adjust the warmth to your preference with five heat settings, from a gentle soothing heat to a more intense, cozy warmth. Perfect for all seasons and various temperature needs. Ergonomic & Comfortable Design: Lightweight and soft, this neck heater is designed to fit snugly around your neck, providing targeted heat where you need it most without being bulky or uncomfortable. Portable & Rechargeable: With a built-in rechargeable battery, you can take the Neck Heater anywhere—whether you’re traveling, at the office, or relaxing at home. Enjoy up to 5 hours of continuous warmth on a single charge. Safe & Efficient Heating: The Neck Heater uses advanced heating technology to distribute warmth evenly and safely, so you can relax without worrying about overheating or burns. Stylish & Versatile: The sleek, modern design makes it easy to wear with any outfit. Whether you're in a casual hoodie or office attire, the Neck Heater blends seamlessly with your daily look. Perfect for Any Occasion: Ideal for cold mornings, chilly evenings, or outdoor adventures, this wearable heater is the ideal companion for staying warm and relaxed no matter where you are. Upgrade your comfort this season with the Astro Neck Heater—your personal warmth, on demand.
+Images (up to 5): 3 of 3 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/3364a5c7-0c5e-430d-9bcc-216892af870f.jpg?v=1732214801
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/ontel-handy-heater-freedom-wearable-neck-heater-148.jpg?v=1732214813
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/LBS-Freedom-Wearable-Neck-Heater-Cold-Winters-4-Heat-Settings-Comfort-Technology-Cordless-Personal-Heating-USB-Rechargeable-6-Hour-Battery_4148b030-f994-42d6-88c9-8492597ae4ab.86e9050.webp?v=1732214806
+Variants: 1
+  - Default Title | price: was $35.00, now $22.00 (37.14% off) | id=gid://shopify/ProductVariant/41431880826957 | sku= | barcode= | inv=22 | available=True
+    options: Title: Default Title
+
+# Foot Messager - EMS
+ID: gid://shopify/Product/7377809080397  |  Handle: foot-messager-ems  |  Status: ACTIVE  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2024-11-22T17:54:16Z  |  Updated: 2025-09-11T15:00:51Z
+Description:
+  The EMS Foot Massager uses advanced electrical stimulation technology to send gentle pulses of electricity through your legs, providing effective muscle relaxation and enhanced circulation. Key Features & benefits Improved Circulation: Helps stimulate blood flow in the legs and feet, enhancing overall circulation. Muscle Relaxation: Relieves muscle tension by using electrical pulses to soothe and relax the foot and leg muscles. Pain Relief: Can alleviate aches and pains in the feet, legs, and lower back by reducing muscle stiffness and promoting relaxation. Stress Reduction: Promotes relaxation and reduces stress by providing a soothing massage experience through electrical stimulation. Enhanced Recovery: Speeds muscle recovery after intense physical activity by reducing soreness and stiffness. Convenient Home Therapy: Provides an effective, at-home alternative to professional foot and leg massages or physical therapy. Increased Flexibility: Regular use may improve joint mobility and flexibility in the feet and legs. Non-Invasive: A non-invasive, drug-free method for relieving discomfort and promoting wellness. Customizable Settings: Many devices offer adjustable intensity levels for a personalized experience based on your comfort level. Convenient and Easy to Use: User-friendly design allows for easy operation and comfort. Helps Reduce Swelling: The electrical pulses can help reduce water retention and swelling in the legs and feet. Improved Sleep Quality: Promoting relaxation helps improve sleep by reducing foot and leg discomfort. Relax and relieve muscle tension with our EMS Foot Massager! Improve circulation and ease discomfort in your legs. Buy now for instant comfort or call us for more details!
+Images (up to 5): 3 of 3 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/OIP.jpg?v=1732296897
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/sg-11134201-7renb-m1weswq4w2t922.jpg?v=1732296921
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/R.jpg?v=1732296921
+Variants: 1
+  - Default Title | price: was $15.00, now $9.99 (33.4% off) | id=gid://shopify/ProductVariant/41434861699149 | sku= | barcode= | inv=0 | available=True
+    options: Title: Default Title
+
+# Hair Dryer Brush - 4 in 1
+ID: gid://shopify/Product/7377814192205  |  Handle: hair-brush-dryer-4-in-1  |  Status: ACTIVE  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2024-11-22T18:27:26Z  |  Updated: 2025-09-18T11:53:35Z
+Description:
+  Transform your hair routine with the 4-in-1 Hair Dryer Brush – the ultimate tool that combines a comb, blow dryer, straightener, and curler for flawless, salon-worthy styles in minutes. Perfect for every girl on the go. Key Features & Benefits All-in-One: Combines a blow dryer, comb, straightener, and curler in one tool. Fast Styling: Achieve your desired look quickly, perfect for busy mornings. Salon Results at Home: Professional-quality styles without the salon price. Less Heat Damage: Style with less heat for healthier hair. Portable & Lightweight: Easy to use and travel-friendly for styling on the go How to Use: Start with Damp Hair: Towel-dry your hair until it's slightly damp. Power On: Turn on the device and choose your desired heat and speed settings. Style: Use the brush to dry and smooth your hair. Glide through sections for straight, sleek hair or add curls and volume by wrapping the brush. Finish: Once your desired style is achieved, turn off the device and allow your hair to cool before finishing with your favorite products. Enjoy quick, easy, and salon-quality results!
+Images (up to 5): 3 of 3 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/71_yVr6aXkL.jpg?v=1732299089
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/46045816_girl-using-brush-hair-dryer-to-style-hair-at-the-mirror-on-bathroom.webp?v=1732299090
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/Hairbrushdryer.jpg?v=1732298403
+Variants: 1
+  - Default Title | price: was $42.00, now $15.00 (64.29% off) | id=gid://shopify/ProductVariant/41434879230029 | sku= | barcode= | inv=12 | available=True
+    options: Title: Default Title
+
+# LCD Panel - Board
+ID: gid://shopify/Product/7380382089293  |  Handle: lcd-panel-board  |  Status: ACTIVE  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2024-11-27T15:37:59Z  |  Updated: 2025-09-21T06:43:40Z
+Description:
+  This innovative LCD writing tablet allows kids to draw, write, and unleash their creativity—simply press one button to instantly erase and start fresh with endless possibilities! Key Features: Reusable LCD Screen: Write, draw, and erase as many times as you like with the press of a button. Kid-Friendly Design: Lightweight, durable, and easy for young hands to hold and use. One-Touch Erase: Clear the entire screen with a single button press for quick and effortless reusability. Environmental & Cost-Efficient: No need for paper or markers—save resources and money while fostering creativity. Bright and Clear Display: High-contrast screen ensures visibility in a variety of lighting conditions. Portable and Convenient: Compact and slim design, perfect for travel, car rides, and on-the-go entertainment. Safe and Non-Toxic: Made with child-safe materials, free from harmful chemicals. Benefits: Encourages Creativity: Promotes imaginative drawing, writing, and problem-solving in a fun and interactive way. Educational Tool: Ideal for practicing handwriting, math problems, and sketching, helping kids learn while they play. Mess-Free Fun: No ink, no mess—ideal for parents who want to avoid the cleanup of traditional art supplies. Sustainable Solution: With unlimited reuse, this tablet helps reduce paper waste and provides an eco-friendly alternative. Easy to Use: Simple interface that children can operate on their own, promoting independence and confidence. Great for On-the-Go: Keep kids entertained during travel or downtime, without the need for electronics or screen time. Unlock endless creativity and fun with the Astro LCD Writing Tablet—where imagination knows no bounds, and every idea can be erased with ease to make room for the next one!
+Images (up to 5): 4 of 4 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/LCD_screen_for_kids_4.webp?v=1732720013
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/345468b9-0174-4f8e-9c9a-e81337fd62ac.b7d8bc08a212eaaecf13bea2497e5b5c.png?v=1732720013
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/fb9b15a2-6ac6-4151-9480-9e168302d45d.0fa2e412a1f8048f681c5a9f8fc9a08a.webp?v=1732720013
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rBVapWG1kGOABnYmAAEv8Nr7GG8678.webp?v=1732720013
+Variants: 1
+  - Default Title | price: was $7.00, now $4.00 (42.86% off) | id=gid://shopify/ProductVariant/41443205447757 | sku= | barcode= | inv=11 | available=True
+    options: Title: Default Title
+
+# Action Self-Squeezing Mop:
+ID: gid://shopify/Product/7381676458061  |  Handle: twist-action-mop  |  Status: ACTIVE  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2024-11-30T16:38:06Z  |  Updated: 2025-09-12T14:16:10Z
+Description:
+  The Action Self-Squeezing Mop is designed to effortlessly squeeze out water, making it ideal for cleaning floors and windows. Perfect for easy, effective cleaning, it’s your go-to tool for a spotless home or business. Key Features of the Action Self-Squeezing Mop: Self-Squeezing Mechanism – Effortlessly squeeze out excess water with a simple push, no wringing needed. Multi-Surface Cleaning – Ideal for use on floors, windows, and other smooth surfaces. Highly Absorbent – Quickly soaks up dirt, dust, and spills for a spotless clean. Ergonomic Handle – Comfortable, non-slip design for easy maneuverability and extended use. Durable & Long-Lasting – Made with high-quality materials to ensure longevity and reliability. Easy to Store – Compact design for convenient storage in any cleaning closet. Quick Drying – Helps floors and surfaces dry faster, leaving no streaks behind. Reusable Mop Head – Machine washable mop head for easy cleaning and reusability. Time-Saving – Efficient design that reduces cleaning time with minimal effort. Eco-Friendly – Reduces the need for disposable cleaning materials, making it a sustainable choice. Benefits of the Action Self-Squeezing Mop: 1. Time-Saving – Speeds up cleaning with minimal effort. 2. Convenient & Easy to Use – No bending or twisting required. 3. Mess-Free – Keeps hands dry while cleaning. 4. Cost-Effective – Reusable mop head reduces costs. 5. Versatile – Works on floors, windows, and more. 6. Eco-Friendly – Reduces waste with reusable materials. 7. Comfortable Grip – Ergonomic handle for ease of use.
+Images (up to 5): 4 of 4 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/360-Degree-Rotating-Self-Wringing-Microfiber-Triangle-Mop-with-Cleaning-and-Drying-Head-for-Wet-or-Dry-Floor-Cleaning-Ceiling-Window-and-Wall_f27db814-e36a-4037-afa1-5f85c6024145.7aa1.webp?v=1732984660
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/s-l1600.jpg?v=1732984659
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/OIP_347239e1-ac60-4896-ab1e-412ace23802e.jpg?v=1732984659
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/triangular-twist-water-mop-500x500.webp?v=1732984659
+Variants: 1
+  - Default Title | price: was $18.00, now $10.00 (44.44% off) | id=gid://shopify/ProductVariant/41446251855949 | sku= | barcode= | inv=13 | available=True
+    options: Title: Default Title
+
+# Protein Shaker - Silver Crest
+ID: gid://shopify/Product/7381697953869  |  Handle: silver-crest-protein-shaker  |  Status: DRAFT  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2024-11-30T18:57:27Z  |  Updated: 2025-04-08T11:33:31Z
+Description:
+  The Silver Crest Electric Protein Shaker offers a convenient, efficient way to mix your protein shakes, smoothies, and other beverages with ease, ensuring a smooth and lump-free consistency every time. Key Features of the Silver Crest Electric Protein Shaker: Powerful Motor – Ensures smooth, lump-free mixing for your protein shakes and beverages. One-Touch Operation – Simple and easy to use with a single button for quick blending. Leak-Proof Design – Secure lid prevents spills and leaks during use or transport. Portable & Lightweight – Ideal for on-the-go use, whether at the gym, office, or home. Durable & Easy to Clean – High-quality materials for lasting performance and easy maintenance. Compact & Stylish – Sleek, modern design that fits easily in your bag or cup holder. Multi-Use – Perfect for protein shakes, smoothies, and other drink mixes. Quiet Operation – Blends your drinks quietly without disturbing your environment. Benefits of the Silver Crest Electric Protein Shaker: Smooth & Consistent Mix – Ensures a lump-free shake every time for the perfect texture. Convenient & Easy to Use – One-touch operation for quick, effortless blending. Portable – Take it anywhere for on-the-go shakes, smoothies, or drinks. Time-Saving – Quick and efficient mixing saves you time compared to manual shaking. No Mess – Leak-proof design eliminates spills and messes during use or transport. Eco-Friendly & Cost-Effective – Rechargeable battery saves money on disposable batteries. Compact & Stylish – Sleek, modern design fits easily in bags and looks great wherever you go.
+Images (up to 5): 4 of 4 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/HDS-Electric-Protein-Shaker-Bottle-Portable-Mixer-Cup-Blender-Bottle-Protein-Shake-Mixer-Cup-Mixer-16oz-Cup-450ML-Black_73cc9cf6-d78b-4597-9d0b-cd84013ecc35.3530286f0c8bc21d2b63327b35.webp?v=1732992680
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/be10bd08c251eb709d4b955f991d364f.jpg?v=1732992681
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/OIP_1_79fdfeb1-d9c4-468b-a197-1928ce675671.jpg?v=1732993198
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/81UDHX5PGwL._AC_SL1500.jpg?v=1732992681
+Variants: 1
+  - Default Title | price: was $24.00, now $20.00 (16.67% off) | id=gid://shopify/ProductVariant/41446320767053 | sku= | barcode= | inv=0 | available=False
+    options: Title: Default Title
+
+# Dead Skin Remover
+ID: gid://shopify/Product/7382228009037  |  Handle: dead-skin-remover  |  Status: ACTIVE  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2024-12-02T13:36:59Z  |  Updated: 2025-09-18T11:57:31Z
+Description:
+  LIMITED OFFER 1 Year Warranty The Electric Callus Remover features a spinning head that effectively removes dead skin, leaving your feet smooth and soft with every use. Key Features of the Electric Callus Remover: Spinning Head – Gently and effectively removes dead skin for smooth, soft feet. Ergonomic Design – Comfortable, easy-to-hold handle for precise control during use. Powerful & Efficient – Quickly exfoliates and buffs away calluses without effort. Multiple Attachments – Includes different roller heads for customized treatment. Safe & Gentle – Designed to be safe on skin, even for sensitive areas. Portable & Lightweight – Ideal for use at home or on the go. Water-Resistant – Can be used dry or in the shower for added convenience. Benefits of the Electric Callus Remover: Smooth, Soft Skin – Effectively removes dead skin, leaving your feet feeling soft and rejuvenated. Quick & Easy – Saves time and effort compared to manual scrubbing, providing professional results at home. Customizable Treatment – Multiple roller heads allow for personalized care to target different areas. Safe & Gentle – Designed to gently exfoliate without causing irritation or damage to sensitive skin. Convenient & Portable – Rechargeable and lightweight, perfect for use at home or while traveling. Long-Lasting Results – Maintains smooth feet with regular use, preventing buildup of calluses. Water-Resistant – Can be used in the shower, making it versatile for wet or dry use.
+Images (up to 5): 4 of 4 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/378a1b3a-9d5d-40fb-b64d-882764d9df3d.e2438fe3ae15ca789d45e7fee3068008.webp?v=1733145727
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/10f7dfe6fa984fac6e12187537697596.jpg?v=1733145727
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/electric-foot-file-callus-remover-rechargeable-pedicure-tools-foot-care-kit-500x500.webp?v=1733145727
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/ff015a5b499ef268ea1d2bc8cfc347de.jpg?v=1733145727
+Variants: 1
+  - Default Title | price: was $22.00, now $14.99 (31.86% off) | id=gid://shopify/ProductVariant/41449926525005 | sku= | barcode= | inv=42 | available=True
+    options: Title: Default Title
+
+# 3-Head Hair Waver - EnergyMax
+ID: gid://shopify/Product/7400595619917  |  Handle: 3-head-hair-curler  |  Status: ACTIVE  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2025-01-01T15:38:10Z  |  Updated: 2025-09-21T07:02:12Z
+Description:
+  1 Year Warranty The innovative 3-Head Hair Curler, designed to open and securely hold hair in place for flawless curls, combines advanced heating technology for perfect, long-lasting results. Benefits of the 3-Head Hair Curler: Effortless Curls: The innovative 3-head design securely holds hair while evenly distributing heat for smooth, defined curls with minimal effort. Quick Styling: Heats up fast, allowing you to curl your hair in less time, making it perfect for busy mornings or on-the-go styling. Long-Lasting Results: Advanced heat technology ensures your curls last throughout the day, maintaining bounce and shine without needing touch-ups. Customizable Curl Options: The unique three-head system gives you the flexibility to create tight curls, loose waves, or anything in between. Heat Protection: Built-in safety features help prevent overheating, protecting your hair from damage while achieving optimal results. Versatile for All Hair Types: Works effectively on straight, wavy, or curly hair, adapting to different textures for professional-looking curls every time. User-Friendly Design: The easy-to-use mechanism and ergonomic handle ensure a comfortable, hassle-free styling experience. Compact & Travel-Friendly: Lightweight and portable, perfect for carrying in your bag for styling anywhere, anytime. Stylish & Durable: Sleek design coupled with high-quality materials ensures long-lasting performance while adding a touch of elegance to your beauty tools collection. Salon-Quality Results at Home: Achieve professional-level curls in the comfort of your own home, saving both time and money on salon visits. Key Features of the 3-Head Hair Curler: Triple-Head Design: Three adjustable heads that open to securely hold and curl multiple sections of hair at once, providing faster styling and more defined curls. Rapid Heat-Up Technology: Quick heat-up time, allowing you to start styling within seconds, saving you valuable time. Customizable Temperature Settings: Multiple heat settings to suit different hair types and curl preferences, ensuring personalized styling. Advanced Ceramic Coating: Ensures even heat distribution, reducing the risk of hair damage and promoting smooth, shiny curls. Built-In Safety Features: Automatic shut-off after a set period of inactivity and heat protection technology to prevent overheating and damage. Ergonomic Design: Comfortable handle with a non-slip grip for easy maneuvering, providing control and reducing strain during styling. 360° Rotating Cord: Tangle-free, flexible cord for easy handling and unrestricted movement while styling. Universal Voltage: Perfect for travel, as it works on both 110V and 220V outlets worldwide. Lightweight & Portable: Compact and easy to store or carry, making it ideal for home use or travel. Professional-Grade Results: Achieve salon-quality curls with the convenience and comfort of an at-home styling tool. Transform your hair routine with the 3-Head Hair Curler – the ultimate tool for effortless, long-lasting curls. Say goodbye to time-consuming styling and hello to flawless, salon-quality results every day. Whether you're getting ready for a special occasion or just want to add some extra glam, this curler is your secret to beautiful, confident curls. Don’t wait—unlock your best hair yet and make every day a good hair day!
+Images (up to 5): 5 of 5 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61AFFEaI98L.jpg?v=1735744274
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/59C631E9-D503-4AA9-8065-7BDF4009D0C5-878x1024.jpg?v=1735744274
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/16922657241672483c9ad270434548beceacd23575_thumbnail_720x_8755d1c9-acc7-4fdb-a105-7cd676737ecf.jpg?v=1735744274
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/81nCoYLF7vL._AC_UF350_350_QL80.jpg?v=1735744274
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/image.png?v=1735744274
+Variants: 1
+  - Default Title | price: was $33.00, now $15.00 (54.55% off) | id=gid://shopify/ProductVariant/41503070912589 | sku= | barcode= | inv=10 | available=True
+    options: Title: Default Title
+
+# Hair Curler - EnergyMax
+ID: gid://shopify/Product/7400600502349  |  Handle: hair-curler-energymax  |  Status: ACTIVE  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2025-01-01T16:23:19Z  |  Updated: 2025-09-20T13:44:36Z
+Description:
+  1 Year Warranty! The innovative Hair Curler, designed to effortlessly roll hair around its heated barrel, delivers smooth, bouncy curls that last all day with minimal effort. Benefits of the Hair Curler: Effortless Styling: The unique design allows you to easily roll your hair around the heated barrel, creating perfect curls with minimal effort. Quick Heat-Up: Heats up rapidly, reducing your styling time and allowing you to achieve beautiful curls in just minutes. Long-Lasting Curls: The advanced heat technology ensures your curls stay intact throughout the day, giving you a fresh, bouncy look that lasts. Sleek, Shiny Curls: The heating element smooths and tames frizz, leaving your curls looking polished, smooth, and shiny. Customizable Curl Style: From tight ringlets to loose waves, you have full control over the type of curls you want to create. Heat Protection: Designed with built-in safety features to prevent overheating and protect your hair from unnecessary damage. Versatile for All Hair Types: Works perfectly on all hair textures, whether straight, wavy, or curly, providing professional results every time. User-Friendly: Easy to use with an ergonomic design, allowing for a comfortable grip and effortless styling experience. Compact & Travel-Friendly: Lightweight and portable, making it the perfect tool for styling on the go, whether at home or on vacation. Salon-Quality Results at Home: Achieve flawless curls like a professional stylist without stepping foot in a salon, saving time and money. Key Features of the Hair Curler: Heated Barrel Technology: Quickly heats up to the ideal temperature, allowing you to roll your hair around the barrel and create smooth, bouncy curls with ease. Multiple Heat Settings: Adjustable temperature controls to suit different hair types and curl preferences, ensuring optimal results for every style. Ceramic Coating: Protects hair from heat damage while providing even heat distribution for shiny, frizz-free curls. Ergonomic Design: Comfortable grip and lightweight build for easy handling, making it effortless to create curls without straining your wrist. Fast Heat-Up: Rapid heat-up technology so you can start curling your hair within seconds, saving you time during your styling routine. Universal Voltage: Ideal for worldwide use, making it a perfect travel companion for styling anywhere. Automatic Safety Shutoff: Built-in automatic shutoff feature after a certain period of inactivity, ensuring safety and energy efficiency. 360° Rotating Cord: Tangle-free, flexible cord that allows for smooth movement and prevents twisting while you style. Heat Protection Tip: Safety tip to prevent burns while handling the curler, offering extra peace of mind during use. Compact & Portable: Sleek and lightweight design, perfect for storing in your bag or suitcase, so you can always have beautiful curls on the go. Unlock the secret to effortless, flawless curls with our Hair Curler. Whether you're getting ready for a night out or simply want to add a touch of glamour to your everyday look, this curler will give you beautiful, long-lasting curls in no time. Treat yourself to the styling tool that delivers salon-quality results with ease and confidence. Don’t wait—your perfect curls are just a roll away!
+Images (up to 5): 4 of 4 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/01_d55cfd05-1d1b-45bc-a9d0-010f6e7de550.webp?v=1735747199
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/2-5_grande_1200x1200_aa8731d1-792f-42cc-b434-f64cacc05905.jpg?v=1735747199
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/20220121093306_b26279db.webp?v=1735747199
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/8117ZpAIC_L._SL1500_1200x1200_7eaa4caa-b5a9-4669-9d20-e079c9635113.webp?v=1735747199
+Variants: 1
+  - Default Title | price: was $35.00, now $15.00 (57.14% off) | id=gid://shopify/ProductVariant/41503087231053 | sku= | barcode= | inv=3 | available=True
+    options: Title: Default Title
+
+# Double Sided Tape - 3 Meter
+ID: gid://shopify/Product/7409900912717  |  Handle: double-sided-tape-3-meter  |  Status: ACTIVE  |  Vendor: AstroSouks  |  Type: 
+Tags: 
+Created: 2025-01-15T20:38:05Z  |  Updated: 2025-09-19T20:07:16Z
+Description:
+  This innovative double-sided tape is engineered to securely adhere household items to various surfaces, offering strength, versatility, and convenience for everyday use. Benefits of Double-Sided Tape: Strong Adhesion: Securely attaches household items to walls, furniture, and more. Versatile Use: Ideal for a wide range of household applications, from decor to organizing. No Residue: Removes cleanly without leaving sticky residue or damaging surfaces. Easy to Use: Simple peel-and-stick design for quick and hassle-free application. Durable: Provides long-lasting hold for everyday items, even in high-traffic areas. Surface Protection: Gentle on walls and other surfaces, preventing scratches or marks. Weather-Resistant: Performs well in various indoor environments, including high humidity areas. Invisible Appearance: Transparent tape blends seamlessly into any decor. Reusable: Can be repositioned and used multiple times without losing strength. Multi-Surface Compatibility: Works on a variety of surfaces like wood, metal, glass, and plastic. Key Features of [Brand Name] Double-Sided Tape: High Adhesion Strength: Ensures a secure and long-lasting bond on multiple surfaces. Transparent Design: Offers a clean, invisible look that blends with any decor. Easy Application: Simple peel-and-stick functionality for quick and effortless use. Residue-Free Removal: Leaves no sticky residue behind when removed. Durable and Reliable: Holds items in place for extended periods, even with everyday use. Water-Resistant: Withstands moisture and humidity, ideal for various indoor environments. Repositionable: Can be easily adjusted and reused without losing adhesive power. Multi-Surface Compatibility: Works effectively on wood, glass, metal, plastic, and more. Non-Damaging: Safe for walls and delicate surfaces, preventing damage or scratches. Compact and Convenient: Lightweight and easy to store for quick access whenever needed.
+Images (up to 5): 3 of 3 total
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61V0o79n41L._SL1500_5c295f3c-36e3-4e68-af76-0d4582114f8f.jpg?v=1736972933
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/7cd2891128cdbc905b28422d07b80b7d.jpg_720x720q80_eecb9c94-2d0b-4fe5-8205-b1eb91bc4ec7.jpg?v=1736972933
+  - https://cdn.shopify.com/s/files/1/0609/5306/7597/files/b576a47ad97663116fb3c745d734c408_5b523cfb-9f4b-40ca-a0ae-6b67f00a051e.jpg?v=1736972933
+Variants: 1
+  - Default Title | price: was $10.00, now $7.00 (30.0% off) | id=gid://shopify/ProductVariant/41529020874829 | sku= | barcode= | inv=50 | available=True
+    options: Title: Default Title

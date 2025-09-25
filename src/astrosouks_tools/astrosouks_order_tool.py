@@ -27,93 +27,26 @@ from langchain_core.runnables import RunnableConfig
 
 from shopify_method import ShopifyClient
 from src.multi_tenant_database import db as local_db
+from src.astrosouks_tools.product_kb_parser import get_product_names
 
 # Set up logging for order tool
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-# Valid AstroSouks product names (extracted from Shopify catalog)
-ValidProductName = Literal[
-    "Neck Heater - Rechargeable",
-    "Foot Messager - EMS", 
-    "Hair Dryer Brush - 4 in 1",
-    "LCD Panel - Board",
-    "Action Self-Squeezing Mop:",
-    "Protein Shaker - Silver Crest",
-    "Dead Skin Remover",
-    "3-Head Hair Waver - EnergyMax",
-    "Hair Curler - EnergyMax",
-    "Double Sided Tape - 3 Meter",
-    "Rice Dispenser",
-    "Crystal Table Lamp - Rechargeable",
-    "Sunset Lamp",
-    "Hair Curler - Rechargeable",
-    "Message Gun - 4 in 1",
-    "Non Spill Plate For Kids",
-    "Crepe Maker - Electric",
-    "Food Vacuum Sealer",
-    "Mini Juicer",
-    "Catling Food Chopper - 4 in 1 Rechargeable",
-    "Window Repair Tape",
-    "Electric Dumpling Machine",
-    "Mini Mop",
-    "Electric Juicer - Portable",
-    "Power Bank Speaker - 3 in 1",
-    "Automatic Hair Culer - Kemei",
-    "Galaxy Man - Projector",
-    "Bubble Gun",
-    "Led Wireless Charging Speaker",
-    "Stirring Cup",
-    "Untitled Mar26_15:27",
-    "8 in 1 Multi Functional Cleaning Brush",
-    "Ultrasonic Cleaner",
-    "Memory Foam Leg Pillow",
-    "Plastic  Restorer",
-    "Wireless Glasses Headset",
-    "Wireless Music Goggles",
-    "Gel Ball Blaster",
-    "Facial Roller",
-    "Fly Trap",
-    "3-in-1 Air Cooler Fan",
-    "Spray Mop - 2 in 1",
-    "3 in 1 Vacuum Cleaner",
-    "Multifunctional Vegetable Cutter",
-    "5 in 1 Cleaning brush",
-    "4in1 Fast Car Charger",
-    "SilverCrest - Perfect Curl",
-    "Untitled Jun20_21:35",
-    "Carrera - Waver",
-    "Neck Fan",
-    "Bone Conduction Speaker",
-    "M4 Gel Ball Blaster",
-    "Bag Sealer",
-    "PowerFul Rechargeable  Whisk - 2in1",
-    "Flawless Facial Hair Removal",
-    "Ice Ball Maker",
-    "Multi Purpose Foam Cleaner",
-    "Jet Drone",
-    "Piggy Bank",
-    "Card English Education Game",
-    "Instant Water Balloons",
-    "Wall Climbing Car",
-    "Black Head Remover",
-    "Kemei Hair Removal",
-    "Thread Hair Removal Machine",
-    "Wireless Lamp Remote Controller",
-    "Labubu Big Into Magic Energy",
-    "Nevadent Electric Tooth Brush",
-    "Tiffany Grinding Machine",
-    "Multi-Function Camping Lamp",
-    "Telescopic Clothesline",
-    "Dorry Smart Body Scale",
-    "Hot Powerful Blower - Cordless"
-]
+# Dynamic product name validation derived from the KB
+def _is_valid_product_name(name: str) -> bool:
+    try:
+        available = set(n.lower() for n in get_product_names())
+        return name.strip().lower() in available
+    except Exception:
+        # If KB not available, fall back to allowing any string; downstream resolution will fail if not found
+        return isinstance(name, str) and bool(name.strip())
 
 
 class ProductSelection(BaseModel):
     """Pydantic model for validating product selections"""
-    product_name: ValidProductName
+    product_name: str
     quantity: int
     variant_title: str = ""
     
@@ -141,6 +74,9 @@ class OrderValidationInput(BaseModel):
             validated_selections = []
             for item in selections_data:
                 validated_item = ProductSelection(**item)
+                # Dynamic product name validation
+                if not _is_valid_product_name(validated_item.product_name):
+                    raise ValueError(f"Unknown product name: {validated_selections and validated_selections[-1].product_name or validated_item.product_name}")
                 validated_selections.append(validated_item)
             
             return v  # Return original JSON string

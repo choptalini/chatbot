@@ -1,535 +1,591 @@
-Here is a structured overview of AstroSouks and its products, with all the details you provided.
-
-### About AstroSouks (Operated by AstroTech)
-
-AstroSouks is an e-commerce store that operates on the Shopify platform. Their website is astrosouks.com. They emphasize customer satisfaction, offering several guarantees and policies to ensure a positive shopping experience.
-
----
-
-### Guarantees
-
-* **Product Guarantee:** If a product is not working, AstroSouks guarantees a replacement.
-* **Shipping Guarantee:** Products are guaranteed to be delivered within 3 to 4 days.
-* **Satisfaction Guarantee:** The company states, "Your satisfaction is our Responsibility."
-
----
-
-### Policies
-
-#### Privacy Policy (Last Updated: August 10, 2025)
-
-* **Information Collection:** AstroSouks collects personal information directly from you (contact, order, account, and customer support details), automatically through your usage of their site (Usage Data via cookies), and from third parties like Shopify and payment processors.
-* **Use of Information:** Your information is used for providing products and services, marketing and advertising, security and fraud prevention, and communication and service improvement.
-* **Information Disclosure:** Personal information may be disclosed to vendors, business and marketing partners, affiliates, and in connection with business transactions or legal obligations.
-* **Your Rights:** Depending on your location, you may have the right to access, delete, or correct your personal information, among other rights. You can manage communication preferences and opt-out of promotional emails.
-* **Children's Data:** The services are not intended for children, and they do not knowingly collect personal information from them.
-* **International Users:** Your personal information may be transferred, stored, and processed outside of your country.
-* **Contact for Privacy Concerns:** You can contact them at Astrotech.lb@gmail.com or at their address in Beirut, Lebanon.
-
-#### Refund Policy
-
-* **30-Day Returns:** You have 30 days after receiving an item to request a return.
-* **Return Eligibility:** To be eligible, the item must be in the same condition you received it, unworn or unused, with tags, and in its original packaging. You will also need a receipt or proof of purchase.
-* **Return Process:** To start a return, contact astrotech.lb@gmail.com. If your return is accepted, you will receive a return shipping label and instructions.
-* **Damages and Issues:** If an item is defective, damaged, or incorrect, contact them immediately.
-* **Non-Returnable Items:** Perishable goods, custom products, personal care goods, hazardous materials, flammable liquids, or gases cannot be returned. Sale items and gift cards are also non-returnable.
-* **Exchanges:** The fastest way to get a different item is to return the original and make a new purchase.
-* **Refunds:** Once your return is received and inspected, you will be notified of the approval or rejection of your refund. If approved, the refund will be automatically processed to your original payment method.
-
-#### Terms of Service
-
-* **Website Operator:** The website is operated by AstroTech.
-* **Agreement to Terms:** By using the site and/or purchasing products, you agree to their Terms of Service.
-* **Online Store Terms:** You must be of the age of majority in your state or province of residence to use the site. You may not use their products for illegal purposes.
-* **General Conditions:** They reserve the right to refuse service to anyone. Your content (excluding credit card information) may be transferred unencrypted.
-* **Information Accuracy:** They are not responsible if the information on the site is not accurate, complete, or current.
-* **Modifications and Prices:** Prices are subject to change without notice. They reserve the right to modify or discontinue the Service at any time.
-* **Products or Services:** Some products may be available exclusively online and may have limited quantities. They have made every effort to display colors and images accurately.
-* **Billing and Account Information:** They reserve the right to refuse any order. You agree to provide current, complete, and accurate purchase and account information.
-* **Third-Party Links:** They are not responsible for third-party websites linked on their site.
-* **User Comments:** You are solely responsible for any comments you make.
-* **Personal Information:** Your submission of personal information is governed by their Privacy Policy.
-* **Prohibited Uses:** The site cannot be used for any unlawful purpose.
-* **Governing Law:** The laws of Lebanon govern the Terms of Service.
-* **Contact for Terms of Service Questions:** You can contact them at khamze27@gmail.com.
-
----
-
-### Contact Information
-
-* **Email for Returns and General Inquiries:** shopastrotechlb@gmail.com
-* **Email for Privacy Concerns:** Astrotech.lb@gmail.com
-* **Email for Terms of Service Questions:** khamze27@gmail.com
-* **Physical Address:** Beirut, Beirut, 47533, LB
-
----
-
-### Products
-
-Here is a detailed list of the products you provided:
-
-#### **Nevadent Electric Tooth Brush**
-* **Price:** $21.99 (On sale from $30.00, a 26% savings)
-* **Description:** A smart and simple electric toothbrush for a fresher, brighter smile.
-* **Benefits:** Deep cleaning, built-in timer, multiple brushing modes, long-lasting rechargeable battery, gentle on enamel, and travel-friendly.
-* **Key Features:** 3 brushing modes (Clean, Sensitive, Massage), 2-minute smart timer, 30-second quad pacer, up to 40,000 strokes/min sonic vibration, USB rechargeable battery (lasts up to 2 weeks), replaceable brush heads, and a water-resistant design.
-
----
-
-#### **Thread Hair Removal Machine**
-* **Price:** $29.99 (On sale from $43.00, a 30% savings)
-* **Description:** An advanced string hair removal machine for smooth, painless skin.
-* **Benefits:** Precise hair removal, less painful than waxing, fast and convenient, eco-friendly and reusable, and provides long-lasting smoothness.
-
----
-
-#### **Kemei Hair Removal**
-* **Price:** $19.99 (On sale from $30.00, a 33% savings)
-* **Description:** A women’s hair remover for silky, stubble-free results.
-* **Benefits:** Smooth and silky results, painless and gentle, rechargeable, compact and travel-friendly, easy to clean, precision trimming, and quick to use.
-
----
-
-#### **Black Head Remover**
-* **Price:** $29.99 (On sale from $41.00, a 26% savings)
-* **Description:** A powerful blackhead remover machine for deep cleansing at home.
-* **Benefits:** Powerful suction, deep pore cleansing, spa-like treatment at home, USB rechargeable, multiple suction heads, and improves skin texture.
-* **How to Use:** 1.  Warm and prep your face.
-    2.  Power on and select a mode.
-    3.  Gently move the device across your skin.
-    4.  Rinse and cool down your face.
-    5.  Moisturize.
-
----
-
-#### **Flawless Facial Hair Removal**
-* **Price:** $9.99 (On sale from $21.00, a 52% savings)
-* **Description:** An electric facial hair remover that gently removes peach fuzz and unwanted hair.
-* **Benefits:** Pain-free hair removal, precision tip, portable and discreet, rechargeable or battery-operated, creates a smooth base for makeup, hygienic and easy to clean, and causes no redness or irritation.
-
----
-
-#### **Carrera - Waver**
-* **Price:** $32.00 (On sale from $50.00, a 36% savings)
-* **Warranty:** 1 Year
-* **Description:** A combo box that includes a professional straightener and a waver.
-* **Benefits:** 2 tools in 1, salon-quality results, fast heat-up, adjustable temperature settings, travel-friendly design, ceramic coating, and it's a great gift idea.
-
----
-
-#### **SilverCrest - Perfect Curl**
-* **Price:** $29.99 (On sale from $60.00, a 50% savings)
-* **Description:** An automatic styler that creates flawless, salon-quality curls in seconds.
-* **Benefits:** Automatic curling chamber, fast and flawless results, customizable styles, frizz-free finish, no burns or wrapping hassle, and provides salon results at home.
-
----
-
-#### **Hair Curler - Rechargeable**
-* **Price:** $27.99 (On sale from $43.00, a 34% savings)
-* **Description:** An innovative rechargeable hair curler for effortless, long-lasting style.
-* **Key Features:** Automatic rotating technology, rechargeable, quick heating, compact and lightweight, multiple heat settings, and safety auto-shutoff.
-* **Included Accessories:** Travel bag, 2 clips, and a brush.
-* **Benefits:** Time-saving, no skill needed, long-lasting curls, tangle-free, and convenient and portable.
-* **How to Use:** 1.  Prepare a small section of hair.
-    2.  Insert the hair into the curler's chamber.
-    3.  Let it curl automatically.
-    4.  Release for bouncy curls.
-
----
-
-#### **Hair Curler - EnergyMax**
-* **Price:** $15.00 (On sale from $35.00, a 57% savings)
-* **Warranty:** 1 Year
-* **Description:** An innovative hair curler designed to effortlessly roll hair around its heated barrel for smooth, bouncy curls.
-* **Benefits:** Effortless styling, quick heat-up, long-lasting curls, sleek and shiny curls, customizable curl style, heat protection, versatile for all hair types, user-friendly, compact and travel-friendly, and provides salon-quality results at home.
-* **Key Features:** Heated barrel technology, multiple heat settings, ceramic coating, ergonomic design, fast heat-up, universal voltage, automatic safety shutoff, 360° rotating cord, heat protection tip, and a compact and portable design.
-
----
-
-#### **3-Head Hair Waver - EnergyMax**
-* **Price:** $15.00 (On sale from $33.00, a 54% savings)
-* **Warranty:** 1 Year
-* **Offers:** * 1 Item: $15.00
-    * 2 Items: $13.50 each (10% OFF)
-    * 3 Items: $12.00 each (20% OFF)
-* **Description:** An innovative 3-head hair curler designed for flawless, long-lasting curls.
-* **Benefits:** Effortless curls, quick styling, long-lasting results, customizable curl options, heat protection, versatile for all hair types, user-friendly design, compact and travel-friendly, stylish and durable, and provides salon-quality results at home.
-* **Key Features:** Triple-head design, rapid heat-up technology, customizable temperature settings, advanced ceramic coating, built-in safety features, ergonomic design, 360° rotating cord, universal voltage, lightweight and portable, and provides professional-grade results.
-
----
-
-#### **Dead Skin Remover**
-* **Price:** $14.99 (On sale from $22.00, a 31% savings)
-* **Warranty:** 1 Year
-* **Offers:** * 1 Item: $14.99
-    * 2 Items: $13.50 each (10% OFF)
-    * 3 Items: $12.00 each (20% OFF)
-* **Description:** An electric callus remover with a spinning head to remove dead skin.
-* **Key Features:** Spinning head, ergonomic design, powerful and efficient, multiple attachments, safe and gentle, portable and lightweight, and water-resistant.
-* **Benefits:** Provides smooth and soft skin, quick and easy to use, customizable treatment, safe and gentle, convenient and portable, long-lasting results, and water-resistant.
-
----
-
-#### **Hair Dryer Brush - 4 in 1**
-* **Price:** $15.00 (On sale from $42.00, a 64% savings)
-* **Description:** A 4-in-1 tool that combines a comb, blow dryer, straightener, and curler.
-* **Key Features & Benefits:** All-in-one, fast styling, salon results at home, less heat damage, and portable and lightweight.
-* **How to Use:** 1.  Start with damp hair.
-    2.  Power on and choose settings.
-    3.  Style your hair.
-    4.  Finish with your favorite products.
-
----
-
-#### **4in1 Fast Car Charger**
-* **Price:** $22.99 (On sale from $31.00, a 25% savings)
-* **Offers:** * 1 Item: $22.99
-    * 2 Items: $20.70 each (10% OFF)
-    * 3 Items: $18.40 each (20% OFF)
-* **Description:** A 4-in-1 retractable fast car charger.
-* **Features:** 4-in-1 design (2 retractable cables + 2 USB ports), 100W fast power, tidy retractable cables, and safety features.
-
----
-
-#### **Power Bank Speaker - 3 in 1**
-* **Price:** $24.99 (On sale from $35.00, a 28% savings)
-* **Description:** A 3-in-1 device that combines a Bluetooth speaker, a power bank, and a phone stand.
-* **Benefits:** All-in-one convenience, portable power, enhanced sound, hands-free viewing, compact and lightweight, durable and stylish, universal compatibility, and time-saving.
-* **Key Features:** Bluetooth 5.0, 10,000mAh power bank, adjustable phone stand, high-quality sound, compact design, universal compatibility, long battery life, USB-C fast charging, and multi-functionality.
-
----
-
-#### **Bone Conduction Speaker**
-* **Price:** $19.99 (On sale from $31.00, a 35% savings)
-* **Status:** Sold Out
-* **Offers:** * 1 Item: $19.99
-    * 2 Items: $18.00 each (10% OFF)
-    * 3 Items: $17.00 each (15% OFF)
-* **Description:** A mini bone conduction speaker that turns any surface into a speaker.
-* **Benefits:** Turns anything into a speaker, ultra-portable, big sound in a small package, easy to use, long battery life, unique and fun, and high-quality build. You can also pair multiple speakers for stereo sound.
-
----
-
-#### **Wireless Glasses Headset**
-* **Price:** $30.00 (On sale from $54.00, a 44% savings)
-* **Warranty:** 1 Year
-* **Delivery:** Free
-* **Offers:** * 1 Item: $30.00
-    * 2 Items: $27.00 each (10% OFF)
-    * 3 Items: $25.50 each (15% OFF)
-* **Description:** Smart sunglasses with built-in speakers and a mic for listening to music and taking calls.
-* **Benefits:** Hands-free music, take calls without your phone, stylish design, long battery life, and no wires or earbuds.
-
----
-
-#### **3 in 1 Vacuum Cleaner**
-* **Price:** $9.99 (On sale from $20.00, a 50% savings)
-* **Warranty:** 6 Months
-* **Description:** A 3-in-1 mini vacuum with two vacuuming heads and one air blower head.
-* **Key Features:** 3-in-1 functionality, blower mode, strong suction power, interchangeable heads, rechargeable battery, and a compact and portable design.
-* **Benefits:** Saves space, cleans hard-to-reach places, quickly switches to blower mode, and is ideal for home, office, and travel.
-
----
-
-#### **Ultrasonic Cleaner**
-* **Price:** $9.99 (On sale from $21.00, a 52% savings)
-* **Warranty:** 1 Year
-* **Offers:** * 1 Item: $9.99
-    * 2 Items: $9.00 each (10% OFF)
-    * 3 Items: $8.00 each (20% OFF)
-* **Description:** An ultrasonic cleaner that removes dirt, grime, and contaminants from delicate items.
-* **Benefits:** Deep clean, gentle on items, fast and easy, eco-friendly, versatile use, hygienic, and cost-effective.
-
----
-
-#### **Galaxy Man - Projector**
-* **Price:** $19.99 (On sale from $32.00, a 37% savings)
-* **Description:** A cosmic figure that projects a swirling galaxy of light.
-* **Benefits:** Calming ambiance, stress relief, enhanced focus, mood boost, sleep aid, escape reality, perfect for meditation, adjustable atmosphere, visual serenity, and creates a zen space.
-* **Key Features:** Galaxy light projection, built-in speaker, multiple colors, adjustable lighting, mood settings, relaxing ambiance, portable design, and Bluetooth connectivity.
-
----
-
-#### **Foot Massager - EMS**
-* **Price:** $9.99 (On sale from $15.00, a 33% savings)
-* **Description:** An EMS foot massager that uses electrical stimulation for muscle relaxation and enhanced circulation.
-* **Key Features & Benefits:** Improved circulation, muscle relaxation, pain relief, stress reduction, enhanced recovery, convenient home therapy, increased flexibility, non-invasive, customizable settings, convenient and easy to use, helps reduce swelling, and improved sleep quality.
-
----
-
-#### **Piggy Bank**
-* **Price:** $22.00 (On sale from $33.00, a 33% savings)
-* **Description:** An electric piggy bank that automatically takes bills and has a password lock.
-* **Benefits:** Auto bill insertion, password protection, teaches smart saving, cool safe design, and it's a perfect gift idea.
-* **How to Use:** 1.  Insert bills.
-    2.  Set your password.
-    3.  Open the safe with your password.
-    4.  You can also store coins.
-
----
-
-#### **Neck Fan**
-* **Price:** $15.00 (On sale from $30.00, a 50% savings)
-* **Warranty:** Full warranty included.
-* **Description:** A wearable, hands-free neck fan.
-* **Benefits:** Hands-free cooling, high-quality build, adjustable speeds, quiet but powerful, rechargeable battery, no hair tangles, stylish and lightweight, and includes a full warranty.
-
----
-
-#### **Plastic Restorer**
-* **Price:** $9.99 (On sale from $20.00, a 50% savings)
-* **Description:** A plastic restorer that brings faded plastics back to life.
-* **Benefits:** Restores faded plastic, multi-surface use, long-lasting protection, water-resistant finish, easy to apply, no greasy residue, and enhances resale value.
-* **How to Use:** 1.  Shake well.
-    2.  Spray directly onto the surface.
-    3.  Wipe evenly.
-    4.  Let it dry.
-    5.  Buff if desired.
-
----
-
-#### **3-in-1 Air Cooler Fan**
-* **Price:** $19.99 (On sale from $40.00, a 50% savings)
-* **Description:** A 3-in-1 device that is a fan, air cooler, and humidifier.
-* **Benefits:** 3-in-1 functionality, ice tray cooling, humidifier mode, portable and lightweight, energy-efficient, quiet operation, and a modern design.
-* **How to Clean:** 1.  Turn off and unplug.
-    2.  Empty the water tank.
-    3.  Wipe the exterior.
-    4.  Clean the water tank.
-    5.  Rinse the filter.
-
----
-
-#### **Card English Education Game**
-* **Price:** $19.00 (On sale from $26.00, a 26% savings)
-* **Description:** A card-based game to make learning English fun.
-* **Benefits:** Boosts vocabulary, improves speaking and listening, fun for all ages, game-based learning, great for groups or solo play, and provides big results in short sessions.
-* **How to Use:** 1.  Pick a card.
-    2.  Insert the card into the machine.
-    3.  Hear the word spoken aloud.
-    4.  Repeat to learn.
-
----
+### Products (auto-synced)
 
 #### **Neck Heater - Rechargeable**
-* **Price:** $35.00 (On sale from $60.00, a 41% savings)
-* **Description:** An innovative wearable that wraps around your neck to deliver customizable warmth.
-* **Key Features & Benefits:** 5 adjustable heat levels, ergonomic and comfortable design, portable and rechargeable (up to 5 hours of warmth), safe and efficient heating, stylish and versatile, and perfect for any occasion.
-
+ID: gid://shopify/Product/7377487233101 |  Handle: neck-heater-rechargeable |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $22.00
+On sale from $35.00
+**Description:** The Neck Heater is an innovative wearable that comfortably wraps around your neck, delivering customizable warmth with five adjustable heat levels for personalized comfort and relaxation. Stay warm and cozy wherever you go with the Astro Neck Heater, the ultimate solution for on-the-go comfort and relaxation. Designed for all-day wear, this innovative neck warmer offers adjustable warmth at the touch of a button, allowing you to customize your experience with 5 heat levels. Whether you're commuting, working, or relaxing at home, the Neck Heater provides soothing, targeted heat right where you need it most. Key Features & Benefits: 5 Adjustable Heat Levels: Easily adjust the warmth to your preference with five heat settings, from a gentle soothing heat to a more intense, cozy warmth. Perfect for all seasons and various temperature needs. Ergonomic & Comfortable Design: Lightweight and soft, this neck heater is designed to fit snugly around your neck, providing targeted heat where you need it most without being bulky or uncomfortable. Portable & Rechargeable: With a built-in rechargeable battery, you can take the Neck Heater anywhere—whether you’re traveling, at the office, or relaxing at home. Enjoy up to 5 hours of continuous warmth on a single charge. Safe & Efficient Heating: The Neck Heater uses advanced heating technology to distribute warmth evenly and safely, so you can relax without worrying about overheating or burns. Stylish & Versatile: The sleek, modern design makes it easy to wear with any outfit. Whether you're in a casual hoodie or office attire, the Neck Heater blends seamlessly with your daily look. Perfect for Any Occasion: Ideal for cold mornings, chilly evenings, or outdoor adventures, this wearable heater is the ideal companion for staying warm and relaxed no matter where you are. Upgrade your comfort this season with the Astro Neck Heater—your personal warmth, on demand.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/3364a5c7-0c5e-430d-9bcc-216892af870f.jpg?v=1732214801
+**Variants:**
+  - Default Title | sku= | price=$22.00 | compareAt=$35.00 | inv=22 | available=True
 ---
-
-#### **Telescopic Clothesline**
-* **Price:** $29.99 (On sale from $43.00, a 30% savings)
-* **Description:** A sleek, extendable clothesline.
-* **Benefits:** Space-saving design, easy installation, durable and weather-resistant, adjustable length, convenient and practical, and portable.
-* **Key Features:** Telescopic extendable design, high-quality materials, wall-mounted or balcony-friendly, smooth retracting mechanism, strong load capacity, and a rust-proof finish.
-
+#### **Foot Messager - EMS**
+ID: gid://shopify/Product/7377809080397 |  Handle: foot-messager-ems |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: out of stock
+* **Price:** $9.99
+On sale from $15.00
+**Description:** The EMS Foot Massager uses advanced electrical stimulation technology to send gentle pulses of electricity through your legs, providing effective muscle relaxation and enhanced circulation. Key Features & benefits Improved Circulation: Helps stimulate blood flow in the legs and feet, enhancing overall circulation. Muscle Relaxation: Relieves muscle tension by using electrical pulses to soothe and relax the foot and leg muscles. Pain Relief: Can alleviate aches and pains in the feet, legs, and lower back by reducing muscle stiffness and promoting relaxation. Stress Reduction: Promotes relaxation and reduces stress by providing a soothing massage experience through electrical stimulation. Enhanced Recovery: Speeds muscle recovery after intense physical activity by reducing soreness and stiffness. Convenient Home Therapy: Provides an effective, at-home alternative to professional foot and leg massages or physical therapy. Increased Flexibility: Regular use may improve joint mobility and flexibility in the feet and legs. Non-Invasive: A non-invasive, drug-free method for relieving discomfort and promoting wellness. Customizable Settings: Many devices offer adjustable intensity levels for a personalized experience based on your comfort level. Convenient and Easy to Use: User-friendly design allows for easy operation and comfort. Helps Reduce Swelling: The electrical pulses can help reduce water retention and swelling in the legs and feet. Improved Sleep Quality: Promoting relaxation helps improve sleep by reducing foot and leg discomfort. Relax and relieve muscle tension with our EMS Foot Massager! Improve circulation and ease discomfort in your legs. Buy now for instant comfort or call us for more details!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/OIP.jpg?v=1732296897
+**Variants:**
+  - Default Title | sku= | price=$9.99 | compareAt=$15.00 | inv=0 | available=True
 ---
-
-#### **Multi-Function Camping Lamp**
-* **Price:** $30.00 (On sale from $45.00, a 33% savings)
-* **Description:** A multi-function camping lamp with illumination, power bank capabilities, and emergency features.
-* **Benefits:** All-in-one convenience, portable power bank, bright and adjustable lighting, durable and weather-resistant, compact and lightweight, and an emergency SOS mode.
-* **Key Features:** High-lumen LED light, built-in power bank, water-resistant design, magnetic base and hanging hook, multiple light modes, rechargeable battery, and a compact and lightweight design.
-
+#### **Hair Dryer Brush - 4 in 1**
+ID: gid://shopify/Product/7377814192205 |  Handle: hair-brush-dryer-4-in-1 |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $15.00
+On sale from $42.00
+**Description:** Transform your hair routine with the 4-in-1 Hair Dryer Brush – the ultimate tool that combines a comb, blow dryer, straightener, and curler for flawless, salon-worthy styles in minutes. Perfect for every girl on the go. Key Features & Benefits All-in-One: Combines a blow dryer, comb, straightener, and curler in one tool. Fast Styling: Achieve your desired look quickly, perfect for busy mornings. Salon Results at Home: Professional-quality styles without the salon price. Less Heat Damage: Style with less heat for healthier hair. Portable & Lightweight: Easy to use and travel-friendly for styling on the go How to Use: Start with Damp Hair: Towel-dry your hair until it's slightly damp. Power On: Turn on the device and choose your desired heat and speed settings. Style: Use the brush to dry and smooth your hair. Glide through sections for straight, sleek hair or add curls and volume by wrapping the brush. Finish: Once your desired style is achieved, turn off the device and allow your hair to cool before finishing with your favorite products. Enjoy quick, easy, and salon-quality results!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/71_yVr6aXkL.jpg?v=1732299089
+**Variants:**
+  - Default Title | sku= | price=$15.00 | compareAt=$42.00 | inv=11 | available=True
 ---
-
-#### **Tiffany Grinding Machine**
-* **Price:** $29.99 (On sale from $40.00, a 25% savings)
-* **Description:** A grinding machine engineered for durability and perfection.
-* **Benefits:** High precision performance, heavy-duty durability, user-friendly design, versatile functionality, low maintenance, and compact and efficient.
-* **Key Features:** Powerful motor, precision grinding wheel, adjustable speed control, ergonomic handle and base, dust collection system, thermal overload protection, compact and sturdy build, and a quick-change mechanism.
-
----
-
-#### **Hot Powerful Blower - Cordless**
-* **Price:** $32.00 (On sale from $45.00, a 28% savings)
-* **Description:** A handheld, cordless air duster.
-* **Benefits:** Powerful airflow, cordless and rechargeable, eco-friendly, multi-use, and portable and lightweight.
-* **Key Features:** High-speed motor, long-lasting battery with USB-C charging, adjustable speed modes, built-in LED light, and multiple nozzle attachments.
-
----
-
-#### **Dorry Smart Body Scale**
-* **Price:** $15.99 (On sale from $25.00, a 36% savings)
-* **Description:** A smart body scale that tracks weight, BMI, and more.
-* **Benefits:** Tracks full body metrics, instant sync with a phone app, precision accuracy, multi-user friendly, and provides a motivation boost.
-* **Key Features:** High-precision sensors, smart app integration, tracks 13+ body metrics, multi-user profiles, long battery life, and a sleek and modern design.
-
----
-
-#### **Wireless Lamp Remote Controller**
-* **Price:** $8.00 (On sale from $15.00, a 46% savings)
-* **Offers:** * 1 Item: $8.00
-    * 2 Items: $7.20 each (10% OFF)
-    * 3 Items: $6.80 each (15% OFF)
-* **Description:** A remote-controlled socket to control lamps wirelessly.
-* **Benefits:** Convenient control, energy-saving, smart living, timer function, and enhances comfort.
-
----
-
-#### **Ice Ball Maker**
-* **Price:** $10.00 (On sale from $27.00, a 62% savings)
-* **Description:** An easy-to-use jug for making crystal-clear ice balls.
-* **Benefits:** Creates perfectly round ice balls, no spills or mess, easy to use, elevates any drink, reusable and easy to clean, and great for home or parties.
-
----
-
-#### **PowerFul Rechargeable Whisk - 2in1**
-* **Price:** $19.99 (On sale from $30.00, a 33% savings)
-* **Offers:** * 1 Item: $19.99
-    * 2 Items: $18.00 each (10% OFF)
-    * 3 Items: $17.00 each (15% OFF)
-* **Description:** A rechargeable, high-speed whisk with two interchangeable heads.
-* **Benefits:** 1200 RPM power, 2 heads (for coffee froth and whipping eggs), rechargeable, durable and reliable, ergonomic design, and portable.
-* **How to Use:** 1.  Attach the desired head.
-    2.  Turn it on.
-    3.  Whisk away.
-
----
-
-#### **Bag Sealer**
-* **Price:** $7.00 (On sale from $11.00, a 36% savings)
-* **Offers:** * 2 Tape: $12.00 (10% OFF)
-    * 3 Tape: $17.00 (20% OFF)
-    * Buy 4 Get 1 FREE!: $21.00 (40% OFF)
-* **Description:** A compact, battery-powered bag sealer.
-* **Benefits:** Keeps snacks fresh, battery-powered convenience, easy to use, compact and portable, saves money, eco-friendly, and perfect for all ages.
-* **How to Use:** 1.  Insert batteries.
-    2.  Place the bag in the sealing area.
-    3.  Press and swipe to seal.
-
----
-
-#### **Spray Mop - 2 in 1**
-* **Price:** $9.99 (On sale from $25.00, a 60% savings)
-* **Offers:** * 1 Item: $9.99
-    * 2 Items: $9.00 each (10% OFF)
-    * 3 Items: $8.00 each (20% OFF)
-* **Description:** A spray mop for quick, streak-free floors.
-* **Benefits:** Effortless cleaning, time-saving, multi-surface use, eco-friendly, lightweight and easy to use, adjustable handle, and provides a streak-free shine.
-
----
-
-#### **Electric Juicer - Portable**
-* **Price:** $15.00 (On sale from $35.00, a 57% savings)
-* **Description:** A powerful electric juicer for fruits and vegetables.
-* **Benefits:** Efficient extraction, time-saving, nutrient-rich juice, versatile, easy to clean, durable and reliable, quiet operation, and a compact design.
-* **How to Use:** 1.  Prepare your vegetables.
-    2.  Assemble the juicer.
-    3.  Feed the veggies into the juicer.
-    4.  Enjoy your fresh juice.
-
----
-
-#### **Electric Dumpling Machine**
-* **Price:** $15.00 (On sale from $30.00, a 50% savings)
-* **Description:** An electric dumpling machine maker for speed, precision, and convenience.
-* **Benefits:** Saves time, consistent results, easy to use, perfect for any skill level, customizable options, convenient and mess-free, durable and long-lasting, ideal for large batches, compact and easy to store, and enhances cooking efficiency.
-* **How to Use:** 1.  Prepare your dough and filling.
-    2.  Load the machine.
-    3.  Set your preferences.
-    4.  Start the machine.
-    5.  Collect your dumplings.
-
----
-
-#### **Window Repair Tape**
-* **Price:** $6.00 (On sale from $12.00, a 50% savings)
-* **Status:** Sold Out
-* **Offers:** * 2 Tape: $10.00 (10% OFF)
-    * 3 Tape: $14.00 (20% OFF)
-    * Buy 4 Get 1 FREE!: $18.00 (40% OFF)
-* **Description:** A tape for quick, easy, and affordable repairs of window screens.
-* **Benefits:** Quick and easy fix, durable adhesion, cost-effective, weather-resistant, universal use, invisible repair, no tools required, prevents insects, flexible and versatile, and long-lasting.
-* **How to Use:** 1.  Clean the area.
-    2.  Cut the tape to size.
-    3.  Apply the tape over the damage.
-    4.  Press firmly.
-
----
-
-#### **Food Vacuum Sealer**
-* **Price:** Starts at $21.99
-* **Options:** * Only the Bags included: $21.99
-    * 10 Bags: $22.99
-    * 50 Bags: $25.99
-    * 100 Bags: $28.99
-* **Description:** A premium food vacuum sealer to preserve the quality, texture, and nutrients of your food.
-* **Benefits:** Prolongs freshness, reduces food waste, effortless storage, maintains flavor and texture, and versatile use.
-* **Key Features:** Powerful vacuum pump, easy-to-use interface, multiple seal modes, compact and durable design, bonus accessories, and quiet operation.
-
----
-
-#### **Non Spill Plate For Kids**
-* **Price:** $7.00 (On sale from $10.00, a 30% savings)
-* **Offers:** * 1 Item: $7.00
-    * 2 Items: $5.95 each (15% OFF)
-    * Buy 3 Get 1 Free!: $4.91 each (30% OFF)
-* **Description:** A non-spill plate designed to keep food in place.
-* **Benefits:** No more spills, stress-free mealtimes, encourages independence, durable design, and easy cleanup.
-* **Key Features:** Non-slip base, child-friendly design, BPA-free and food-safe, dishwasher safe, and compact and lightweight.
-
----
-
-#### **Double Sided Tape - 3 Meter**
-* **Price:** $7.00 (On sale from $10.00, a 30% savings)
-* **Offers:** * 2 Tape: $12.00 (10% OFF)
-    * 3 Tape: $17.00 (20% OFF)
-    * Buy 4 Get 1 FREE!: $21.00 (40% OFF)
-* **Description:** A 3-meter roll of double-sided tape for household items.
-* **Benefits:** Strong adhesion, versatile use, no residue, easy to use, durable, surface protection, weather-resistant, invisible appearance, reusable, and multi-surface compatibility.
-
----
-
-#### **Action Self-Squeezing Mop**
-* **Price:** $10.00 (On sale from $18.00, a 44% savings)
-* **Offers:** * 1 Item: $10.00
-    * 2 Items: $9.00 each (10% OFF)
-    * 3 Items: $8.00 each (20% OFF)
-* **Description:** A self-squeezing mop for cleaning floors and windows.
-* **Key Features:** Self-squeezing mechanism, multi-surface cleaning, highly absorbent, ergonomic handle, durable and long-lasting, easy to store, quick-drying, reusable mop head, time-saving, and eco-friendly.
-
----
-
-#### **Jet Drone**
-* **Price:** $29.99 (On sale from $42.00, a 28% savings)
-* **Description:** A remote-controlled airplane with 4 spinning blades in the middle.
-* **Benefits:** Easy to fly, up and down action, 4-blade power for stability, safe for kids, indoor and outdoor fun, boosts creativity, and has a cool design.
-
----
-
 #### **LCD Panel - Board**
-* **Price:** $4.00 (On sale from $7.00, a 42% savings)
-* **Description:** An LCD writing tablet for kids to draw and write.
-* **Key Features:** Reusable LCD screen, kid-friendly design, one-touch erase, environmental and cost-efficient, bright and clear display, portable and convenient, and safe and non-toxic.
-* **Benefits:** Encourages creativity, educational tool, mess-free fun, sustainable solution, easy to use, and great for on-the-go.
-
+ID: gid://shopify/Product/7380382089293 |  Handle: lcd-panel-board |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $4.00
+On sale from $7.00
+**Description:** This innovative LCD writing tablet allows kids to draw, write, and unleash their creativity—simply press one button to instantly erase and start fresh with endless possibilities! Key Features: Reusable LCD Screen: Write, draw, and erase as many times as you like with the press of a button. Kid-Friendly Design: Lightweight, durable, and easy for young hands to hold and use. One-Touch Erase: Clear the entire screen with a single button press for quick and effortless reusability. Environmental & Cost-Efficient: No need for paper or markers—save resources and money while fostering creativity. Bright and Clear Display: High-contrast screen ensures visibility in a variety of lighting conditions. Portable and Convenient: Compact and slim design, perfect for travel, car rides, and on-the-go entertainment. Safe and Non-Toxic: Made with child-safe materials, free from harmful chemicals. Benefits: Encourages Creativity: Promotes imaginative drawing, writing, and problem-solving in a fun and interactive way. Educational Tool: Ideal for practicing handwriting, math problems, and sketching, helping kids learn while they play. Mess-Free Fun: No ink, no mess—ideal for parents who want to avoid the cleanup of traditional art supplies. Sustainable Solution: With unlimited reuse, this tablet helps reduce paper waste and provides an eco-friendly alternative. Easy to Use: Simple interface that children can operate on their own, promoting independence and confidence. Great for On-the-Go: Keep kids entertained during travel or downtime, without the need for electronics or screen time. Unlock endless creativity and fun with the Astro LCD Writing Tablet—where imagination knows no bounds, and every idea can be erased with ease to make room for the next one!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/LCD_screen_for_kids_4.webp?v=1732720013
+**Variants:**
+  - Default Title | sku= | price=$4.00 | compareAt=$7.00 | inv=11 | available=True
 ---
-
-#### **Wall Climbing Car**
-* **Price:** $29.99 (On sale from $40.00, a 25% savings)
-* **Description:** A laser-pointed, wall-climbing toy car.
-* **Benefits:** Wall-climbing action, laser control, defies gravity, rechargeable and eco-friendly, perfect gift idea, safe and easy for kids, and futuristic fun.
-
+#### **Action Self-Squeezing Mop:**
+ID: gid://shopify/Product/7381676458061 |  Handle: twist-action-mop |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $10.00
+On sale from $18.00
+**Description:** The Action Self-Squeezing Mop is designed to effortlessly squeeze out water, making it ideal for cleaning floors and windows. Perfect for easy, effective cleaning, it’s your go-to tool for a spotless home or business. Key Features of the Action Self-Squeezing Mop: Self-Squeezing Mechanism – Effortlessly squeeze out excess water with a simple push, no wringing needed. Multi-Surface Cleaning – Ideal for use on floors, windows, and other smooth surfaces. Highly Absorbent – Quickly soaks up dirt, dust, and spills for a spotless clean. Ergonomic Handle – Comfortable, non-slip design for easy maneuverability and extended use. Durable & Long-Lasting – Made with high-quality materials to ensure longevity and reliability. Easy to Store – Compact design for convenient storage in any cleaning closet. Quick Drying – Helps floors and surfaces dry faster, leaving no streaks behind. Reusable Mop Head – Machine washable mop head for easy cleaning and reusability. Time-Saving – Efficient design that reduces cleaning time with minimal effort. Eco-Friendly – Reduces the need for disposable cleaning materials, making it a sustainable choice. Benefits of the Action Self-Squeezing Mop: 1. Time-Saving – Speeds up cleaning with minimal effort. 2. Convenient & Easy to Use – No bending or twisting required. 3. Mess-Free – Keeps hands dry while cleaning. 4. Cost-Effective – Reusable mop head reduces costs. 5. Versatile – Works on floors, windows, and more. 6. Eco-Friendly – Reduces waste with reusable materials. 7. Comfortable Grip – Ergonomic handle for ease of use.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/360-Degree-Rotating-Self-Wringing-Microfiber-Triangle-Mop-with-Cleaning-and-Drying-Head-for-Wet-or-Dry-Floor-Cleaning-Ceiling-Window-and-Wall_f27db814-e36a-4037-afa1-5f85c6024145.7aa1.webp?v=1732984660
+**Variants:**
+  - Default Title | sku= | price=$10.00 | compareAt=$18.00 | inv=13 | available=True
 ---
-
+#### **Dead Skin Remover**
+ID: gid://shopify/Product/7382228009037 |  Handle: dead-skin-remover |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $14.99
+On sale from $22.00
+**Description:** LIMITED OFFER 1 Year Warranty The Electric Callus Remover features a spinning head that effectively removes dead skin, leaving your feet smooth and soft with every use. Key Features of the Electric Callus Remover: Spinning Head – Gently and effectively removes dead skin for smooth, soft feet. Ergonomic Design – Comfortable, easy-to-hold handle for precise control during use. Powerful & Efficient – Quickly exfoliates and buffs away calluses without effort. Multiple Attachments – Includes different roller heads for customized treatment. Safe & Gentle – Designed to be safe on skin, even for sensitive areas. Portable & Lightweight – Ideal for use at home or on the go. Water-Resistant – Can be used dry or in the shower for added convenience. Benefits of the Electric Callus Remover: Smooth, Soft Skin – Effectively removes dead skin, leaving your feet feeling soft and rejuvenated. Quick & Easy – Saves time and effort compared to manual scrubbing, providing professional results at home. Customizable Treatment – Multiple roller heads allow for personalized care to target different areas. Safe & Gentle – Designed to gently exfoliate without causing irritation or damage to sensitive skin. Convenient & Portable – Rechargeable and lightweight, perfect for use at home or while traveling. Long-Lasting Results – Maintains smooth feet with regular use, preventing buildup of calluses. Water-Resistant – Can be used in the shower, making it versatile for wet or dry use.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/378a1b3a-9d5d-40fb-b64d-882764d9df3d.e2438fe3ae15ca789d45e7fee3068008.webp?v=1733145727
+**Variants:**
+  - Default Title | sku= | price=$14.99 | compareAt=$22.00 | inv=42 | available=True
+---
+#### **3-Head Hair Waver - EnergyMax**
+ID: gid://shopify/Product/7400595619917 |  Handle: 3-head-hair-curler |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $15.00
+On sale from $33.00
+**Description:** 1 Year Warranty The innovative 3-Head Hair Curler, designed to open and securely hold hair in place for flawless curls, combines advanced heating technology for perfect, long-lasting results. Benefits of the 3-Head Hair Curler: Effortless Curls: The innovative 3-head design securely holds hair while evenly distributing heat for smooth, defined curls with minimal effort. Quick Styling: Heats up fast, allowing you to curl your hair in less time, making it perfect for busy mornings or on-the-go styling. Long-Lasting Results: Advanced heat technology ensures your curls last throughout the day, maintaining bounce and shine without needing touch-ups. Customizable Curl Options: The unique three-head system gives you the flexibility to create tight curls, loose waves, or anything in between. Heat Protection: Built-in safety features help prevent overheating, protecting your hair from damage while achieving optimal results. Versatile for All Hair Types: Works effectively on straight, wavy, or curly hair, adapting to different textures for professional-looking curls every time. User-Friendly Design: The easy-to-use mechanism and ergonomic handle ensure a comfortable, hassle-free styling experience. Compact & Travel-Friendly: Lightweight and portable, perfect for carrying in your bag for styling anywhere, anytime. Stylish & Durable: Sleek design coupled with high-quality materials ensures long-lasting performance while adding a touch of elegance to your beauty tools collection. Salon-Quality Results at Home: Achieve professional-level curls in the comfort of your own home, saving both time and money on salon visits. Key Features of the 3-Head Hair Curler: Triple-Head Design: Three adjustable heads that open to securely hold and curl multiple sections of hair at once, providing faster styling and more defined curls. Rapid Heat-Up Technology: Quick heat-up time, allowing you to start styling within seconds, saving you valuable time. Customizable Temperature Settings: Multiple heat settings to suit different hair types and curl preferences, ensuring personalized styling. Advanced Ceramic Coating: Ensures even heat distribution, reducing the risk of hair damage and promoting smooth, shiny curls. Built-In Safety Features: Automatic shut-off after a set period of inactivity and heat protection technology to prevent overheating and damage. Ergonomic Design: Comfortable handle with a non-slip grip for easy maneuvering, providing control and reducing strain during styling. 360° Rotating Cord: Tangle-free, flexible cord for easy handling and unrestricted movement while styling. Universal Voltage: Perfect for travel, as it works on both 110V and 220V outlets worldwide. Lightweight & Portable: Compact and easy to store or carry, making it ideal for home use or travel. Professional-Grade Results: Achieve salon-quality curls with the convenience and comfort of an at-home styling tool. Transform your hair routine with the 3-Head Hair Curler – the ultimate tool for effortless, long-lasting curls. Say goodbye to time-consuming styling and hello to flawless, salon-quality results every day. Whether you're getting ready for a special occasion or just want to add some extra glam, this curler is your secret to beautiful, confident curls. Don’t wait—unlock your best hair yet and make every day a good hair day!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61AFFEaI98L.jpg?v=1735744274
+**Variants:**
+  - Default Title | sku= | price=$15.00 | compareAt=$33.00 | inv=10 | available=True
+---
+#### **Hair Curler - EnergyMax**
+ID: gid://shopify/Product/7400600502349 |  Handle: hair-curler-energymax |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $15.00
+On sale from $35.00
+**Description:** 1 Year Warranty! The innovative Hair Curler, designed to effortlessly roll hair around its heated barrel, delivers smooth, bouncy curls that last all day with minimal effort. Benefits of the Hair Curler: Effortless Styling: The unique design allows you to easily roll your hair around the heated barrel, creating perfect curls with minimal effort. Quick Heat-Up: Heats up rapidly, reducing your styling time and allowing you to achieve beautiful curls in just minutes. Long-Lasting Curls: The advanced heat technology ensures your curls stay intact throughout the day, giving you a fresh, bouncy look that lasts. Sleek, Shiny Curls: The heating element smooths and tames frizz, leaving your curls looking polished, smooth, and shiny. Customizable Curl Style: From tight ringlets to loose waves, you have full control over the type of curls you want to create. Heat Protection: Designed with built-in safety features to prevent overheating and protect your hair from unnecessary damage. Versatile for All Hair Types: Works perfectly on all hair textures, whether straight, wavy, or curly, providing professional results every time. User-Friendly: Easy to use with an ergonomic design, allowing for a comfortable grip and effortless styling experience. Compact & Travel-Friendly: Lightweight and portable, making it the perfect tool for styling on the go, whether at home or on vacation. Salon-Quality Results at Home: Achieve flawless curls like a professional stylist without stepping foot in a salon, saving time and money. Key Features of the Hair Curler: Heated Barrel Technology: Quickly heats up to the ideal temperature, allowing you to roll your hair around the barrel and create smooth, bouncy curls with ease. Multiple Heat Settings: Adjustable temperature controls to suit different hair types and curl preferences, ensuring optimal results for every style. Ceramic Coating: Protects hair from heat damage while providing even heat distribution for shiny, frizz-free curls. Ergonomic Design: Comfortable grip and lightweight build for easy handling, making it effortless to create curls without straining your wrist. Fast Heat-Up: Rapid heat-up technology so you can start curling your hair within seconds, saving you time during your styling routine. Universal Voltage: Ideal for worldwide use, making it a perfect travel companion for styling anywhere. Automatic Safety Shutoff: Built-in automatic shutoff feature after a certain period of inactivity, ensuring safety and energy efficiency. 360° Rotating Cord: Tangle-free, flexible cord that allows for smooth movement and prevents twisting while you style. Heat Protection Tip: Safety tip to prevent burns while handling the curler, offering extra peace of mind during use. Compact & Portable: Sleek and lightweight design, perfect for storing in your bag or suitcase, so you can always have beautiful curls on the go. Unlock the secret to effortless, flawless curls with our Hair Curler. Whether you're getting ready for a night out or simply want to add a touch of glamour to your everyday look, this curler will give you beautiful, long-lasting curls in no time. Treat yourself to the styling tool that delivers salon-quality results with ease and confidence. Don’t wait—your perfect curls are just a roll away!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/01_d55cfd05-1d1b-45bc-a9d0-010f6e7de550.webp?v=1735747199
+**Variants:**
+  - Default Title | sku= | price=$15.00 | compareAt=$35.00 | inv=2 | available=True
+---
+#### **Double Sided Tape - 3 Meter**
+ID: gid://shopify/Product/7409900912717 |  Handle: double-sided-tape-3-meter |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $7.00
+On sale from $10.00
+**Description:** This innovative double-sided tape is engineered to securely adhere household items to various surfaces, offering strength, versatility, and convenience for everyday use. Benefits of Double-Sided Tape: Strong Adhesion: Securely attaches household items to walls, furniture, and more. Versatile Use: Ideal for a wide range of household applications, from decor to organizing. No Residue: Removes cleanly without leaving sticky residue or damaging surfaces. Easy to Use: Simple peel-and-stick design for quick and hassle-free application. Durable: Provides long-lasting hold for everyday items, even in high-traffic areas. Surface Protection: Gentle on walls and other surfaces, preventing scratches or marks. Weather-Resistant: Performs well in various indoor environments, including high humidity areas. Invisible Appearance: Transparent tape blends seamlessly into any decor. Reusable: Can be repositioned and used multiple times without losing strength. Multi-Surface Compatibility: Works on a variety of surfaces like wood, metal, glass, and plastic. Key Features of [Brand Name] Double-Sided Tape: High Adhesion Strength: Ensures a secure and long-lasting bond on multiple surfaces. Transparent Design: Offers a clean, invisible look that blends with any decor. Easy Application: Simple peel-and-stick functionality for quick and effortless use. Residue-Free Removal: Leaves no sticky residue behind when removed. Durable and Reliable: Holds items in place for extended periods, even with everyday use. Water-Resistant: Withstands moisture and humidity, ideal for various indoor environments. Repositionable: Can be easily adjusted and reused without losing adhesive power. Multi-Surface Compatibility: Works effectively on wood, glass, metal, plastic, and more. Non-Damaging: Safe for walls and delicate surfaces, preventing damage or scratches. Compact and Convenient: Lightweight and easy to store for quick access whenever needed.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61V0o79n41L._SL1500_5c295f3c-36e3-4e68-af76-0d4582114f8f.jpg?v=1736972933
+**Variants:**
+  - Default Title | sku= | price=$7.00 | compareAt=$10.00 | inv=50 | available=True
+---
+#### **Hair Curler - Rechargeable**
+ID: gid://shopify/Product/7420795125837 |  Handle: hair-curler-rechargeable |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $27.99
+On sale from $43.00
+**Description:** Experience flawless, bouncy curls in seconds with our innovative rechargeable Hair Curler—your shortcut to effortless, long-lasting style! How to Use Your Rechargeable Hair Curler: Prepare Your Hair: Take a small section of hair. Insert Hair: Place the strand inside the curler’s chamber. Let It Curl: The machine will automatically rotate and curl your hair. Release & Enjoy: Once the curl is set, simply release your hair and enjoy your beautiful, bouncy curls! Easy, quick, and effortless! Key Features: Automatic Rotating Technology: Effortlessly curls hair with zero effort. Rechargeable Design: No need for cords, offering ultimate convenience and portability. Quick Heating: Ready to use in seconds for fast styling. Compact & Lightweight: Easy to handle and perfect for travel. Multiple Heat Settings: Customize your curl style for different hair types. Safety Auto-Shutoff: Turns off automatically for peace of mind. Comes With a travel bag, 2 Clips, and a Brush! Benefits of the Hair Curler: Time-Saving: Get flawless curls in just seconds, perfect for busy mornings. No Skill Needed: Simple, automatic curling for every user. Long-Lasting Curls: Enjoy bouncy, perfect curls that last all day. Tangle-Free: No more struggling with curling irons or straighteners. Convenient & Portable: Style on the go, anytime, anywhere! Transform your hair with ease and confidence—our rechargeable Hair Curler gives you gorgeous, long-lasting curls in seconds. Say goodbye to complicated styling tools and hello to effortless beauty. Get yours today and experience the future of hair styling!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/cc19bb72de845ea8068e09718b2a6cf3.webp?v=1738782825
+**Variants:**
+  - Default Title | sku= | price=$27.99 | compareAt=$43.00 | inv=10 | available=True
+---
+#### **Non Spill Plate For Kids**
+ID: gid://shopify/Product/7422428151885 |  Handle: non-spill-plate-for-kids |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $7.00
+On sale from $10.00
+**Description:** Make mealtime a breeze with our non-spill plate for kids, expertly designed to keep food securely in place and prevent spills, so your little one can enjoy every bite without the mess! Benefits: No more spills: Keeps food contained, even with the most enthusiastic eaters. Stress-free mealtimes: Eliminates messes, giving parents peace of mind. Encourages independence: Perfect for teaching kids to eat on their own without frustration. Durable design: Built to withstand drops, bumps, and everyday use. Easy cleanup: Simplifies mealtime with less time spent cleaning up. Key Features: Non-slip base: Stays firmly in place on any surface. Child-friendly design: Rounded edges and vibrant colors make it fun and safe for little hands. BPA-free and food-safe: Made from high-quality, non-toxic materials. Dishwasher safe: Convenient for busy parents, easy to clean after each use. Compact and lightweight: Easy to carry, perfect for travel or on-the-go meals. Make mealtime easier and mess-free with our non-spill plate for kids—because every parent deserves a break and every child deserves a stress-free meal. Get yours today and enjoy happier, cleaner, and more independent eating moments!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/5_1024x1024_2ea5a1a8-33b1-471a-aafc-578d68adbc60.webp?v=1739109795
+**Variants:**
+  - Default Title | sku= | price=$7.00 | compareAt=$10.00 | inv=6 | available=True
+---
+#### **Crepe Maker - Electric**
+ID: gid://shopify/Product/7423056576589 |  Handle: crepe-maker-electric |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $23.99
+On sale from $30.00
+**Description:** Transform your kitchen into a crepe-making haven with our Electric Crepe Maker—simply dip it into the batter, and in seconds, enjoy flawless, golden crepes that taste like they’re straight from a French café! How to Use Your Electric Crepe Maker: Heat it up – Plug in your crepe maker and let it heat up to the perfect temperature. Dip in the batter – Gently dip the crepe maker into your prepared batter, ensuring it's evenly coated. Wait for 30 seconds – Allow the crepe to cook for about 30 seconds, until it turns golden and crisp. Enjoy – Carefully remove your delicious crepe and enjoy it hot, with your favorite toppings! Key Features and Benefits: Rapid Cooking: Cooks crepes in just 30 seconds, saving you time. Non-stick Surface: Easy release and quick cleanup with no sticking. Ergonomic Design: Comfortable handle for easy dipping and flipping. Compact & Space-Saving: Sleek design fits easily in any kitchen. Energy Efficient: Low power usage for quick, effective cooking. Versatile: Perfect for making crepes, pancakes, and more. Quick & Efficient: Enjoy fresh, restaurant-quality crepes in seconds. No Mess: Non-stick surface minimizes batter splatter and cleanup. User-Friendly: Simple, intuitive process for both beginners and experts. Perfect Results Every Time: Consistently golden, crispy crepes with minimal effort. Great for Any Occasion: Ideal for breakfast, brunch, or dessert, making entertaining easy. Elevate your cooking game and enjoy delicious, restaurant-quality crepes at home with ease—our Electric Crepe Maker makes every bite a delight. Get yours today and start creating mouthwatering moments in seconds!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/71yxZVjKVxL.jpg?v=1739216032
+**Variants:**
+  - Default Title | sku= | price=$23.99 | compareAt=$30.00 | inv=10 | available=True
+---
+#### **Food Vacuum Sealer**
+ID: gid://shopify/Product/7431873364045 |  Handle: food-vacuum-sealer |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $21.99
+On sale from $32.00
+**Description:** Unlock the secret to longer-lasting freshness and flavor with our Premium Food Vacuum Sealer. Engineered to preserve the quality, texture, and nutrients of your food, this advanced sealing technology helps you reduce waste and store ingredients with confidence. Experience the perfect balance of convenience and durability for every meal, every day. Benefits: Prolongs Freshness: Keeps food fresh up to 5x longer by creating an airtight seal that locks in flavor and nutrients. Reduces Food Waste: Preserve leftovers, bulk purchases, or meal prep, saving money and reducing food spoilage. Effortless Storage: Space-efficient packaging allows for easier organization and storage in your kitchen or freezer. Maintains Flavor & Texture: Retains the original taste, texture, and nutrition of your food, even after long-term storage. Versatile Use: Perfect for sealing meats, vegetables, dry goods, and even liquids, making it ideal for sous vide cooking or vacuum packing for travel. Key Features: Powerful Vacuum Pump: Quickly removes air to create a tight seal for maximum freshness. Easy-to-Use Interface: One-touch operation for effortless sealing with no learning curve. Multiple Seal Modes: Choose from dry, moist, and custom settings to suit different food types. Compact & Durable Design: Sleek, space-saving, and made with high-quality materials for long-lasting performance. Bonus Accessories: Comes with a set of vacuum bags and a roll, ready to get you started right out of the box. Quiet Operation: Seals without the noise, allowing for a more peaceful kitchen experience. Transform the way you store food and enjoy fresher, longer-lasting meals with our Food Vacuum Sealer. Don’t let freshness fade – take control of your kitchen and start saving time, money, and flavor today!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/Img_1694188817588.jpg?v=1739651867
+**Variants:**
+  - Only the Bags included | sku= | price=$21.99 | compareAt=$32.00 | inv=56 | available=True
+  - 10 Bags | sku= | price=$22.99 | compareAt=$32.00 | inv=98 | available=True
+  - 50 Bags | sku= | price=$25.99 | compareAt=$32.00 | inv=93 | available=True
+  - 100 Bags | sku= | price=$28.99 | compareAt=$32.00 | inv=64 | available=True
+---
+#### **Window Repair Tape**
+ID: gid://shopify/Product/7434472882253 |  Handle: window-repair-tape |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: out of stock
+* **Price:** $6.00
+On sale from $12.00
+**Description:** Looking for a quick, easy, and affordable solution to fix your window screens? Our Window Screen Repair Tape is the perfect answer! With strong adhesive and durable mesh material, it effortlessly patches up holes, tears, and rips, providing a seamless and long-lasting repair. No need to remove the entire screen—just apply the tape and enjoy a fully functional, pest-free window in minutes. Say goodbye to expensive replacements and hello to instant fixes! Benefits: Quick and Easy Fix: Repair screen damage in minutes without needing to remove the screen. Durable Adhesion: Strong adhesive ensures a secure and lasting bond that won’t peel off over time. Cost-Effective: Save money on expensive screen replacements by simply patching up holes or tears. Weather Resistant: Built to withstand outdoor elements, keeping your screen intact in any season. Universal Use: Works on all types of window screens—mesh, fiberglass, and more. Invisible Repair: The tape blends in with the screen, offering a discreet solution. No Tools Required: No special skills or tools needed—just peel and apply! Prevents Insects: Quickly restores your screen, keeping bugs and pests out of your home. Flexible and Versatile: Can be cut to any size to fit a variety of screen shapes and sizes. Long-Lasting: The high-quality material ensures your repair lasts for a long time. Enjoy a hassle-free way to fix your screens with reliability and ease! How to Use Repair Tape: Clean the Area: Make sure the screen around the tear or hole is clean and dry. Cut the Tape: Measure the size of the damage and cut a piece of tape large enough to cover it. Apply the Tape: Stick the tape directly over the hole or tear, smoothing it out to ensure a secure bond. Press Firmly: Press down around the edges to make sure the tape sticks well. That’s it! Quick, easy, and effective! Fix your screen in seconds with our easy-to-use, durable repair tape! Affordable and long-lasting, it’s the perfect solution for a quick, hassle-free fix. Get yours today and enjoy a bug-free home!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/53532f9a-ee28-4559-9bf3-c0d27cc70ead.webp?v=1739997842
+**Variants:**
+  - Default Title | sku= | price=$6.00 | compareAt=$12.00 | inv=0 | available=False
+---
+#### **Electric Dumpling Machine**
+ID: gid://shopify/Product/7434984587341 |  Handle: electric-dumping-machine |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $15.00
+On sale from $30.00
+**Description:** The Electric Dumpling Machine Maker by AstroSouks brings professional-grade dumpling-making to your kitchen, offering speed, precision, and unbeatable convenience for every home chef. How to Use: Prepare Your Ingredients: Mix your dough and filling. Load the Machine: Add the dough and filling into their respective compartments. Set Your Preferences: Choose the size and style of dumplings you want. Start the Machine: Press the button to begin making dumplings. Collect Your Dumplings: Once done, remove the freshly made dumplings and cook! Quick, easy, and delicious dumplings in no time! Benefits: Saves Time: Quickly make perfect dumplings in minutes, no manual labor required. Consistent Results: Ensures uniform size and shape every time. Easy to Use: Simple setup with user-friendly controls. Perfect for Any Skill Level: Whether you're a pro or a beginner, this machine makes dumpling-making a breeze. Customizable Options: Choose the size and style of your dumplings to suit your preferences. Convenient and Mess-Free: Reduces the mess and effort of hand-rolling and shaping dumplings. Durable & Long-Lasting: Built with high-quality materials for lasting performance. Ideal for Large Batches: Perfect for family meals, parties, or meal prep. Compact and Easy to Store: Doesn’t take up much space in your kitchen. Enhances Cooking Efficiency: Spend less time making dumplings and more time enjoying them! Make dumpling-making effortless and fun with the Electric Dumpling Machine Maker! Save time, get perfect results, and enjoy homemade dumplings in minutes. Upgrade your kitchen and experience the convenience today!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/249879950205200.jpg?v=1740076521
+**Variants:**
+  - Default Title | sku= | price=$15.00 | compareAt=$30.00 | inv=8 | available=True
+---
+#### **Electric Juicer - Portable**
+ID: gid://shopify/Product/7438393638989 |  Handle: electric-juicer |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $15.00
+On sale from $35.00
+**Description:** Transform your kitchen experience with our powerful electric juicer, designed to effortlessly extract every drop of freshness from your fruits and vegetables, ensuring a healthier, tastier lifestyle with minimal effort and maximum efficiency. How to Use Your Electric Juicer: Prepare Vegetables: Wash and cut vegetables into smaller pieces (it works for all veggies, even tough ones like carrots and beets). Assemble the Juicer: Set up the juicer and ensure the container is in place. Juice It: Turn on the juicer, select your speed, and feed the veggies into the chute. Enjoy: Collect your fresh juice and serve! Quick tip: Clean your juicer after each use for easy maintenance! Benefits of Our Electric Juicer: Efficient Extraction: Maximizes juice yield from all vegetables, even the toughest ones. Time-Saving: Quick and easy to use, perfect for busy lifestyles. Nutrient-Rich Juice: Retains more vitamins and minerals for a healthier drink. Versatile: Ideal for all vegetables—leafy greens, roots, and more. Easy to Clean: Simple assembly and cleaning process for hassle-free use. Durable & Reliable: Built to last, ensuring long-term performance. Quiet Operation: Works smoothly without disturbing your environment. Compact Design: Fits easily in your kitchen without taking up too much space. Upgrade your kitchen with our electric juicer—experience effortless, nutrient-packed juices from all your favorite vegetables, every time. Enjoy convenience, efficiency, and health in one powerful appliance. Don’t just juice—transform your lifestyle today!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61LfH5flYkL_1600x_0128a17d-51d3-41ff-a012-0e46f3348625.webp?v=1740610112
+**Variants:**
+  - Default Title | sku= | price=$15.00 | compareAt=$35.00 | inv=1 | available=True
+---
+#### **Power Bank Speaker - 3 in 1**
+ID: gid://shopify/Product/7440364830797 |  Handle: power-bank-speaker-3-in-1 |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $24.99
+On sale from $35.00
+**Description:** Elevate your lifestyle with our 3-in-1 Bluetooth speaker, power bank, and phone stand—designed for unbeatable convenience, style, and all-day functionality! Benefits of Our 3-in-1 Bluetooth Speaker: All-in-One Convenience: Combines a Bluetooth speaker, power bank, and phone stand in a single, sleek design. Portable Power: Keep your devices charged on the go with a built-in power bank. Enhanced Sound: Enjoy rich, clear audio with high-quality Bluetooth speaker functionality. Hands-Free Viewing: Use the adjustable phone stand for easy, hands-free video calls, streaming, and browsing. Compact & Lightweight: Perfectly portable for travel, commuting, or outdoor activities. Durable & Stylish: Modern design with high-quality materials for long-lasting use. Universal Compatibility: Works seamlessly with most smartphones, tablets, and Bluetooth-enabled devices. Time-Saving: Keep your devices powered and your entertainment accessible, all in one device. Key Features: Bluetooth 5.0 Technology: Fast and reliable wireless connection for smooth audio streaming. Built-in Power Bank: 10,000mAh capacity to keep your devices charged on the go. Adjustable Phone Stand: Easily holds your phone in both portrait and landscape modes for hands-free viewing. High-Quality Sound: Crystal-clear audio with enhanced bass for an immersive listening experience. Compact Design: Sleek and portable, perfect for travel, work, or leisure. Universal Compatibility: Compatible with all Bluetooth-enabled devices and most smartphones and tablets. Long Battery Life: Enjoy extended music playback and phone charging with a single charge. Easy Charging: USB-C fast charging for quick recharging of the device. Multi-Functionality: Charge, listen, and view all in one device, reducing clutter and simplifying your Life. Experience the ultimate in convenience and innovation with our 3-in-1 Bluetooth speaker, power bank, and phone stand—your all-in-one solution for music, charging, and hands-free viewing, wherever life takes you. Don't miss out, upgrade today!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/dfkjdfldf2-550x550h.png?v=1740953617
+**Variants:**
+  - Default Title | sku= | price=$24.99 | compareAt=$35.00 | inv=4 | available=True
+---
+#### **Galaxy Man - Projector**
+ID: gid://shopify/Product/7443247923277 |  Handle: galaxy-man-projector |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $19.99
+On sale from $32.00
+**Description:** Transform your space with the mesmerizing Galaxy Man – a cosmic figure who projects a stunning, swirling galaxy of light across your room, creating a universe of wonder right at your fingertips. benefits: Calming Ambiance – Soothes your mind with gentle, swirling lights. Stress Relief – Reduces anxiety and promotes relaxation. Enhanced Focus – Improves concentration and clarity. Mood Boost – Lifts your spirits with vibrant, soothing colors. Sleep Aid – Creates a serene environment for better sleep. Escape Reality – Offers a peaceful mental break from daily stress. Perfect for Meditation – Enhances mindfulness and calmness. Adjustable Atmosphere – Tailor lights to suit your mood. Visual Serenity – Clears mental clutter and induces relaxation. Zen Space – Transforms any room into a tranquil retreat. Key Features: Galaxy Light Projection – Creates stunning, swirling galaxy patterns on your walls and ceiling. Built-in Speaker – Enjoy immersive sound with a high-quality speaker that plays your favorite music or calming sounds. Multiple Colors – Choose from a variety of vibrant colors to match your mood. Adjustable Lighting – Customize the brightness and speed of the light projections for a personalized experience. Mood Settings – Switch between different moods, from calming blues to energizing purples. Relaxing Ambiance – Perfect for creating a serene environment for relaxation or focus. Portable Design – Easy to move and set up anywhere in your home. Bluetooth Connectivity – Connect your device wirelessly for seamless music playback. Transform your room into a cosmic sanctuary with the Galaxy Man – a stunning light projector with soothing colors, mood settings, and built-in sound, perfect for relaxation, focus, or setting the perfect vibe anytime you need it.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/10948_2_1024x1024_44da9e4b-b626-46db-8f70-fe5b8480e7c0.webp?v=1741469527
+**Variants:**
+  - Default Title | sku= | price=$19.99 | compareAt=$32.00 | inv=7 | available=True
+---
+#### **Ultrasonic Cleaner**
+ID: gid://shopify/Product/7472490315853 |  Handle: ultrasonic-cleaner |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $9.99
+On sale from $21.00
+**Description:** 1 Year Warranty Experience a new level of clean with our Ultrasonic Cleaner—engineered to remove dirt, grime, and contaminants from even the most delicate items in minutes. With advanced sonic wave technology, it's the effortless, chemical-free way to restore brilliance to jewelry, glasses, tools, and more—because deep clean shouldn’t mean hard work Benefits of an Ultrasonic Cleaner Deep Clean: Reaches tiny crevices manual cleaning can’t. Gentle on Items: Safe for delicate materials like jewelry and glasses. Fast & Easy: Cleans thoroughly in just minutes. Eco-Friendly: Uses water or mild detergent—no harsh chemicals. Versatile Use: Great for tools, electronics, dental gear, and more. Hygienic: Removes bacteria and hidden grime effectively. Cost-Effective: Extends item life and reduces cleaning damage. Why You Need an Ultrasonic Cleaner Next-Gen Cleaning Tech: High-frequency sound waves deep-clean where brushes can't. Safe on Everything: Jewelry, lenses, tools—clean without damage. Fast + Effortless: Just add water, push a button, done in minutes. Hygiene Boost: Nuke bacteria and grime you can’t see. Smart Investment: Protects your gear, saves you money. Clean smarter. Not harder. Don’t wait for buildup to ruin your valuables—clean smarter today. Stock is limited, act now!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/Davis-Waddell-Electric-Ultrasonic-Cleaner-400ml_7_2000px.webp?v=1745420581
+**Variants:**
+  - Default Title | sku= | price=$9.99 | compareAt=$21.00 | inv=4 | available=True
+---
+#### **Plastic  Restorer**
+ID: gid://shopify/Product/7474112561229 |  Handle: plastic-restorer |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $9.99
+On sale from $20.00
+**Description:** ✨ Restore the shine! Our Plastic Restorer brings faded plastics back to life—perfect for car trims, bumpers, and more 🚗💥 Works on ANY plastic surface for a deep, long-lasting finish 🔧🔥 Benefits: 🔹 Restores Faded Plastic – Brings back the original color and shine🔹 Multi-Surface Use – Works on car trims, bumpers, dashboards, and any plastic🔹 Long-Lasting Protection – Resists fading, cracking, and UV damage ☀️🔹 Water-Resistant Finish – Keeps plastics looking fresh even after rain 🌧️🔹 Easy to Apply – Wipe on, let it sit, and buff for instant results 🧼🔹 No Greasy Residue – Leaves a clean, dry finish with no mess ❌🛢️🔹 Enhances Resale Value – Makes your vehicle look newer and well-kept 💰 🛠️ How to Use: Shake well before use 🔄 Spray directly onto the plastic surface or a microfiber cloth 🧴 Wipe evenly across the area with light pressure 🧽 Let it dry for a few minutes—no rinsing needed ⏱️ Buff if desired for extra shine ✨ ✅ That’s it—spray, wipe, and you're done! 💯 Bring your plastics back to life the easy way—just spray, wipe, and shine. Don’t settle for dull—revive it with confidence! ✨🚘
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/A9C26418-FC1C-4AF9-841B-59536A855321.webp?v=1745686729
+**Variants:**
+  - Default Title | sku= | price=$9.99 | compareAt=$20.00 | inv=10 | available=True
+---
+#### **Wireless Glasses Headset**
+ID: gid://shopify/Product/7475078201421 |  Handle: wireless-glasses-headset |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $30.00
+On sale from $54.00
+**Description:** 🕶️🎧 Step into the future with our smart sunglasses – where style meets tech! Listen to your favorite tunes 🎶 and take crystal-clear calls 📞 with built-in speakers and mic. No wires, no hassle – just freedom, function, and fashion in one 🔋📱✨ Why You’ll Love Them 😎: 🎶 Hands-free music anywhere, anytime 📞 Take calls without pulling out your phone 🕶️ Stylish design that looks and feels great 🔋 Long battery life for all-day use 🚫 No wires, no earbuds – just clean, wireless freedom 🎧🕶️ Talk. Jam. Go. — Smart shades that do it all. This is the model you'll get. Glasses are for both Men and Women. Don’t just wear sunglasses — upgrade them. 🔥 Experience music, calls, and style like never before with smart shades that keep you connected wherever you go. 🕶️📱🎶
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/no_brand_f-06_kacamata_headset_bloetooth_musik_mp3_nirkabel_smart_glasses_wireless_headset_earphone_headphone_waterproof_anti-blu-ray_smart_sunglasses_kaca_mat_full06_toedkmct_41310141-12a5-441e-a51f-90a03ed7e05c.webp?v=1754750155
+**Variants:**
+  - Default Title | sku= | price=$30.00 | compareAt=$54.00 | inv=48 | available=True
+---
+#### **Fly Trap**
+ID: gid://shopify/Product/7488544178253 |  Handle: fly-trap |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $19.99
+On sale from $33.00
+**Description:** 🌀🐝 Tired of messy, useless fly traps? This smart rotating trap spins, catches, and locks flies in for good — no escape, no hassle! 🪤✨ A cleaner, smarter way to say bye to bugs! 🚫🪰 🪤 Benefits of the Rotating Fly Trap: 🌀 360° rotating system catches flies continuously. 🚫🪰 No-escape design keeps bugs locked in. 💡 Quiet and energy-efficient for all-day use. 🧼 Mess-free — no sticky glue or gross zaps. 🍎 Safe to use near food, in kitchens or dining areas. ♻️ Reusable and eco-friendly — easy to clean. 👶🐶 Pet- and kid-safe — no harsh chemicals. 🏡 Perfect for homes, patios, restaurants, and more. 🛠️ How to Use the Rotating Fly Trap: 🧃 Add bait – Place sweet liquid or fruit inside the bait tray (like juice or syrup). 🔌 Power it on – Plug in or turn on the trap to activate the rotating mechanism. 🌀 Let it work – Flies are lured in, trapped by the rotating cover, and can’t escape. 🧼 Empty & clean – Once full, turn off the trap, empty the container, and rinse for reuse. Say goodbye to annoying flies the smart way — clean, quiet, and chemical-free. 🪤✨ Grab yours today and enjoy a bug-free space in style!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61lkzx5V-OL.jpg?v=1747343695
+**Variants:**
+  - Default Title | sku= | price=$19.99 | compareAt=$33.00 | inv=6 | available=True
+---
+#### **3-in-1 Air Cooler Fan**
+ID: gid://shopify/Product/7488990412877 |  Handle: 3-in-1-air-cooler-fan |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $19.99
+On sale from $40.00
+**Description:** ❄️ 3-in-1 Air Cooler Fan with Humidifier Function 🌬️💧 Stay cool, stay comfortable — anytime, anywhere!Beat the heat with this powerful yet compact air cooler that combines the refreshing chill of ice 🧊, the soothing hydration of a humidifier 💧, and the circulation of a fan 🌬️ — all in one sleek, portable unit. Perfect for bedrooms, offices, or any space that needs instant comfort. 🏠✨ 💖 Why You’ll Love It: ✅ 3-in-1 Functionality – Works as a fan, air cooler, and humidifier for all-season comfort.✅ Ice Tray Cooling – Add ice for an extra burst of chill on hot days ❄️🧊.✅ Humidifier Mode – Adds moisture to dry air, helping your skin and breathing stay happy 💧.✅ Portable & Lightweight – Easy to move from room to room – comfort wherever you go! 🏡🚶♂️✅ Energy Efficient – A low-power alternative to expensive AC systems 💡💸.✅ Quiet Operation – Enjoy a peaceful breeze without the noise 💤🔇.✅ Modern Design – Sleek, compact look that fits into any home or office décor 🖤✨. Experience instant comfort with our powerful 3-in-1 Air Cooler Fan — cools the air, adds refreshing humidity, and lets you drop in ice for a chill that feels like AC, without the high energy bill!" ❄️💧🌬️ 🧼 How to Clean: Turn off and unplug the unit before cleaning. 🔌❌ Empty the water tank and remove any leftover ice. 💧🧊 Wipe the exterior with a soft, damp cloth. 🧽 Clean the water tank with mild soap and rinse thoroughly. 🫧 Remove and rinse the filter (if applicable) under running water. 🚿 Stay cool, breathe easy, and save energy — all in one sleek device. ❄️💧🌬️ Get your 3-in-1 Air Cooler Fan today! 🛒🔥
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/71GNo9U3a8L._AC_UF1000_1000_QL80.jpg?v=1747419941
+**Variants:**
+  - Default Title | sku= | price=$19.99 | compareAt=$40.00 | inv=11 | available=True
+---
+#### **Spray Mop - 2 in 1**
+ID: gid://shopify/Product/7489016528973 |  Handle: spray-mop-2-in-1 |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: out of stock
+* **Price:** $9.99
+On sale from $25.00
+**Description:** ✨ Clean smarter with our Spray Mop! Just fill with water or cleaner, spray, and glide for quick, streak-free floors. 🧼💦 Perfect for all surfaces! 🧹 🌟 Benefits: ✅ Effortless Cleaning – Simply spray and mop for a quick, easy clean.✅ Time-Saving – No more buckets or rinsing — just fill the reservoir and go!✅ Multi-Surface Use – Ideal for tile, hardwood, laminate, and more.✅ Eco-Friendly – Reusable microfiber pads for a cleaner, greener home.✅ Lightweight & Easy to Use – Clean with less effort and maximum results.✅ Adjustable Handle – Comfortable for users of all heights.✅ Streak-Free Shine – Achieve sparkling floors with every swipe. Clean your floors in a flash with our Spray Mop — just fill, spray, and swipe for a spotless shine with zero hassle! ✨🧼 Don’t waste time with old mops—upgrade to our Spray Mop for fast, efficient, and streak-free cleaning every time. Order now and make cleaning a breeze! 💦🧹
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/SP351GY-2.jpg?v=1747422136
+**Variants:**
+  - Default Title | sku= | price=$9.99 | compareAt=$25.00 | inv=0 | available=True
+---
+#### **3 in 1 Vacuum Cleaner**
+ID: gid://shopify/Product/7492517527629 |  Handle: 3-in-vacuum-cleaner |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $9.99
+On sale from $20.00
+**Description:** 6 Month Warranty 🧹 Clean up with ease using this powerful 3-in-1 mini vacuum! 💨 Two heads for vacuuming 🧼 and one that flips to become an air blower 🌬️—perfect for every mess! 🔑 Key Features: 🧹 3-in-1 Functionality: Two vacuum heads + one reversible air blower head. 🌬️ Blower Mode: Flip the third head to instantly switch from suction to powerful air blowing. 🌀 Strong Suction Power: Effectively lifts dust, crumbs, pet hair, and debris. 🔄 Interchangeable Heads: Easily switch between heads for different cleaning tasks. 🔋 Rechargeable Battery: Cordless convenience with long-lasting power. 🧩 Compact & Portable: Small enough to carry anywhere—perfect for cars, desks, and tight spaces. ✅ Benefits: ✔️ Save space with one tool that does it all. ✔️ Clean hard-to-reach places effortlessly. ✔️ Quickly switch to blower mode for keyboards, car vents, or dusting. ✔️ Ideal for home, office, and travel. 🧹 Clean, switch, and blow with one tool! This 3-in-1 mini vacuum handles dust, crumbs, and more—anywhere, anytime 🌬️ Don’t settle for clutter—grab the 3-in-1 mini vacuum that vacuums, blows, and goes wherever you do! 🧹💨 Compact power, endless convenience.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/2-in-1-vacuum-cleaner-500x500.webp?v=1748032653
+**Variants:**
+  - Default Title | sku= | price=$9.99 | compareAt=$20.00 | inv=16 | available=True
+---
+#### **4in1 Fast Car Charger**
+ID: gid://shopify/Product/7505237573709 |  Handle: 4in1-fast-car-charger |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $23.99
+On sale from $31.00
+**Description:** Say goodbye to messy cables and slow charging—our 4‑in‑1 retractable fast car charger keeps your ride clean, your devices powered, and your road trips stress-free 🚗🔋🔌💨 What makes it awesome: 4‑in‑1 design: Two built‑in retractable cables (USB‑C + Lightning) plus two extra USB ports let you charge up to four devices at once. 100 W of fast power charges your phone, tablet—even a Switch or laptop—at full speed. Tidy retractable cables (≈80 cm) keep your car neat—no more tangled mess. Safety features: Built‑in voltage monitor and protections prevent over‑charging, overheating, and short‑circuits. Tired of tangled cords and outdated slow chargers? Upgrade your drive with our 4‑in‑1 retractable fast car charger — the sleek, all‑in‑one solution to messy cables and dead batteries 🚗🔌💥 Stay organized, charge everything, and hit the road fully powered. 👉 Don’t settle for clutter and slow charging — grab yours now and transform every drive into a fast, organized, fully charged experience. ⚡🚀
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/4prtc-5-main.webp?v=1749984953
+**Variants:**
+  - Default Title | sku= | price=$23.99 | compareAt=$31.00 | inv=36 | available=True
+---
+#### **SilverCrest - Perfect Curl**
+ID: gid://shopify/Product/7507143753805 |  Handle: babyliss-pro-perfect-curl |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $29.99
+On sale from $60.00
+**Description:** Meet the BaByliss PRO Perfect Curl — the game-changing automatic styler that gently sucks your hair into a heated chamber and delivers flawless, salon‑quality curls in seconds. No wrapping, no burning, just stunning waves every time! 💁♀️✨ ✅ Why You’ll Love It: Automatic Curling Chamber – No skill needed, just insert & let it curl! Fast & Flawless – Get perfect curls in seconds, every time. Custom Styles – Choose from loose waves to tight ringlets. Frizz-Free Finish – Ceramic technology protects hair & boosts shine. No Burns, No Wrap Hassle – Safe design with timer alerts. Salon Results at Home – Looks like a pro did it 💁♀️✨ ✨ Effortless curls, zero guesswork — just insert your hair, let it curl, and reveal flawless, frizz-free waves in seconds. 💁♀️🔥 💬 Ready to ditch the hassle and level up your hair game? Get the BaByliss PRO Perfect Curl today and style like a pro — from the comfort of home. ✨🙌
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/babyliss-pro-BAB2665E-miracurl-the-perfect-curl-machine.jpg?v=1750278819
+**Variants:**
+  - Default Title | sku= | price=$29.99 | compareAt=$60.00 | inv=3 | available=True
+---
+#### **Carrera - Waver**
+ID: gid://shopify/Product/7508703019085 |  Handle: carrera-waver-straightener-combo |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $32.00
+On sale from $50.00
+**Description:** 1 Year Warranty!! Why choose one when you can have both? The Carrera box includes a professional straightener and waver — two styling tools, one unbeatable combo. 💇♀️🔥 Create beautifully styled, voluminous waves effortlessly with our hairstyler — perfect for every girl’s hair routine! ✨💁♀️ Why You’ll Love This Combo: ✅ 2 Tools in 1 Box – Get a premium straightener and a waver — no need to buy separate devices.✅ Salon-Quality Results – Sleek, shiny hair or soft, bouncy waves — all from home.✅ Fast Heat-Up – Ready to style in seconds, perfect for busy mornings.✅ Adjustable Temperature Settings – Safe for all hair types, from fine to thick.✅ Travel-Friendly Design – Lightweight, compact, and dual-voltage for global use.✅ Ceramic Coating – Protects hair while reducing frizz and adding shine.✅ Great Gift Idea – Comes as a set, beautifully packaged — ideal for birthdays, holidays, or self-care treats. Because one look isn’t enough — this combo gives you the freedom to switch between sleek and wavy in minutes, with salon-quality results at home. Two tools, endless styles, one smart buy
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61hSy8xX9RL._AC_UL600_SR600_600.jpg?v=1755176750
+**Variants:**
+  - Default Title | sku= | price=$32.00 | compareAt=$50.00 | inv=19 | available=True
+---
+#### **Neck Fan**
+ID: gid://shopify/Product/7508718420045 |  Handle: neck-fan |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $15.00
+On sale from $30.00
+**Description:** Stay cool anywhere, hands-free — this wearable neck fan blows refreshing air right where you need it, without messing up your style. ❄️🔥 Warranty⬇️ Note: 🛡️ Crafted with premium materials for long-lasting performance. Plus, every neck fan comes with a full warranty ❄️ Why You’ll Love This Neck Fan: ✅ Hands-Free Cooling – Wear it like headphones and enjoy fresh air anywhere.✅ High-Quality Build – Made with durable, premium materials that last.✅ Adjustable Speeds – Choose from multiple fan speeds for the perfect breeze.✅ Quiet but Powerful – Strong airflow without the noise.✅ Rechargeable Battery – Long-lasting use on a single charge.✅ No Hair Tangles – Safe bladeless design, perfect for all hair types.✅ Stylish & Lightweight – Comfortable enough to wear all day.✅ Full Warranty Included – You're covered, just in case. 🔄 With 3 adjustable speed modes, you’re always in control — from a gentle breeze to powerful airflow, just the way you like it. 🔥 Beat the heat in style — grab your neck fan today and stay cool wherever life takes you.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/612-PQ7-rL._AC_SL1500.jpg?v=1750535104
+**Variants:**
+  - Default Title | sku= | price=$15.00 | compareAt=$30.00 | inv=1 | available=True
+---
+#### **Bone Conduction Speaker**
+ID: gid://shopify/Product/7523073392717 |  Handle: bone-conduction-speaker |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $19.99
+On sale from $31.00
+**Description:** Because size doesn’t matter 🔊✨ Turn anything into a speaker 🎶 — just stick this mini bone conduction speaker 🪵🪟📦 to any surface and enjoy big, powerful sound anywhere! 🔥 🔊 Why You’ll Love It: ✅ Turns Anything Into a Speaker – Tables, boxes, walls… anything becomes a sound system.✅ Ultra-Portable – Tiny size, easy to carry anywhere.✅ Big Sound in a Small Package – Don’t let the size fool you — it’s loud and clear.✅ Easy to Use – Just stick it and play.✅ Long Battery Life – Enjoy hours of music on a single charge.✅ Unique and Fun – A real conversation starter and party trick.✅ High-Quality Build – Durable and made to last. 🌀 Buy more than one and pair them together for even bigger, stereo sound — turn your whole room into a powerful speaker experience! 🔊🎶
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/Diseno_sin_titulo_16.webp?v=1752164423
+**Variants:**
+  - Default Title | sku= | price=$19.99 | compareAt=$31.00 | inv=6 | available=True
+---
+#### **Bag Sealer**
+ID: gid://shopify/Product/7529109094477 |  Handle: bag-sealer |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $7.00
+On sale from $11.00
+**Description:** 🔒 Seal In Freshness, Anytime, Anywhere!Say goodbye to stale snacks! 🍟🍪 Our compact, battery-powered bag sealer 🔋 is your go-to gadget for locking in crispness with just one swipe ➡️. Perfect for chips, cereal, and more—portable, easy, and oh-so-handy! 🙌 Why You'll Love It: ✨ Keeps Snacks Fresh: Seal in the crispiness and flavor, keeping chips, cookies, and more fresh for longer. 🥔🍪🔋 Battery-Powered Convenience: No cords, no hassle—take it anywhere! 🔋🛠️ Easy to Use: Simply swipe and seal with minimal effort.👝 Compact & Portable: Slip it into your bag or kitchen drawer for on-the-go sealing. 👜♻️ Saves Money: Reduce waste by resealing your favorite snacks instead of tossing them. 💸🌱 Eco-Friendly: Keep your snacks sealed and reduce the need for plastic wraps or clips. 🌍🎉 Perfect for All Ages: Kids, adults, and everyone in between can seal their own bags with ease. 👨👩👧👦 How to Use Your Bag Sealer It’s as easy as 1-2-3! 💡 Insert Batteries 🔋Open the battery compartment, insert the required batteries, and close the lid. Place the Bag 🏷️Position the open edge of your snack bag in the sealing area. Seal and Go! ✨Hold the sealer over the bag and press gently. It’ll seal the bag in seconds, keeping your snacks fresh! That’s it! You're ready to snack and seal in freshness anytime. 😎 Seal Freshness on the Go!With its compact design and easy-to-use function, this bag sealer is perfect for keeping your snacks fresh anywhere—at home, in the office, or on your travels. 🌍💼
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/H7932c2363d8f4c2085173b70324158d8p.webp?v=1753020019
+**Variants:**
+  - Default Title | sku= | price=$7.00 | compareAt=$11.00 | inv=27 | available=True
+---
+#### **PowerFul Rechargeable  Whisk - 2in1**
+ID: gid://shopify/Product/7529113583693 |  Handle: powerful-rechargeable-wisk-2in1 |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $19.99
+On sale from $30.00
+**Description:** Whisk It All with Power & Precision!Introducing the ultimate kitchen companion: our rechargeable, high-speed whisk! ⚡ With two interchangeable heads—one for your perfect coffee froth ☕ Why You'll Love It: ⚡ 1200 RPM Power: Fast, smooth results every time!🔄 2 Heads: One for frothing coffee, one for whipping eggs.🔋 Rechargeable: Eco-friendly and ready when you are.💪 Durable & Reliable: Built to last through all your whipping needs.🖐️ Ergonomic Design: Comfortable and easy to use.🏃♂️ Portable: Take it anywhere—whip up perfection on the go! Attach the Head 🔄Choose the appropriate whisk head—coffee frother or egg beater—and snap it into place. Turn It On ⚡Press the power button to activate the whisk. For extra speed, hold the button down. Whisk Away 🥄Use gentle, controlled motions to froth your coffee or whip eggs, batters, and more! Whisk Your Way to Perfection, Anywhere!With its powerful speed, dual heads, and rechargeable design, this whisk is your go-to tool for quick, smooth results
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/7056e61d348bbf0be6fb9014e7603fb6b58be9ef_original.jpg?v=1753022065
+**Variants:**
+  - Default Title | sku= | price=$19.99 | compareAt=$30.00 | inv=16 | available=True
+---
+#### **Flawless Facial Hair Removal**
+ID: gid://shopify/Product/7529509421133 |  Handle: flawless-facial-hair-removal |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $12.00
+On sale from $21.00
+**Description:** Smooth Skin, Instantly. ✨This flawless electric facial hair remover gently removes peach fuzz and unwanted hair with precision—painless, portable, and perfect for everyday touch-ups! Why You'll Love It: 🌸 Pain-Free Hair Removal: Gently removes facial hair with zero discomfort.🔍 Precision Tip: Targets even the finest hairs for a flawless finish.👜 Portable & Discreet: Lipstick-sized—perfect for purses and travel.🔋 Rechargeable or Battery-Operated: Always ready when you are.✨ Smooth, Glowing Skin: Creates the perfect base for makeup.🧼 Hygienic & Easy to Clean: Detachable head for quick cleaning.🚫 No Redness or Irritation: Safe for all skin types, even sensitive skin. Flawless results, anytime, anywhere — because smooth skin shouldn’t wait. ✨ Confidence starts with smooth skin—take flawless wherever you go. 💖
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61NX372BiYL._UF1000_1000_QL80.jpg?v=1753093064
+**Variants:**
+  - Default Title | sku= | price=$12.00 | compareAt=$21.00 | inv=15 | available=True
+---
+#### **Ice Ball Maker**
+ID: gid://shopify/Product/7529548873805 |  Handle: ice-ball-maker |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: out of stock
+* **Price:** $10.00
+On sale from $27.00
+**Description:** Chill Smarter with Perfect Ice Balls! ❄️Just fill, freeze, and pop—this easy-to-use jug seals in water to create crystal-clear ice balls that level up any drink. 🍹🧊 Why You'll Love It: 🧊 Perfectly Round Ice Balls: Melt slower and look cooler—literally.🚫 No Spills or Mess: Sealed jug design keeps water in place while freezing.❄️ Easy to Use: Just fill, freeze, and pop out your ice balls.🍸 Elevates Any Drink: Great for cocktails, sodas, juices, and more.🧼 Reusable & Easy to Clean: Eco-friendly and dishwasher safe.🏡 Great for Home or Parties: Impress guests with bar-quality ice! Cool your drinks in style—perfect ice balls, every time. 🧊✨Whether it’s for a party or a quiet night in, elevate every sip with smooth, slow-melting ice.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61VH7LF5L0L.jpg?v=1753099061
+**Variants:**
+  - Default Title | sku= | price=$10.00 | compareAt=$27.00 | inv=-5 | available=True
+---
+#### **Multi Purpose Foam Cleaner**
+ID: gid://shopify/Product/7529560014925 |  Handle: multi-purpose-foam-cleaner |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $10.00
+On sale from $21.00
+**Description:** One Foam, Endless Clean. 🧼🚗From car interiors to couches, shoes, and more—this powerful multi-purpose foam cleaner lifts dirt, stains, and grime in seconds. Spray, wipe, and watch the clean shine through! Benefits: 🧼 Deep Clean, No Scrub – Powerful foam lifts dirt & stains fast🪑 Multi-Surface Safe – Use on fabric, plastic, leather, metal & more⏱️ Fast & Easy – Spray, foam, wipe—done!🌱 Eco-Friendly – Non-toxic & safe for family and pets🚗 Perfect Everywhere – Home, car, office, shoes—you name it!💨 Fresh Scent – Cleans and deodorizes in one step 🧽 Not just for one job—use it on shoes, couches, car seats, kitchen counters, and more! One can, countless uses. 🧼 No mess, no stress—just spray, wipe, and you're done!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/Multipurpose_Foaming_06_grande_2x_0b73803b-da94-46d2-88fa-adda40d7f6e7.webp?v=1753100767
+**Variants:**
+  - Default Title | sku= | price=$10.00 | compareAt=$21.00 | inv=9 | available=True
+---
+#### **Jet Drone**
+ID: gid://shopify/Product/7533390463053 |  Handle: remote-controlled-airplane |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $29.99
+On sale from $42.00
+**Description:** 🛩️✨ Take playtime to new heights with our awesome remote-controlled airplane — with 4 spinning blades in the middle, it flies up and down like magic and is perfect for young pilots! 🚁🎮 Why Kids Love It: ✅ Easy to Fly – Simple remote controls make it perfect for beginners✅ Up & Down Action – Smooth vertical takeoff and landing for fun flying tricks✅ 4-Blade Power – Central rotor gives extra stability and better control✅ Safe for Kids – Made with lightweight, durable materials✅ Indoor & Outdoor Fun – Great for backyard adventures or indoor play✅ Boosts Creativity – Encourages imaginative play and coordination✅ Cool Design – Eye-catching look kids will love showing off! 🎉 Ready for takeoff? Give your kids the gift of adventure with a remote-controlled airplane that’s fun, safe, and packed with excitement — the sky’s the limit! 🌤️🛩️
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/Rc-Fighter-Jet-Plane-9.jpg?v=1753622834
+**Variants:**
+  - Default Title | sku= | price=$29.99 | compareAt=$42.00 | inv=14 | available=True
+---
+#### **Card English Education Game**
+ID: gid://shopify/Product/7537480433741 |  Handle: card-english-education-game |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $19.00
+On sale from $26.00
+**Description:** 🎉 Ready to make learning English fun? 📚✨ Discover our Card English Education Game – the perfect mix of play and progress for all ages! 🧠🃏 ✅ Benefits of Our Card English Education Game 🎯 🧠 Boosts Vocabulary – Learn and retain new English words through repetition and play 💬 Improves Speaking & Listening – Interactive gameplay encourages real communication 👧🧑 Fun for All Ages – Designed for kids, teens, and even adult learners 🎲 Game-Based Learning – Turns studying into an engaging and motivating experience 👥 Great for Groups or Solo Play – Perfect for classrooms, families, or individual practice ⏱️ Short Sessions, Big Results – Flexible playtime fits any schedule : 🔊 How to Use the Card English Education Machine 🃏 🖼️ Pick a CardChoose a card with a picture that matches the word you want to learn (e.g., 🍎 apple, 🐶 dog). 📥 Insert the CardGently slide or place the card into the slot on the machine. 🔈 Hear the WordThe machine will automatically say the English word out loud! Perfect for pronunciation practice. 🔁 Repeat & LearnKeep trying different cards to build vocabulary through sound and image recognition. 🌟 Start Learning the Fun Way Today!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/card_early_education_learning_words_toy_reader_device_for_kids_boys_girls_babies_buy_online_Beirut_Lebanon.webp?v=1754131556
+**Variants:**
+  - Default Title | sku= | price=$19.00 | compareAt=$26.00 | inv=7 | available=True
+---
 #### **Instant Water Balloons**
-* **Price:** $10.99 (On sale from $16.00, a 31% savings)
-* **Quantity:** 200 balloons per pack
-* **Offers:** * 1 Item: $10.99
-    * 2 Items: $9.90 each (10% OFF)
-    * 3 Items: $8.80 each (20% OFF)
-* **Description:** Self-tying water balloons that fill up at once.
-* **Benefits:** 200 water balloons per pack, fills in seconds, kid-friendly and hassle-free, and perfect for parties.
-
+ID: gid://shopify/Product/7537484922957 |  Handle: instant-water-balloons |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $10.99
+On sale from $16.00
+**Description:** 200 Balloons Per Pack 💦 Instant Water Balloon Fun in Seconds! 🎈 Just connect to a hose, turn on the water, and watch the magic happen – dozens of self-tying water balloons fill up at once! No knots, no mess, just non-stop splashing fun for kids, parties, and backyard battles! 🔫☀️ ❤️ Why You’ll Love This 💧 200 Water Balloons in Every Pack – That’s hours of splashing fun with just one hose connection! ⏱️ Fills in Seconds – Attach to any standard hose and fill dozens of balloons at once — no tying needed! 🧒 Kid-Friendly & Hassle-Free – No knots, no mess, just easy fun for all ages 🎉 Perfect for Parties – Great for birthdays, summer events, or spontaneous water wars Get ready for endless summer fun with 200 instant water balloons that fill themselves in seconds—no tying, no hassle, just pure splash!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/GUEST_a3831c37-3f81-4b42-90fe-602438773b92.avif?v=1754132994
+**Variants:**
+  - Default Title | sku= | price=$10.99 | compareAt=$16.00 | inv=12 | available=True
 ---
-
+#### **Wall Climbing Car**
+ID: gid://shopify/Product/7537493049421 |  Handle: wall-climbing-car |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $29.99
+On sale from $40.00
+**Description:** 🚗✨ Experience the thrill of our laser-pointed wall-climbing toy car — it races up walls and defies gravity with precision you control! 🎯🧗♂️ ✅ Why Kids (and Adults) Love It! 🚗💥 🧲 Wall-Climbing Action – Drives on walls, windows, and even ceilings like magic! 🎯 Laser Control – Use the laser pointer to guide the car—just point and watch it go! 🌟 Defies Gravity – Special suction tech keeps it racing on vertical surfaces 🔋 Rechargeable & Eco-Friendly – USB charging means no constant battery swapping 🎁 Perfect Gift Idea – A guaranteed hit for birthdays, holidays, or just because 👦👧 Safe & Easy for Kids – Lightweight design and intuitive controls for ages 6+ 🤖 Futuristic Fun – Feels like you're controlling a real spy gadget! 🚀 Take Playtime to New Heights! Don’t miss out on the ultimate gravity-defying fun! 🎯 With laser control and wall-climbing action, this toy car turns any room into an adventure zone.Grab yours now and let the race begin — on the walls, the ceiling, and beyond! 🧗♂️🚗💨
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/Sc554d51f4c794cc1b9aed674098cb391X.webp?v=1754134805
+**Variants:**
+  - Default Title | sku= | price=$29.99 | compareAt=$40.00 | inv=12 | available=True
+---
+#### **Black Head Remover**
+ID: gid://shopify/Product/7537498357837 |  Handle: black-head-remover |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $29.99
+On sale from $41.00
+**Description:** ✨ Say goodbye to clogged pores and hello to glowing skin with our powerful blackhead remover machine — deep cleansing made easy at home! 🧖♀️💨 ✅ Why You'll Love It 🖤✨ 🌬️ Powerful Suction – Gently removes blackheads, whiteheads, and excess oil 🧼 Deep Pore Cleansing – Clears out dirt and impurities for visibly cleaner skin 🧖♀️ Spa-Like Treatment at Home – Enjoy professional skincare without the salon cost 🔋 USB Rechargeable – Cordless and convenient for on-the-go beauty routines 🔄 Multiple Suction Heads – Customize treatment for different skin types and areas 🌟 Improves Skin Texture – Regular use helps minimize pores and smooth skin 🧖♀️ How to Use the Blackhead Remover Machine 💨 Warm & Prep 🔥Clean your face and apply a warm towel or steam for 5–10 minutes to open pores. Power On & Select Mode ⚙️Turn on the device, choose your suction level, and attach the desired nozzle. Start Cleaning ➡️Gently move the device across your skin — don’t stay in one spot to avoid irritation. Rinse & Cool Down ❄️Wash your face with cool water or apply a cold towel to close pores. Moisturize 💧Apply your favorite serum or moisturizer to soothe and hydrate your skin. Reveal clearer, smoother skin from the comfort of home — grab your blackhead remover machine today and glow with confidence! ✨🖤
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/b9e9d5e6-0b76-4833-b2a7-70eb1370e018_824b0360-f732-474a-93de-1f30412e049b.jpg?v=1755174341
+**Variants:**
+  - Default Title | sku= | price=$29.99 | compareAt=$41.00 | inv=2 | available=True
+---
+#### **Kemei Hair Removal**
+ID: gid://shopify/Product/7537599053901 |  Handle: kemei-hair-removal |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $19.99
+On sale from $30.00
+**Description:** ✨ Smooth skin made simple — the Kemei women’s hair remover gives you silky, stubble-free results in minutes, anytime, anywhere! 💖🪒 ✅ Why You'll Love the Kemei Hair Remover 💖🪒 🌟 Smooth & Silky Results – Gently removes hair for soft, flawless skin 🙌 Painless & Gentle – Designed for sensitive areas with no nicks or irritation 🔋 Rechargeable Convenience – USB-powered for cordless, on-the-go grooming 👜 Compact & Travel-Friendly – Lightweight and perfect for your purse or suitcase 🧼 Easy to Clean – Detachable head for quick and hygienic maintenance 🎯 Precision Trimming – Great for legs, underarms, bikini line, and more ⏱️ Quick & Easy to Use – Get smooth skin in minutes without the mess of waxing 💫 From smooth legs to flawless underarms — the Kemei shaver makes hair removal effortless, fast, and pain-free! 💖 ✨ Don’t settle for stubble — get smooth, confident skin anytime with the Kemei hair remover. Your beauty routine just got an upgrade! 💖🪒
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/650f0eb2994dc100a5617cf2-kemei-womens-shaver-female-epilator.jpg?v=1754159822
+**Variants:**
+  - Default Title | sku= | price=$19.99 | compareAt=$30.00 | inv=14 | available=True
+---
+#### **Thread Hair Removal Machine**
+ID: gid://shopify/Product/7540042629197 |  Handle: string-hair-removal-machine |  Type:  |  Vendor: AstroSouks |  Tags: new |  Status: ACTIVE |  Availability: in stock
+* **Price:** $29.99
+On sale from $43.00
+**Description:** ✨ Experience smooth, painless skin with our advanced string hair removal machine — your safe, efficient, and affordable solution for enduring hair-free beauty! 💆♀️🌟🛍️ Benefits: ✂️ Precise Hair Removal – Targets hairs accurately for smooth skin. 😌 Less Painful – Comfortable experience compared to waxing. ⏱️ Fast & Convenient – Quick treatments at home. 🌱 Eco-Friendly & Reusable – Reduces waste and saves money. ✨ Long-Lasting Smoothness – Keeps skin hair-free for weeks. Achieve silky smooth skin effortlessly — the perfect hair removal solution you can trust at home. 🌟✨ Experience flawless skin today — your perfect way to look and feel confident every day! 💖✨
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/511lu1yOyQL._UF894_1000_QL80.jpg?v=1754690760
+**Variants:**
+  - Default Title | sku= | price=$29.99 | compareAt=$43.00 | inv=18 | available=True
+---
+#### **Wireless Lamp Remote Controller**
+ID: gid://shopify/Product/7542530998349 |  Handle: wireless-lamp-remote-controller |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $8.00
+On sale from $15.00
+**Description:** Transform your space effortlessly 🏡✨ — control your lamps wirelessly from anywhere 📱🔌 with our sleek remote-controlled socket. Benefits: 🔌 Convenient Control – Turn your lamps on/off from anywhere with a remote or app. 💡 Energy Saving – Easily switch off unused lights to save electricity. 🧠 Smart Living – Automate and manage lighting effortlessly. 🕒 Timer Function – Set schedules to turn lamps on/off automatically. 🛋️ Enhances Comfort – No more getting up to control lights — perfect for cozy nights or accessibility. Control your lights effortlessly from anywhere 🏡📱— making your home smarter and more convenient! Upgrade your home today and enjoy the ultimate convenience of smart lighting at your fingertips! 💡✨
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/S9810a6c937bf4430ae2f2a72239a6fa3y.webp?v=1755108963
+**Variants:**
+  - Default Title | sku= | price=$8.00 | compareAt=$15.00 | inv=6 | available=True
+---
 #### **Labubu Big Into Magic Energy**
-* **Price:** $14.99 (On sale from $24.99, a 40% savings)
-* **Offers:** * 1 LaBuBu: $14.99
-    * 3 LaBuBu: $40.48 (10% OFF)
-    * 6 LaBuBu (1 Box): $76.45 (15% OFF)
-* **Description:** A collectible toy full of magic energy.
-* **Benefits:** Inspires imagination, adorably mischievous, mood booster, perfect collectible, great for gifting, sparks creativity, and has a limited edition feel.
-* **Key Features:** Charming design, magic energy theme, high-quality material, compact and display-ready, hand-painted details, safe and non-toxic, and part of an official series.
+ID: gid://shopify/Product/7543412686925 |  Handle: labubu-big-into-magic-energy |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $14.99
+On sale from $24.99
+**Description:** Labubu is full of magic energy, bouncing with joy and curiosity, and ready to sprinkle sparkles of wonder, laughter, and a little bit of adorable mischief into every moment, because wherever Labubu goes, a world of cuteness and magic follows Benefits: Bursting with Magic Energy – Inspires imagination and play with every wiggle and giggle. Adorably Mischievous – Adds a fun, cheeky personality to your space. Mood Booster – Its cuteness and charm instantly brighten your day. Perfect Collectible – A must-have for fans of art toys, designer figures, and all things cute! Great for Gifting – Brings smiles and sparkles to kids and collectors alike. Sparks Creativity – Encourages storytelling, roleplay, and magical adventures. Limited Edition Feel – Stands out with unique design and personality. Key features: Charming Design – Features Labubu’s signature big eyes, pointy ears, and playful expression. Magic Energy Theme – Styled with sparkling, whimsical details that capture a magical vibe. High-Quality Material – Made from durable, smooth, and collectible-grade vinyl or resin. Compact & Display-Ready – Perfect size for shelves, desks, or your art toy collection. Hand-Painted Details – Beautiful craftsmanship brings Labubu to life with vibrant colors. Safe & Non-Toxic – Kid-friendly materials with smooth edges and safe finishes. Official Series Release – Part of the beloved Labubu family – ideal for collectors and fans. Bring home the magic – Labubu’s cuteness and charm will steal your heart in seconds! ✨
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_f54fe891-8f53-4c68-b147-aa3a17c3829b.png?v=1755261228
+**Variants:**
+  - Default Title | sku=12 | price=$14.99 | compareAt=$24.99 | inv=12 | available=True
+---
+#### **Nevadent Electric Tooth Brush**
+ID: gid://shopify/Product/7544255512653 |  Handle: untitled-17aug_12-24 |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $21.99
+On sale from $30.00
+**Description:** ✨ Nevadent Electric Toothbrush – smart, simple, and smile-ready!Powerful cleaning meets everyday comfort for a fresher, brighter smile—every time you brush. Benefits: Deep, effective cleaning for healthier gums and teeth Built-in timer for dentist-recommended brushing time Multiple brushing modes for personalized care Long-lasting rechargeable battery Gentle on enamel, tough on plaque Sleek, lightweight, and travel-friendly design Key Features: 3 Brushing Modes – Clean, Sensitive, and Massage 2-Minute Smart Timer – Encourages optimal brushing time 30-Second Quad Pacer – Helps evenly clean all mouth areas High-Frequency Sonic Vibration – Up to 40,000 strokes/min USB Rechargeable Battery – Lasts up to 2 weeks per charge Replaceable Brush Heads – Easy to swap and hygienic Water-Resistant Design – Safe for use in the shower or sink 💫 Smile smarter with Nevadent – where every brush brings you closer to your best smile.Clean. Confident. Carefree. Make the switch today and feel the difference.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_9360cffa-302b-47ba-ab05-6306bcb705f4.jpg?v=1755432840
+**Variants:**
+  - Default Title | sku=10 | price=$21.99 | compareAt=$30.00 | inv=8 | available=True
+---
+#### **Tiffany Grinding Machine**
+ID: gid://shopify/Product/7545742131277 |  Handle: tiffany-grinding-machine |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $29.99
+On sale from $40.00
+**Description:** ✨️Experience unmatched precision and power with the Tiffany Grinding Machine – engineered for durability, designed for perfection Benefits: ✅️High Precision Performance – Delivers smooth, accurate grinding for flawless results every time. ✅️Heavy-Duty Durability – Built with premium materials to withstand intense, long-term use. ✅️User-Friendly Design – Intuitive controls make operation simple for both professionals and beginners. ✅️Versatile Functionality – Perfect for metal, wood, and a wide range of materials. ✅️Low Maintenance – Designed for efficiency with minimal upkeep required. ✅️Compact & Efficient – Space-saving design with powerful output for any workspace. Key Features: Powerful Motor – Delivers consistent high-speed performance for tough grinding tasks. Precision Grinding Wheel – Ensures smooth finishes and accurate shaping. Adjustable Speed Control – Customize speed for different materials and applications. Ergonomic Handle & Base – Reduces fatigue during extended use with added stability. Dust Collection System – Keeps your workspace clean and safe. Thermal Overload Protection – Prevents overheating to extend machine life. Compact & Sturdy Build – Space-saving yet rugged for industrial or home use. Quick-Change Mechanism – Effortless swapping of grinding wheels to save time. 💫Upgrade your workshop with the Tiffany Grinding Machine — where power meets precision, and performance never quits.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_8f4e2e6f-cdd9-4b60-92f9-f4e16fb12c31.webp?v=1755625206
+**Variants:**
+  - Default Title | sku= | price=$29.99 | compareAt=$40.00 | inv=7 | available=True
+---
+#### **Multi-Function Camping Lamp**
+ID: gid://shopify/Product/7545744359501 |  Handle: multi-function-camping-lamp |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $30.00
+On sale from $45.00
+**Description:** 💫Light up every adventure — our multi-function camping lamp combines powerful illumination, power bank capabilities, and emergency features in one rugged, reliable design. Benefits: All-in-One Convenience: Combines lighting, charging, and emergency features to reduce the need for multiple devices. Portable Power Bank: Keeps your phone and gadgets charged while you're off the grid. Bright & Adjustable Lighting: Multiple brightness modes for tents, trails, and emergencies. Durable & Weather-Resistant: Built tough to withstand outdoor conditions like rain, dust, and impact. Compact & Lightweight: Easy to pack, carry, and hang anywhere for hands-free use. Emergency SOS Mode: Stay safe with a built-in SOS flashing function in case of danger or distress. Key Features: 🔦 High-Lumen LED Light – Offers powerful illumination with adjustable brightness levels. 🔋 Built-In Power Bank – USB output for charging smartphones and other devices on the go. 🌧️ Water-Resistant Design – IP-rated protection for use in rain or damp environments. 🧲 Magnetic Base & Hanging Hook – Easily attaches to metal surfaces or hangs inside tents. ⚡ Multiple Light Modes – Includes white light, warm light, strobe, and SOS emergency mode. 🔁 Rechargeable Battery – Long-lasting battery life with convenient USB-C charging. 🧳 Compact & Lightweight – Ideal for camping, hiking, emergencies, and everyday carry. ✨️Whether you're deep in the wilderness or facing a power outage at home, the multi-function camping lamp is your ultimate companion—reliable, versatile, and ready for any adventure. Don’t camp without it!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_965c7264-df50-4a5e-9690-1aaa91f9d399.webp?v=1755625206
+**Variants:**
+  - Default Title | sku= | price=$30.00 | compareAt=$45.00 | inv=8 | available=True
+---
+#### **Telescopic Clothesline**
+ID: gid://shopify/Product/7545746194509 |  Handle: telescopic-clothesline |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $29.99
+On sale from $43.00
+**Description:** ✨️Maximize your drying space with our telescopic clothesline – sleek, extendable, and built to fit any corner, making laundry effortless and convenient. Benefits: ✅️Space-saving design: Extends when needed, retracts when not in use. ✅️Easy installation: Mounts quickly on walls, balconies, or patios. ✅️Durable & weather-resistant: Built to last outdoors. ✅️Adjustable length: Perfect for small apartments or large laundry loads. ✅️Convenient & practical: Keeps clothes organized and speeds up drying. ✅️Portable: Can be moved or stored easily when not in use. Key Features: Telescopic extendable design – adjust the length to fit any space. High-quality, weather-resistant materials – durable for outdoor use. Wall-mounted or balcony-friendly – saves floor space. Smooth retracting mechanism – easy to extend and fold back. Strong load capacity – holds multiple clothes at once. Rust-proof finish – maintains appearance and strength over time. 💫Upgrade your laundry routine today – save space, stay organized, and enjoy fast, effortless drying with our premium telescopic clothesline!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_0ff010cd-5399-41a5-a547-f5ac8a10f706.jpg?v=1755625206
+**Variants:**
+  - Default Title | sku= | price=$29.99 | compareAt=$43.00 | inv=5 | available=True
+---
+#### **Smart Body Scale**
+ID: gid://shopify/Product/7547177762893 |  Handle: dorry-smart-body-scale |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $19.99
+On sale from $27.00
+**Description:** ⚖️ Stay on top of your health with the Dorry Smart Body Scale – track weight, BMI, and more with precision & style 📲✨ Benefits: 📊 Track Full Body Metrics – More than just weight, monitor BMI, fat %, muscle & more. ⚡ Instant Sync – Connects to your phone via app for real-time progress tracking. 🎯 Precision Accuracy – Advanced sensors ensure reliable and consistent results. 👨👩👧👦 Multi-User Friendly – Perfect for the whole family to track health goals. 🏋️ Motivation Boost – Helps you stay consistent on your fitness journey. Key Features: ⚖️ High-Precision Sensors – Accurate weight & body composition readings. 📲 Smart App Integration – Syncs seamlessly with health & fitness apps. 🧠 13+ Body Metrics – Track BMI, body fat, muscle mass, water %, and more. 👥 Multi-User Profiles – Supports multiple accounts for family & friends. 🔋 Long Battery Life – Durable power with energy-saving design. 💎 Sleek & Modern Design – Stylish scale to match any home. Take control of your health journey today! 🌟 Step on, track, and transform your lifestyle with Dorry Smart Body Scale 🏋️♂️📈💖
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_a8e6fa4f-a67f-47c9-9abd-53bb5e87e387.jpg?v=1755800525
+**Variants:**
+  - Default Title | sku= | price=$19.99 | compareAt=$27.00 | inv=3 | available=True
+---
+#### **Powerful Blower - Cordless**
+ID: gid://shopify/Product/7547179892813 |  Handle: handheld-cordless-air-duster |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $32.00
+On sale from $45.00
+**Description:** Blast away dust 💨 with ease using our handheld, cordless air duster 🔋✨ – powerful ⚡, eco-friendly 🌱, and designed to keep your devices spotless 🖥️📱 anytime, anywhere. Benefits: ⚡ Powerful airflow – removes dust in seconds 🔋 Cordless & rechargeable – no cables, no hassle 🌱 Eco-friendly – reusable, no more wasteful canned air 🖥️ Multi-use – perfect for keyboards, laptops, consoles & more 👜 Portable & lightweight – clean anywhere, anytime. Key Features: 💨 High-speed motor for strong dust-blowing power 🔋 Long-lasting battery with fast USB-C charging 🎚️ Adjustable speed modes for different cleaning needs 🔦 Built-in LED light to spot hidden dust 🧩 Multiple nozzle attachments for versatile use. Keep your tech spotless ✨, your workspace fresh 🖥️, and say goodbye to dust forever 💨—upgrade today and experience cleaning made smarter ⚡🌱!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_7dc7dcd1-5d28-420c-b240-fed6176db71f.jpg?v=1755801023
+**Variants:**
+  - 1 Battery | sku= | price=$32.00 | compareAt=$45.00 | inv=12 | available=True
+  - 2 Battery | sku= | price=$37.00 | compareAt=$45.00 | inv=18 | available=True
+---
+#### **Scare Turtle**
+ID: gid://shopify/Product/7550729257037 |  Handle: scare-turtle |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $7.99
+On sale from $20.00
+**Description:** 👻🐢 Meet Scare Turtle – a spooky twist on cuteness, blending creepy vibes with lovable charm! 🎃✨ Benefits: 🎃 Unique Design – creepy-cute style that stands out. 🧸 Cuddly & Collectible – soft and perfect for fans or collectors. 👀 Eye-Catching – adds a fun spooky vibe anywhere. 💀 Perfect Gift – ideal for turtle lovers and Halloween fans. 🌟 Decor & Display – doubles as a cuddly toy and cool décor. Key Features: 🪡 High-Quality Material – soft, durable, and built to last. 👻 Spooky-Cute Look – unique turtle design with a Halloween twist. 🧸 Perfect Size – great for hugs, display, or carrying along. 🎁 Gift-Ready – makes an instant, memorable present. 🌙 Versatile Use – cozy buddy, collector’s item, or decoration. 🎃🐢 Add Scare Turtle to your collection today – the perfect blend of creepy and cuddly that’s too cute to resist! 💀✨
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_cf95900b-0ce1-4de8-bbec-ef5259e7e4f3.jpg?v=1756490521
+**Variants:**
+  - Default Title | sku= | price=$7.99 | compareAt=$20.00 | inv=4 | available=True
+---
+#### **Red Light Therapy Massager**
+ID: gid://shopify/Product/7550733582413 |  Handle: multi-function-electric-massager |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $35.00
+On sale from $45.00
+**Description:** ⚡👐 Relax, refresh, and recharge with the Multi-Function Electric Massager – your personal spa anytime, anywhere! 🌿✨ Benefits: 💆 Relieves Muscle Tension – soothes sore muscles and eases stiffness. 🌟 Boosts Blood Circulation – promotes relaxation and overall wellness. 🏠 Convenient & Portable – enjoy a massage at home, office, or on the go. 🛌 Stress Relief – melts away stress after a long day. 🎁 Perfect Gift – ideal for fitness lovers, busy professionals, or self-care enthusiasts Key Features: ⚡ Multi-Speed & Modes – adjustable intensity for a personalized massage. 🔋 Rechargeable & Cordless – use anywhere without restrictions. 👐 Ergonomic Design – fits comfortably in your hand for easy use. 🌿 Quiet Operation – relaxing massage without annoying noise. 💡 Durable Build – high-quality materials for long-lasting performance. ⚡👐 Treat yourself to the Multi-Function Electric Massager – your all-in-one solution for relaxation, relief, and rejuvenation anytime! 🌟💆
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_370a122c-f921-4982-b5de-dd359d626e30.jpg?v=1756491215
+**Variants:**
+  - Default Title | sku= | price=$35.00 | compareAt=$45.00 | inv=25 | available=True
+---
+#### **Car Mounted Light Compensating Mirror**
+ID: gid://shopify/Product/7551548489805 |  Handle: car-mounted-light-compensating-mirror |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $24.99
+On sale from $35.00
+**Description:** Do your makeup or freshen up anywhere with crystal-clear lighting. This smart mirror mounts easily to your car’s sun visor and gives you perfect illumination, even in low-light conditions. 🌿 Benefits: Perfect lighting for makeup, grooming, or touch-ups Brightens your reflection even in dim settings Compact, lightweight & travel-friendly Saves time when you’re on the go 🛠 Key Features: LED light compensation with adjustable brightness Easy clip-on design for car sun visor Rechargeable via USB for convenience Slim & sleek design – fits any car interior 💎 Look flawless anytime, anywhere – with the Car Mounted Light Compensating Mirror!
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_a68225bc-936d-4a35-a01b-7cf61af8f3b7.jpg?v=1756656914
+**Variants:**
+  - Default Title | sku= | price=$24.99 | compareAt=$35.00 | inv=16 | available=True
+---
+#### **Stainless Steel Cleaning Paste**
+ID: gid://shopify/Product/7552703037517 |  Handle: 500g-stainless-steel-cleaning-paste |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $7.00
+On sale from $10.00
+**Description:** ✨🧽 Transform your kitchenware with the 500g Stainless Steel Cleaning Paste – powerful derusting and decontamination made easy! 💪🍳 Benefits: ✨ Restores Shine – brings back the sparkle to stainless steel surfaces. 🧼 Removes Rust & Stains – tackles tough spots quickly and effectively. 🍳 Multi-Purpose Use – perfect for pots, pans, sinks, ovens, and more. 💪 Strong Yet Gentle – cleans without damaging your cookware. 🌟 Long-Lasting Formula – 500g tub gives plenty of cleaning power. Key Features: 🧽 High-Efficiency Paste – concentrated formula for maximum cleaning. 🍴 Safe on Cookware – designed for stainless steel, ovens, and kitchen tools. 🛡️ Protective Finish – helps prevent future rust and buildup. 🏠 Versatile Cleaner – great for kitchens, bathrooms, and appliances. 📦 Large 500g Pack – excellent value for everyday cleaning. ✨🧽 Keep your home sparkling clean with the 500g Stainless Steel Cleaning Paste – the ultimate solution for rust, stains, and shine restoration! 🍳💎
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_efbfb425-ab2c-45bf-81bc-35ee061ba9b1.jpg?v=1756839215
+**Variants:**
+  - Default Title | sku= | price=$7.00 | compareAt=$10.00 | inv=5 | available=True
+---
+#### **Baby Soothing Smart Bed**
+ID: gid://shopify/Product/7552711557197 |  Handle: baby-soothing-smart-bed |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: out of stock
+* **Price:** $45.00
+On sale from $70.00
+**Description:** 🐼💤 Keep your baby calm and cozy with the Smart Panda Soothing Bed – hands-free comfort and gentle rhythm at the touch of a button! ✨👶 Benefits: 👶 Soothes Baby Easily – calming movements mimic a parent’s touch. 🐼 Adorable Panda Design – cute and comforting for little ones. 👐 Hands-Free Convenience – frees parents’ hands for other tasks. 🛌 Promotes Better Sleep – helps babies relax and drift off faster. 🎁 Perfect Gift for Parents – practical, cute, and stress-relieving. Key Features: 🎛️ Remote Control – adjust soothing with ease from a distance. 🐼 Soft & Safe Materials – gentle on delicate baby skin. 🔄 Smart Slap Function – provides rhythmic comfort automatically. 🛡️ Secure Design – snug fit keeps baby safe and comfy. 🌙 Lightweight & Portable – easy to move around the house or take along. 🐼✨ Give your baby the gift of comfort and yourself the gift of free hands with the Smart Panda Soothing Bed – where safety, cuteness, and convenience meet! 💖👶
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_fb73b635-0628-4399-9c3b-6a402dc66ab6.jpg?v=1756839215
+**Variants:**
+  - Default Title | sku= | price=$45.00 | compareAt=$70.00 | inv=0 | available=False
+---
+#### **Portable Mini Washing Machine**
+ID: gid://shopify/Product/7552719487053 |  Handle: portable-mini-washing-machine |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $30.00
+On sale from $42.00
+**Description:** 🌀✨ Meet the Portable Mini Washing Machine – compact, powerful, and perfect for effortless cleaning anytime, anywhere! 👕💧 Benefits: 👕 Saves Time & Effort – washes clothes quickly without the hassle. 🏠 Perfect for Small Spaces – ideal for apartments, dorms, and travel. 💧 Water & Energy Efficient – eco-friendly and cost-saving. 🧼 Deep Cleaning Power – removes dirt and stains effectively. 🎁 Convenient & Portable – lightweight design makes it easy to carry. Key Features: 🌀 Powerful Spin Technology – ensures thorough washing and rinsing. 📱 Digital Display – easy-to-read timer for precise control. 🎛️ One-Touch Operation – simple and user-friendly design. 🔄 Multi-Use – great for clothes, baby items, underwear, and more. 🌟 Compact Design – sleek and space-saving, perfect for modern living. 🌀👕 Simplify your laundry routine with the Portable Mini Washing Machine – the smart, space-saving solution for fresh and clean clothes anytime! 💧✨
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_9665c577-16ec-433b-957e-bdb7362d7aa2.jpg?v=1756839215
+**Variants:**
+  - Default Title | sku= | price=$30.00 | compareAt=$42.00 | inv=21 | available=True
+---
+#### **Electric Duck Boat Bath Toy**
+ID: gid://shopify/Product/7552730824781 |  Handle: electric-duck-boat-bath-toy |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $29.99
+On sale from $40.00
+**Description:** 🦆🚤💦 Turn bath time into playtime with the Electric Duck Boat Bath Toy – fun, safe, and full of splashes! 🛁✨ Benefits: 👶 Keeps Kids Entertained – makes bath time exciting and stress-free. 🛁 Encourages Imaginative Play – sparks creativity while splashing around. 🌊 Water-Friendly Fun – designed for safe use in the bathtub or pool. 💡 Educational & Fun – helps develop motor skills and curiosity. 🎁 Perfect Gift – ideal for birthdays, baby showers, or everyday surprises. Key Features: 🔋 Electric-Powered – moves smoothly on water for endless fun. 🦆 Adorable Duck Design – cute and colorful, loved by kids. 🛡️ Safe & Durable Materials – child-friendly and built to last. 🎛️ Easy to Use – simple one-button operation for kids. 🌟 Lightweight & Portable – perfect for bathtubs, pools, or trips. 🦆💦 Make every bath a joyful adventure with the Electric Duck Boat Bath Toy – where fun, learning, and splashes come together! 🚤✨
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_1e7dad02-046a-431f-8a03-daa7687714a3.jpg?v=1756839215
+**Variants:**
+  - Default Title | sku= | price=$29.99 | compareAt=$40.00 | inv=12 | available=True
+---
+#### **Bathroom Mobile Phone Waterproof Box**
+ID: gid://shopify/Product/7553321467981 |  Handle: bathroom-mobile-phone-waterproof-box |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
+* **Price:** $12.00
+On sale from $15.00
+**Description:** 📱🚿 Keep your phone safe and your entertainment flowing with the Bathroom Mobile Phone Waterproof Box – splash-proof fun made simple! 💦🎶 Benefits: 💧 Waterproof Protection – shields your phone from splashes, steam, and moisture. 🎶 Hands-Free Entertainment – enjoy music, movies, or calls while showering. 👀 Clear Viewing – high perspective window for a perfect display. 📱 Universal Fit – works with most smartphone sizes. 🛠️ Easy to Install – no drilling, no hassle, strong adhesive backing Key Features: 🖐️ Touch Sensitive Screen – full phone control without removing it. 🔄 360° Rotatable Design – adjust angles for the best viewing experience. 💡 IPX3 Waterproof Rating – resists splashes and steam in bathrooms. 📏 60° Opening Angle – convenient to open and close. 🛡️ Durable & Secure – strong traceless adhesive keeps it firmly in place. 🚿📱 Turn every shower into a mini theater with the Bathroom Mobile Phone Waterproof Box – safe, stylish, and splash-proof fun! 🎶💦
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_ffb80aff-cd46-4d4a-9e85-3b182952b52f.jpg?v=1756916744
+**Variants:**
+  - Default Title | sku= | price=$12.00 | compareAt=$15.00 | inv=35 | available=True
+---
+#### **RGB Magnetic Bluetooth Speaker**
+ID: gid://shopify/Product/7565052969037 |  Handle: rgb-magnetic-bluetooth-speaker |  Type:  |  Vendor: AstroSouks |  Tags: New |  Status: ACTIVE |  Availability: out of stock
+* **Price:** $22.00
+On sale from $30.00
+**Description:** 🎶 Snap it, stick it, play it! 🔊 Our mini magnetic Bluetooth speaker sticks to your phone 📱 or any surface for music anywhere! 🌍 1. Portability + Stick Anywhere🧲 Magnetic & Portable – Snap it to your phone 📱, fridge 🧊, desk 💻, or any surface for music anywhere! 🎶 2. Powerful Sound🔊 Big Sound, Small Size – Enjoy crystal-clear audio 🎵 from a compact mini speaker that fits in your pocket. 👖 3. Hands-Free Convenience📞 Call & Play – Use it for music 🎶, hands-free calls 📲, or video sound boosts 🎥. 4. All-Day Playtime🔋 Long Battery Life – Party longer without constant recharging ⚡. 5. Stylish & Fun✨ Sleek Design – Looks as good as it sounds 😎 while keeping your vibe on point. 🔊 Small size, BIG sound. 📱 Sticks right to your phone for on-the-go beats! Upgrade your sound 🔊, free your hands 🙌, and stick your music anywhere 🧲 — the mini magnetic Bluetooth speaker is your pocket-sized party 🎉
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/71ofQcHIqFL._UF894_1000_QL80.jpg?v=1758056013
+**Variants:**
+  - Default Title | sku= | price=$22.00 | compareAt=$30.00 | inv=0 | available=False
+---
+#### **Smart Door Bell**
+ID: gid://shopify/Product/7565492420685 |  Handle: smart-door-bell |  Type:  |  Vendor: AstroSouks |  Tags: New |  Status: ACTIVE |  Availability: in stock
+* **Price:** $22.00
+On sale from $34.00
+**Description:** 🔔 See, hear, and speak from anywhere — our Smart Doorbell with HD camera 📸 and two-way mic 🎤 gives you security and peace of mind at your door 🚪. Benefits: 📸 Crystal-Clear HD Camera – See every detail at your doorstep, day or night. 🎤 Two-Way Audio – Hear visitors and talk back instantly from your phone. 📱 Smartphone Alerts – Get notified the moment someone rings or approaches. 🌙 Night Vision – Protect your home even in complete darkness. 🔒 Enhanced Security – Deter porch pirates 🚫📦 and unwanted visitors. 🌍 Remote Access – Monitor your home anytime, anywhere in the world. 👀 Always know who’s at your door. 📱 Get instant alerts on your phone. 🎤 Talk to visitors anytime, anywhere. 🌙 See clearly, even at night. 🔒 Your home, safer and smarter. Protect your home 🔒, stay connected 📱, and enjoy peace of mind 🌙 — the Smart Doorbell with camera and mic is security made simple.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/61-WZ9X7ppL._UF1000_1000_QL80.jpg?v=1758096115
+**Variants:**
+  - Default Title | sku= | price=$22.00 | compareAt=$34.00 | inv=17 | available=True
+---
+#### **Kids Smart Phone**
+ID: gid://shopify/Product/7565516013645 |  Handle: kids-smart-phone |  Type:  |  Vendor: AstroSouks |  Tags: New |  Status: ACTIVE |  Availability: in stock
+* **Price:** $49.00
+On sale from $62.00
+**Description:** 📱 A fun & safe first phone for kids — with a camera 🎥, loads of games 🎮✨, and zero internet access 🚫🌐, it’s entertainment and learning without the worries. Why You'll Love this: 🎥 Built-in Camera – Let kids capture memories and explore creativity. 🎮 Loads of Games – Packed with fun and engaging activities for endless play. 🧠 Educational Apps – Boost learning with interactive, brain-building games. 🚫🌐 No Internet Access – 100% safe from online risks and distractions. 👨👩👧 Parent-Approved Safety – Peace of mind knowing kids stay protected. 🔋 Long Battery Life – Hours of play and learning without constant charging. 📱 Kid-Friendly Design – Durable, easy to use, and perfectly sized for little hands. 🌈 Colorful & Fun – A phone that feels exciting, just for kids. 📱 Safe, fun, and packed with games 🎮 + learning apps 🧠 — the perfect first phone for kids, with no internet worries 🚫🌐 Give your child the joy of play 🎉, the power of learning 🧠, and the safety you trust 🔒 — the kids’ smartphone made just for them.
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/5c11c5eef1e14ec9a697cebab52b863c-goods.webp?v=1758097237
+**Variants:**
+  - Default Title | sku= | price=$49.00 | compareAt=$62.00 | inv=18 | available=True
+---
+#### **Makeup Brush Cleaner**
+ID: gid://shopify/Product/7569752424525 |  Handle: makeup-brush-cleaner |  Type:  |  Vendor: AstroSouks |  Tags: New |  Status: ACTIVE |  Availability: in stock
+* **Price:** $14.99
+On sale from $22.00
+**Description:** 💄✨ Keep your brushes spotless and skin flawless with the Automatic Makeup Brush Cleaner – fast, easy, and hygienic cleaning at home! 🧼🌸 Benefits: 🧽 Removes makeup residue and dirt instantly ✨ Keeps brushes soft, fresh, and long-lasting 🦠 Eliminates bacteria for healthier skin 💆♀️ Saves time and effort with automatic cleaning 🎁 Perfect for makeup lovers and professionals Key Features: 🔋 Electric-powered cleaning system 💦 Washes & dries brushes quickly 🎨 Compatible with multiple brush sizes 🧴 Easy-to-use design with one button control 📦 Compact and portable for travel 🌸💄 Give your brushes a new life with the Makeup Brush Cleaner – because flawless makeup starts with clean tools! ✨🧼
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_a2c86a0f-dbab-413b-a484-81755bd29a64.jpg?v=1758292338
+**Variants:**
+  - Default Title | sku= | price=$14.99 | compareAt=$22.00 | inv=17 | available=True
+---
+#### **Portable Incless Printer**
+ID: gid://shopify/Product/7569752490061 |  Handle: tattoo-stencil-transfer-printer |  Type:  |  Vendor: AstroSouks |  Tags: New |  Status: ACTIVE |  Availability: in stock
+* **Price:** $85.00
+On sale from $100.00
+**Description:** Benefits: 🖋️ Transfers tattoo designs quickly and clearly 🎨 Saves time for artists and clients 📏 Ensures accurate and detailed stencil prints 💡 Lightweight & portable for studio or travel use 🚀 Boosts productivity and workflow Key Features: 🖨️ Compact design (31cm x 6.7cm x 4cm) ⚡ Fast and reliable transfer speed 🖋️ Works with multiple stencil paper types 🔌 Easy plug-and-play operation 🎨 Ideal for both beginner & pro tattoo artists 🔥🖋️ Bring your designs to life with the Tattoo Stencil Transfer Printer – the essential tool for every tattoo artist! 🎨✨
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_18463d16-c61c-4e8a-ad00-54d5946a713c.jpg?v=1758292338
+**Variants:**
+  - Default Title | sku= | price=$85.00 | compareAt=$100.00 | inv=3 | available=True
+---
+#### **Car Rear Mirror Phone Holder**
+ID: gid://shopify/Product/7569757405261 |  Handle: car-headrest-phone-holder-hoco |  Type:  |  Vendor: AstroSouks |  Tags: New |  Status: ACTIVE |  Availability: in stock
+* **Price:** $15.00
+On sale from $21.00
+**Description:** 🚗✨ Enjoy hands-free entertainment on the go with the Hoco Car Headrest Phone Holder – the perfect travel buddy for road trips! 📱🎥 Benefits: 📱 Keeps your device secure during rides 🎥 Perfect for watching movies, gaming, or video calls 🙌 Hands-free convenience for passengers 🛡️ Reduces neck strain with adjustable angles 🚙 Ideal for long trips with kids or friends Key Features: 🔒 Strong grip to hold phones securely 🔄 360° rotation for flexible viewing 🛠️ Easy installation on car headrests 📱 Compatible with most smartphones & devices 🖤 Durable build with sleek black finish 🎥🚗 Transform every ride into a fun experience with the Hoco Car Headrest Phone Holder – comfort, convenience, and entertainment in one! 📱✨
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_2474fe29-457f-4020-bc47-d1713b260476.jpg?v=1758292338
+**Variants:**
+  - Default Title | sku= | price=$15.00 | compareAt=$21.00 | inv=20 | available=True
+---
+#### **Portable Oral Irrigator**
+ID: gid://shopify/Product/7569759928397 |  Handle: portable-oral-irrigator |  Type:  |  Vendor: AstroSouks |  Tags: New |  Status: ACTIVE |  Availability: in stock
+* **Price:** $20.00
+On sale from $27.00
+**Description:** 💧✨ Keep your smile fresh and healthy anywhere with the Portable Oral Irrigator – deep cleaning power in the palm of your hand! 😁🦷 Benefits: 🦷 Removes food particles & plaque effectively 💨 Gentle yet powerful water pressure for healthier gums 🚀 Perfect for braces, implants & dental care 🔋 Rechargeable & travel-friendly design 🌎 Promotes fresh breath & all-day confidence Key Features: 💧 Adjustable water pressure modes 🔋 Long-lasting rechargeable battery 🚿 Waterproof design for safe use 📱 Compact & lightweight – ideal for travel 🦷 Large water tank for continuous cleaning 😁✨ Upgrade your dental care routine with the Portable Oral Irrigator – for cleaner teeth, healthier gums, and a brighter smile anytime, anywhere! 💦🦷
+**Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_b8bd6c8f-6091-4bc8-8cd3-8b823b0da0e8.jpg?v=1758292338
+**Variants:**
+  - Default Title | sku= | price=$20.00 | compareAt=$27.00 | inv=18 | available=True
+---

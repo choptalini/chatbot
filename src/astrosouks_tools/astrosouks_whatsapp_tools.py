@@ -21,6 +21,7 @@ from infobip_whatsapp_methods.client import WhatsAppClient
 from src.config.settings import settings
 from src.multi_tenant_database import db as mt_db, get_user_by_phone_number as mt_get_user_by_phone_number
 from src.astrosouks_tools.astrosouks_cag_tool import _load_astrosouks_knowledge_text
+from src.astrosouks_tools.product_kb_parser import get_image_url_for_product
 
 
 def _find_latest_products_file() -> Optional[Path]:
@@ -343,6 +344,7 @@ def _build_beauty_carousel_payload(sender: str, to_number: str) -> Dict[str, Any
 def astrosouks_send_product_image(
     product_name: Optional[str] = None,
     carousel: Optional[str] = None,
+    send_as_link: Optional[bool] = False,
     *,
     config: RunnableConfig,
 ) -> Dict[str, Any]:
@@ -351,6 +353,7 @@ def astrosouks_send_product_image(
     - Use to send either a single product image (set product_name) or a bestsellers carousel (set carousel to 'tech' or 'home').
     - Required: config.metadata.from_number must be the customer's phone number.
     - Single image rules: send the first image; set caption to the product name.
+    - Optional: set send_as_link=true to send the image URL as a text link instead of a media payload.
     - Carousel rules: auto-fill each card's {{1}} with the price from the KB (format "$<current> (was $<original>)" when available). Set button QUICK_REPLY parameter to the product name.
     - If both product_name and carousel are set, the carousel is sent and product_name is ignored.
     - The tool logs the message under the AstroSouks tenant automatically.
@@ -410,26 +413,34 @@ def astrosouks_send_product_image(
     if not product_name or not isinstance(product_name, str) or not product_name.strip():
         return {"success": False, "error": "Provide a valid product_name (string)."}
 
-    if not ASTROSOUSKS_PRODUCT_IMAGES:
-        return {"success": False, "error": "No product images mapping loaded. Ensure the export file exists."}
-
-    # Case-insensitive exact match across known names
-    lookup = {k.lower(): k for k in ASTROSOUSKS_PRODUCT_IMAGES.keys()}
-    key_lower = product_name.strip().lower()
-    matched_key = lookup.get(key_lower)
-    if not matched_key:
-        return {"success": False, "error": f"Product '{product_name}' not found. Check available names in the tool description."}
-
-    image_urls = ASTROSOUSKS_PRODUCT_IMAGES.get(matched_key, [])[:1]
-    if not image_urls:
-        return {"success": False, "error": f"No images available for '{matched_key}'."}
+    # Prefer unified KB image URL over legacy mapping
+    matched_key = None
+    kb_image_url = get_image_url_for_product(product_name)
+    if kb_image_url:
+        matched_key = product_name.strip()
+        image_urls = [kb_image_url]
+    else:
+        # Legacy mapping as fallback
+        if not ASTROSOUSKS_PRODUCT_IMAGES:
+            return {"success": False, "error": "No product images mapping loaded and KB has no image for this product."}
+        lookup = {k.lower(): k for k in ASTROSOUSKS_PRODUCT_IMAGES.keys()}
+        key_lower = product_name.strip().lower()
+        matched_key = lookup.get(key_lower)
+        if not matched_key:
+            return {"success": False, "error": f"Product '{product_name}' not found. Check available names in the tool description."}
+        image_urls = ASTROSOUSKS_PRODUCT_IMAGES.get(matched_key, [])[:1]
+        if not image_urls:
+            return {"success": False, "error": f"No images available for '{matched_key}'."}
 
     sent: List[Dict[str, Any]] = []
     errors: List[str] = []
 
     for url in image_urls:
         try:
-            result = client.send_image(to_number, url, caption=matched_key).to_dict()
+            if send_as_link:
+                result = client.send_text_message(to_number, f"{matched_key}: {url}").to_dict()
+            else:
+                result = client.send_image(to_number, url, caption=matched_key).to_dict()
             sent.append(result)
             try:
                 if result.get("success"):
@@ -446,18 +457,32 @@ def astrosouks_send_product_image(
                         # Create/find contact for this customer under AstroSouks tenant
                         contact_id, _thread_id = mt_db.get_or_create_contact(to_number, user_id=user_id)
                     if contact_id:
-                        mt_db.log_message(
-                            contact_id=contact_id,
-                            message_id=result.get("message_id"),
-                            direction='outgoing',
-                            message_type='image',
-                            chatbot_id=chatbot_id,
-                            content_text=matched_key,
-                            content_url=url,
-                            status=result.get("status") or 'sent',
-                            metadata={"tool": "astrosouks_send_product_image", "product_name": matched_key},
-                            ai_processed=False,
-                        )
+                        if send_as_link:
+                            mt_db.log_message(
+                                contact_id=contact_id,
+                                message_id=result.get("message_id"),
+                                direction='outgoing',
+                                message_type='text',
+                                chatbot_id=chatbot_id,
+                                content_text=f"{matched_key}: {url}",
+                                content_url=None,
+                                status=result.get("status") or 'sent',
+                                metadata={"tool": "astrosouks_send_product_image", "product_name": matched_key},
+                                ai_processed=False,
+                            )
+                        else:
+                            mt_db.log_message(
+                                contact_id=contact_id,
+                                message_id=result.get("message_id"),
+                                direction='outgoing',
+                                message_type='image',
+                                chatbot_id=chatbot_id,
+                                content_text=matched_key,
+                                content_url=url,
+                                status=result.get("status") or 'sent',
+                                metadata={"tool": "astrosouks_send_product_image", "product_name": matched_key},
+                                ai_processed=False,
+                            )
             except Exception:
                 pass
         except Exception as e:
