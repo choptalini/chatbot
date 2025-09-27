@@ -44,6 +44,38 @@ def _is_valid_product_name(name: str) -> bool:
         return isinstance(name, str) and bool(name.strip())
 
 
+def _normalize_phone_to_lebanon(phone: Optional[str]) -> Optional[str]:
+    """
+    Normalize a Lebanese phone number to E.164 (+961...).
+    - Accepts local formats like 03xxxxxx, 70xxxxxx, etc.
+    - If already starts with +961, returns as-is.
+    - Returns None for non-Lebanese formats.
+    """
+    if not phone or not isinstance(phone, str):
+        return None
+    # Keep only digits and leading +
+    raw = phone.strip()
+    cleaned = []
+    for ch in raw:
+        if ch.isdigit() or (ch == '+' and not cleaned):
+            cleaned.append(ch)
+    p = ''.join(cleaned)
+    if not p:
+        return None
+    if p.startswith('+'):
+        # Accept Lebanese only
+        return p if p.startswith('+961') else None
+    # Drop leading zeros
+    while p.startswith('0'):
+        p = p[1:]
+    if p.startswith('961'):
+        return '+' + p
+    # Local 7-8 digit numbers assumed Lebanon
+    if 6 <= len(p) <= 8:
+        return '+961' + p
+    return None
+
+
 class ProductSelection(BaseModel):
     """Pydantic model for validating product selections"""
     product_name: str
@@ -715,6 +747,11 @@ def create_astrosouks_order(
       Note: This promo applies only to select items (e.g., "Bone Conduction Speaker").
     - If a discount is applied, a discounted order is created (draft or fallback order) using REST.
 
+    Phone number rules:
+      - Users often provide local Lebanese numbers (e.g., 03xxxxxx, 70xxxxxx). The tool automatically normalizes these to +961 format.
+      - If a number is already in +961 E.164 format, it is accepted as-is.
+      - Non-Lebanese country codes are not accepted.
+
     product_selections JSON example:
       '[{"product_name": "Food Vacuum Sealer", "quantity": 2, "variant_title": "10 Bags"}]'
     """
@@ -789,11 +826,17 @@ def create_astrosouks_order(
             mapped_discount = 15.0
         logger.info(f"💰 [{request_id}] Mapped discount: {mapped_discount}%")
 
+        # Normalize and validate Lebanese phone; if non-Lebanese, reject
+        normalized_phone = _normalize_phone_to_lebanon(customer_phone)
+        if not normalized_phone:
+            # If LLM supplied a non-Lebanese +country code, we explicitly reject per business rules
+            return "❌ Error: Only Lebanese phone numbers are accepted. Please provide a local number (e.g., 70xxxxxx or 03xxxxxx)."
+
         order_data = {
             'customer_info': {
                 'first_name': customer_first_name.strip(),
                 'last_name': customer_last_name.strip(),
-                'phone': customer_phone.strip(),
+                'phone': normalized_phone,
             },
             'line_items': selections,
             'shipping_address': {
@@ -806,7 +849,7 @@ def create_astrosouks_order(
                 'postal_code': "1100",
                 'first_name': customer_first_name.strip(),
                 'last_name': customer_last_name.strip(),
-                'phone': customer_phone.strip(),
+                'phone': normalized_phone,
             },
             'billing_address': {
                 'address1': (billing_address_line1 or shipping_address_line1).strip(),
@@ -818,7 +861,7 @@ def create_astrosouks_order(
                 'postal_code': "1100",
                 'first_name': customer_first_name.strip(),
                 'last_name': customer_last_name.strip(),
-                'phone': customer_phone.strip(),
+                'phone': normalized_phone,
             } if not billing_same_as_shipping else None,
             'order_notes': order_notes.strip(),
             'forced_discount_percent': mapped_discount,

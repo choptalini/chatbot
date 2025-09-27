@@ -235,7 +235,7 @@ On sale from $31.00
 **Description:** Say goodbye to messy cables and slow charging—our 4‑in‑1 retractable fast car charger keeps your ride clean, your devices powered, and your road trips stress-free 🚗🔋🔌💨 What makes it awesome: 4‑in‑1 design: Two built‑in retractable cables (USB‑C + Lightning) plus two extra USB ports let you charge up to four devices at once. 100 W of fast power charges your phone, tablet—even a Switch or laptop—at full speed. Tidy retractable cables (≈80 cm) keep your car neat—no more tangled mess. Safety features: Built‑in voltage monitor and protections prevent over‑charging, overheating, and short‑circuits. Tired of tangled cords and outdated slow chargers? Upgrade your drive with our 4‑in‑1 retractable fast car charger — the sleek, all‑in‑one solution to messy cables and dead batteries 🚗🔌💥 Stay organized, charge everything, and hit the road fully powered. 👉 Don’t settle for clutter and slow charging — grab yours now and transform every drive into a fast, organized, fully charged experience. ⚡🚀
 **Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/4prtc-5-main.webp?v=1749984953
 **Variants:**
-  - Default Title | sku= | price=$23.99 | compareAt=$31.00 | inv=36 | available=True
+  - Default Title | sku= | price=$23.99 | compareAt=$31.00 | inv=35 | available=True
 ---
 #### **SilverCrest - Perfect Curl**
 ID: gid://shopify/Product/7507143753805 |  Handle: babyliss-pro-perfect-curl |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
@@ -343,7 +343,7 @@ On sale from $16.00
 **Description:** 200 Balloons Per Pack 💦 Instant Water Balloon Fun in Seconds! 🎈 Just connect to a hose, turn on the water, and watch the magic happen – dozens of self-tying water balloons fill up at once! No knots, no mess, just non-stop splashing fun for kids, parties, and backyard battles! 🔫☀️ ❤️ Why You’ll Love This 💧 200 Water Balloons in Every Pack – That’s hours of splashing fun with just one hose connection! ⏱️ Fills in Seconds – Attach to any standard hose and fill dozens of balloons at once — no tying needed! 🧒 Kid-Friendly & Hassle-Free – No knots, no mess, just easy fun for all ages 🎉 Perfect for Parties – Great for birthdays, summer events, or spontaneous water wars Get ready for endless summer fun with 200 instant water balloons that fill themselves in seconds—no tying, no hassle, just pure splash!
 **Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/GUEST_a3831c37-3f81-4b42-90fe-602438773b92.avif?v=1754132994
 **Variants:**
-  - Default Title | sku= | price=$10.99 | compareAt=$16.00 | inv=12 | available=True
+  - Default Title | sku= | price=$10.99 | compareAt=$16.00 | inv=10 | available=True
 ---
 #### **Wall Climbing Car**
 ID: gid://shopify/Product/7537493049421 |  Handle: wall-climbing-car |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
@@ -506,7 +506,7 @@ On sale from $42.00
 **Description:** 🌀✨ Meet the Portable Mini Washing Machine – compact, powerful, and perfect for effortless cleaning anytime, anywhere! 👕💧 Benefits: 👕 Saves Time & Effort – washes clothes quickly without the hassle. 🏠 Perfect for Small Spaces – ideal for apartments, dorms, and travel. 💧 Water & Energy Efficient – eco-friendly and cost-saving. 🧼 Deep Cleaning Power – removes dirt and stains effectively. 🎁 Convenient & Portable – lightweight design makes it easy to carry. Key Features: 🌀 Powerful Spin Technology – ensures thorough washing and rinsing. 📱 Digital Display – easy-to-read timer for precise control. 🎛️ One-Touch Operation – simple and user-friendly design. 🔄 Multi-Use – great for clothes, baby items, underwear, and more. 🌟 Compact Design – sleek and space-saving, perfect for modern living. 🌀👕 Simplify your laundry routine with the Portable Mini Washing Machine – the smart, space-saving solution for fresh and clean clothes anytime! 💧✨
 **Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_9665c577-16ec-433b-957e-bdb7362d7aa2.jpg?v=1756839215
 **Variants:**
-  - Default Title | sku= | price=$30.00 | compareAt=$42.00 | inv=21 | available=True
+  - Default Title | sku= | price=$30.00 | compareAt=$42.00 | inv=18 | available=True
 ---
 #### **Electric Duck Boat Bath Toy**
 ID: gid://shopify/Product/7552730824781 |  Handle: electric-duck-boat-bath-toy |  Type:  |  Vendor: AstroSouks |  Tags:  |  Status: ACTIVE |  Availability: in stock
@@ -533,7 +533,7 @@ On sale from $30.00
 **Description:** 🎶 Snap it, stick it, play it! 🔊 Our mini magnetic Bluetooth speaker sticks to your phone 📱 or any surface for music anywhere! 🌍 1. Portability + Stick Anywhere🧲 Magnetic & Portable – Snap it to your phone 📱, fridge 🧊, desk 💻, or any surface for music anywhere! 🎶 2. Powerful Sound🔊 Big Sound, Small Size – Enjoy crystal-clear audio 🎵 from a compact mini speaker that fits in your pocket. 👖 3. Hands-Free Convenience📞 Call & Play – Use it for music 🎶, hands-free calls 📲, or video sound boosts 🎥. 4. All-Day Playtime🔋 Long Battery Life – Party longer without constant recharging ⚡. 5. Stylish & Fun✨ Sleek Design – Looks as good as it sounds 😎 while keeping your vibe on point. 🔊 Small size, BIG sound. 📱 Sticks right to your phone for on-the-go beats! Upgrade your sound 🔊, free your hands 🙌, and stick your music anywhere 🧲 — the mini magnetic Bluetooth speaker is your pocket-sized party 🎉
 **Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/71ofQcHIqFL._UF894_1000_QL80.jpg?v=1758056013
 **Variants:**
-  - Default Title | sku= | price=$22.00 | compareAt=$30.00 | inv=0 | available=False
+  - Default Title | sku= | price=$22.00 | compareAt=$30.00 | inv=-4 | available=True
 ---
 #### **Smart Door Bell**
 ID: gid://shopify/Product/7565492420685 |  Handle: smart-door-bell |  Type:  |  Vendor: AstroSouks |  Tags: New |  Status: ACTIVE |  Availability: in stock
@@ -569,7 +569,7 @@ On sale from $100.00
 **Description:** Benefits: 🖋️ Transfers tattoo designs quickly and clearly 🎨 Saves time for artists and clients 📏 Ensures accurate and detailed stencil prints 💡 Lightweight & portable for studio or travel use 🚀 Boosts productivity and workflow Key Features: 🖨️ Compact design (31cm x 6.7cm x 4cm) ⚡ Fast and reliable transfer speed 🖋️ Works with multiple stencil paper types 🔌 Easy plug-and-play operation 🎨 Ideal for both beginner & pro tattoo artists 🔥🖋️ Bring your designs to life with the Tattoo Stencil Transfer Printer – the essential tool for every tattoo artist! 🎨✨
 **Image:** https://cdn.shopify.com/s/files/1/0609/5306/7597/files/rn-image_picker_lib_temp_18463d16-c61c-4e8a-ad00-54d5946a713c.jpg?v=1758292338
 **Variants:**
-  - Default Title | sku= | price=$85.00 | compareAt=$100.00 | inv=3 | available=True
+  - Default Title | sku= | price=$85.00 | compareAt=$100.00 | inv=1 | available=True
 ---
 #### **Car Rear Mirror Phone Holder**
 ID: gid://shopify/Product/7569757405261 |  Handle: car-headrest-phone-holder-hoco |  Type:  |  Vendor: AstroSouks |  Tags: New |  Status: ACTIVE |  Availability: in stock
