@@ -1224,18 +1224,29 @@ class ShopifyClient:
             "order": {
                 "email": customer_email,
                 "line_items": rest_line_items,
-                "customer": {
-                    "first_name": (customer_info or {}).get("first_name", ""),
-                    "last_name": (customer_info or {}).get("last_name", ""),
-                    "phone": (customer_info or {}).get("phone", ""),
-                    "email": customer_email
-                },
+                # Do NOT include a full customer object by default to avoid 422
+                # errors like "customer.phone_number has already been taken".
+                # We will attach a customer only when an explicit id is supplied.
                 "financial_status": "pending",
                 "send_receipt": True,
                 "send_fulfillment_receipt": False,
                 "inventory_behaviour": "decrement_obeying_policy"
             }
         }
+
+        # Attach an existing customer by id when provided
+        cust_id = (customer_info or {}).get("customerId") or (customer_info or {}).get("customer_id")
+        if cust_id is not None:
+            try:
+                # Accept gid or numeric
+                if isinstance(cust_id, str) and cust_id.startswith('gid://shopify/'):
+                    cust_numeric = extract_id_from_gid(cust_id)
+                else:
+                    cust_numeric = str(cust_id)
+                payload["order"]["customer"] = {"id": int(cust_numeric)}
+            except Exception:
+                # If the id is not numeric, skip attaching customer to avoid 422
+                pass
 
         # Add shipping line if there's a shipping fee
         if shipping_fee > 0:
@@ -1274,7 +1285,11 @@ class ShopifyClient:
         self.logger.info("🚀 SHOPIFY REST ORDER CREATE - Starting API call")
         self.logger.info(f"📋 Order payload summary:")
         self.logger.info(f"   Line items: {len(payload.get('order', {}).get('line_items', []))}")
-        self.logger.info(f"   Customer: {payload.get('order', {}).get('customer', {}).get('first_name', 'N/A')} {payload.get('order', {}).get('customer', {}).get('last_name', 'N/A')}")
+        cust_preview = payload.get('order', {}).get('customer')
+        if isinstance(cust_preview, dict) and cust_preview.get('id') is not None:
+            self.logger.info(f"   Customer: id={cust_preview.get('id')}")
+        else:
+            self.logger.info(f"   Customer: (not attached)" )
         self.logger.info(f"   Total price: {payload.get('order', {}).get('total_price', 'N/A')}")
         self.logger.debug(f"📦 Full REST order payload: {json.dumps(payload, indent=2)}")
         
