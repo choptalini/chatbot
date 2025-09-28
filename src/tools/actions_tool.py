@@ -242,32 +242,26 @@ def _normalized_msisdn(num: str) -> str:
     return num.replace(" ", "").lstrip("+")
 
 
+ASTRO_ACTION_OWNER_MSISDN = _normalized_msisdn("+961 71 000 086")  # Strict, no env override
+
+
 def _owner_roster_lookup(user_id: int, chatbot_id: int) -> Dict[str, str]:
-    """Return owner {phone,name} for a given (user_id, chatbot_id), with env overrides and fallbacks."""
-    # Env overrides (optional; format: ECLA_OWNER_PHONE, ECLA_OWNER_NAME, ASTRO_OWNER_PHONE, ASTRO_OWNER_NAME)
-    ecla_phone = os.getenv("ECLA_OWNER_PHONE")
-    ecla_name = os.getenv("ECLA_OWNER_NAME")
-    astro_phone = os.getenv("ASTRO_OWNER_PHONE")
-    astro_name = os.getenv("ASTRO_OWNER_NAME")
+    """Return owner {phone,name} for a given (user_id, chatbot_id).
 
-    roster: Dict[tuple, Dict[str, str]] = {
-        # Default ECLA/SwiftReplies
-        (2, 2): {
-            "phone": _normalized_msisdn(ecla_phone or "96170895652"),
-            "name": (ecla_name or "Antonio").strip(),
-        },
-        # AstroSouks
-        (6, 3): {
-            "phone": _normalized_msisdn(astro_phone or "+961 71 000 086"),
-            "name": (astro_name or "Karim").strip(),
-        },
-    }
+    Robust rule: ANY AstroSouks action (chatbot_id==3 or user_id==6) routes to
+    +96171000086 strictly. No environment overrides, no fallbacks.
+    Other tenants fallback to ECLA defaults (optionally overridable via envs).
+    """
+    # ECLA defaults (can be overridden)
+    ecla_phone = _normalized_msisdn(os.getenv("ECLA_OWNER_PHONE") or "96170895652")
+    ecla_name = (os.getenv("ECLA_OWNER_NAME") or "Antonio").strip()
 
-    entry = roster.get((int(user_id), int(chatbot_id)))
-    if entry:
-        return entry
-    # Fallback to ECLA default
-    return roster[(2, 2)]
+    # AstroSouks hard binding
+    if int(chatbot_id) == 3 or int(user_id) == 6:
+        return {"phone": ASTRO_ACTION_OWNER_MSISDN, "name": "AstroSouks-Owner"}
+
+    # Default/ECLA
+    return {"phone": ecla_phone, "name": ecla_name}
 
 
 @tool
@@ -405,10 +399,14 @@ def submit_action_request(
 
         # --- Owner WhatsApp notification (do not log to DB) ---
         try:
-            # Select owner per (user_id, chatbot_id)
+            # Select owner per (user_id, chatbot_id) with AstroSouks hard binding
             owner = _owner_roster_lookup(user_id=user_id, chatbot_id=chatbot_id)
             owner_phone = owner.get("phone")
             owner_name = owner.get("name")
+            # Extra guard: if AstroSouks, enforce target strictly
+            if int(chatbot_id) == 3 or int(user_id) == 6:
+                owner_phone = ASTRO_ACTION_OWNER_MSISDN
+                owner_name = owner_name or "AstroSouks-Owner"
             for_contact_value = from_number if from_number else f"Contact ID {contact_id}"
             _send_action_notification_to_owner(
                 owner_phone=owner_phone,
