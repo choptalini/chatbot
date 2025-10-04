@@ -1217,8 +1217,8 @@ class ShopifyClient:
                 "zip": src.get("zip") or src.get("postal_code") or src.get("postalCode"),
             }
 
-        # Use static email for all AstroSouks orders
-        customer_email = customer_info.get("email") or "shopastrotechlb@gmail.com"
+        # Always use the single AstroSouks mailbox for all customers
+        customer_email = "shopastrotechlb@gmail.com"
         
         payload: Dict[str, Any] = {
             "order": {
@@ -1285,6 +1285,10 @@ class ShopifyClient:
         self.logger.info("🚀 SHOPIFY REST ORDER CREATE - Starting API call")
         self.logger.info(f"📋 Order payload summary:")
         self.logger.info(f"   Line items: {len(payload.get('order', {}).get('line_items', []))}")
+        try:
+            self.logger.info(f"   Email (alias): {payload.get('order', {}).get('email')}")
+        except Exception:
+            pass
         cust_preview = payload.get('order', {}).get('customer')
         if isinstance(cust_preview, dict) and cust_preview.get('id') is not None:
             self.logger.info(f"   Customer: id={cust_preview.get('id')}")
